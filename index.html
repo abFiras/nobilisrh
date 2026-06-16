@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0d1b2e"/>
+<meta name="description" content="Nobilis RH — Cabinet de recrutement de précision à Québec. Chasse de têtes et recrutement stratégique."/>
+<title>Nobilis RH — Cabinet de recrutement de précision</title>
+<link rel="icon" href="resources/logo/kk.ico" type="image/x-icon"/>
+<link rel="apple-touch-icon" href="resources/logo/01.png" sizes="180x180"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<style>
+/* ── RESET & BASE ── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+::selection{background:rgba(201,168,76,.22);color:var(--navy);}
+
+/* ── CSS VARS ── */
+:root{
+  --navy:#0d1b2e;
+  --navy2:#111827;
+  --navy3:#1c2a3a;
+  --gold:#c9a84c;
+  --gold2:#b8943e;
+  --white:#ffffff;
+  --offwhite:#f5f4f0;
+  --grey:#f0eeea;
+  --textgrey:#6b7280;
+  --textmid:#9ca3af;
+  --nav-height:80px;
+  --shadow-sm:0 2px 8px rgba(13,27,46,.06);
+  --shadow-md:0 6px 24px rgba(13,27,46,.09);
+  --shadow-lg:0 12px 40px rgba(13,27,46,.14);
+  --ease:.25s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;}
+.page.active{display:block;animation:pageIn .4s var(--ease);}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════
+   NAVIGATION
+══════════════════════════════════ */
+nav{
+  background:var(--navy);
+  height:var(--nav-height);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 2.5rem;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:box-shadow var(--ease);
+}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
+.nav-logo{display:flex;align-items:center;gap:.7rem;cursor:pointer;text-decoration:none;transition:opacity var(--ease);}
+.nav-logo:hover{opacity:.92;}
+.nav-logo-emblem{
+  width:48px;height:48px;
+  background:radial-gradient(circle at 40% 40%, #2a3a50, #0d1b2e);
+  border-radius:50%;
+  border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.nav-logo-emblem span{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-weight:900;color:var(--gold);
+}
+.nav-logo-img{height:72px;width:auto;display:block;object-fit:contain;}
+.logo-img{height:90px;width:auto;margin:0 auto 1rem;display:block;object-fit:contain;}
+.nav-toggle{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{display:block;height:2px;background:#fff;border-radius:1px;transition:transform var(--ease),opacity var(--ease);}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.form-consent{margin-top:.5rem;}
+.consent-label{
+  display:flex;align-items:flex-start;gap:.75rem;
+  font-size:.82rem;color:var(--textgrey);line-height:1.55;cursor:pointer;
+}
+.consent-label input[type=checkbox]{
+  width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--navy);cursor:pointer;
+}
+.consent-label strong{display:block;color:var(--navy);font-size:.78rem;margin-bottom:.25rem;}
+.form-light .consent-label{color:#4b5563;}
+.form-light .consent-label strong{color:var(--navy);}
+.consent-label a{color:var(--navy);text-decoration:underline;font-weight:500;}
+.consent-label a:hover{color:var(--gold);}
+/* ── PRIVACY POLICY ── */
+.privacy-hero{background:var(--navy);padding:6rem 2rem 3rem;text-align:center;}
+.privacy-hero h1{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(1.75rem,4vw,2.75rem);margin-bottom:.5rem;}
+.privacy-hero p{color:rgba(255,255,255,.65);font-size:.9rem;}
+.privacy-body{max-width:820px;margin:0 auto;padding:3rem 2rem 5rem;}
+.privacy-body h2{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.15rem;margin:2.5rem 0 1rem;padding-top:.5rem;border-top:1px solid #e5e7eb;}
+.privacy-body h2:first-of-type{border-top:none;margin-top:0;}
+.privacy-body p,.privacy-body li{font-size:.9rem;color:var(--textgrey);line-height:1.75;margin-bottom:.75rem;}
+.privacy-body ul{margin:.5rem 0 1rem 1.25rem;}
+.privacy-body ul li{margin-bottom:.35rem;}
+.privacy-intro{font-size:.95rem;color:#374151;line-height:1.8;margin-bottom:2rem;}
+.privacy-contact{background:var(--offwhite);border-left:3px solid var(--gold);padding:1.25rem 1.5rem;margin-top:1rem;}
+.privacy-contact a{color:var(--navy);font-weight:500;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-text b{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:.06em;}
+.nav-logo-text small{font-size:.55rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{
+  color:rgba(255,255,255,.75);
+  font-size:.85rem;font-weight:400;letter-spacing:.02em;
+  cursor:pointer;text-decoration:none;
+  padding-bottom:3px;border-bottom:1px solid transparent;
+  transition:color var(--ease),border-color var(--ease);
+}
+.nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gold);}
+.nav-links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-socials{display:flex;gap:.75rem;}
+.nav-socials a{color:rgba(255,255,255,.5);display:flex;transition:color var(--ease),transform var(--ease);}
+.nav-socials a:hover{color:var(--gold);transform:translateY(-1px);}
+.nav-socials svg{width:16px;height:16px;}
+.nav-cart{color:rgba(255,255,255,.6);cursor:pointer;display:none;}
+.nav-cart svg{width:20px;height:20px;}
+
+/* ══════════════════════════════════
+   SHARED COMPONENTS
+══════════════════════════════════ */
+.tag-label{
+  font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.tag-label::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+.tag-label.slash::before{display:none;}
+.tag-label.slash{color:#888;}
+.tag-label.slash span{color:var(--gold);}
+
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:700;line-height:1.1;color:var(--navy);
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-title.white{color:#fff;}
+.section-title.large{font-size:clamp(2.2rem,4vw,3.5rem);}
+
+.section-body{font-size:.9rem;line-height:1.75;color:var(--textgrey);margin-top:.8rem;}
+.section-body.white{color:rgba(255,255,255,.65);}
+
+.btn{
+  display:inline-block;padding:.75rem 1.75rem;
+  font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;
+  letter-spacing:.04em;cursor:pointer;text-decoration:none;
+  border:none;transition:background var(--ease),transform .15s ease,box-shadow .15s ease;
+}
+.btn-dark{background:var(--navy);color:#fff;}
+.btn-dark:hover{background:#1a3350;transform:translateY(-1px);box-shadow:var(--shadow-sm);}
+.btn-dark:active{transform:translateY(0);}
+.btn-gold{background:var(--gold);color:var(--navy);border:1.5px solid var(--gold);}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
+.btn-outline-gold{background:transparent;color:var(--gold);border:1.5px solid var(--gold);}
+.btn-outline-gold:hover{background:var(--gold);color:var(--navy);transform:translateY(-1px);}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.btn-outline-white{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);}
+.btn-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem;}
+
+/* video/image bg wrapper */
+.vid-hero{position:relative;overflow:hidden;}
+.vid-hero video,.vid-hero img.bg-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.vid-hero .overlay{position:absolute;inset:0;}
+.vid-hero .hero-content{position:relative;z-index:2;}
+
+/* ══════════════════════════════════
+   FOOTER (shared)
+══════════════════════════════════ */
+footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1.5rem;}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;
+  padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:1.5rem;
+}
+.footer-brand-logo{height:68px;width:auto;margin-bottom:1rem;display:block;object-fit:contain;}
+.footer-brand-name{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+  color:#fff;margin-bottom:.3rem;
+}
+.footer-brand-sub{font-size:.8rem;line-height:1.6;margin-top:.4rem;}
+.footer-gold-line{width:28px;height:2px;background:var(--gold);margin-bottom:1rem;}
+.footer-col h4{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;font-weight:600;
+}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:.4rem;}
+.footer-col ul li a{
+  color:rgba(255,255,255,.55);font-size:.82rem;text-decoration:none;cursor:pointer;transition:color .2s;
+}
+.footer-col ul li a:hover{color:#fff;}
+.footer-col-right{text-align:right;}
+.footer-col-right h4{text-align:right;}
+.footer-col-right p{font-size:.82rem;line-height:1.8;}
+.footer-gold-label{color:var(--gold);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.75rem;flex-wrap:wrap;gap:.5rem;
+}
+.footer-bottom-right{
+  display:flex;gap:.5rem;align-items:center;
+  font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);
+}
+.footer-bottom-right span{opacity:.4;}
+
+/* ══════════════════════════════════
+   PAGE: ACCUEIL
+══════════════════════════════════ */
+/* Section 1: hero-split (left text + right image) */
+.acc-hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:calc(100vh - 72px);background:var(--offwhite);
+}
+.acc-hero-left{
+  padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;
+}
+.acc-hero-left .tag-label{color:#888;font-size:.75rem;}
+.acc-hero-left .tag-label::before{display:none;}
+.acc-hero-left .tag-label::after{content:' Cabinet de recrutement';}
+.acc-hero-right{position:relative;overflow:hidden;background:#0d1b2e;}
+.acc-hero-right img{width:100%;height:100%;object-fit:cover;}
+.acc-hero-right .img-rounded{
+  border-radius:12px;overflow:hidden;
+  margin:2.5rem 3rem;height:calc(100% - 5rem);
+  max-width:520px;margin-left:auto;margin-right:auto;
+  position:relative;box-shadow:var(--shadow-lg);
+}
+.acc-hero-right .img-rounded video,.acc-hero-right .img-rounded img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.acc-perf-left{position:relative;overflow:hidden;min-height:480px;padding:2rem;}
+.acc-perf-left img{width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.science-right{position:relative;overflow:hidden;border-radius:4px;min-height:340px;}
+.science-right video,.science-right img{width:100%;height:340px;object-fit:cover;border-radius:4px;display:block;}
+.cand-demarche-bg{position:relative;padding:3rem;overflow:hidden;}
+.cand-demarche-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+
+/* Section 2: engagement */
+.acc-engagement{padding:4rem 3rem;background:#fff;}
+.acc-engagement .tag-label{justify-content:flex-start;}
+.acc-engagement h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);margin-bottom:1rem;}
+.acc-engagement p{font-size:.88rem;line-height:1.75;color:var(--textgrey);max-width:680px;}
+.engagement-cards{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem;
+}
+.eng-card{
+  border:1px solid #e5e7eb;padding:1.5rem 1.2rem;
+  background:#fff;
+  transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease);
+}
+.eng-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(201,168,76,.35);}
+.eng-card-num{font-size:.72rem;color:#9ca3af;letter-spacing:.1em;margin-bottom:.8rem;}
+.eng-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:.6rem;}
+.eng-card-text{font-size:.8rem;color:var(--textgrey);line-height:1.6;}
+
+/* Section 3: performance */
+.acc-performance{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--offwhite);
+}
+.acc-perf-right{
+  padding:4rem 3.5rem;display:flex;flex-direction:column;justify-content:center;
+}
+.acc-perf-right .tag-label-sm{font-size:.7rem;color:#9ca3af;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;}
+.acc-star-wrap{display:flex;align-items:center;gap:1.75rem;margin-top:2.5rem;}
+.star-medallion{
+  position:relative;width:158px;height:158px;flex-shrink:0;
+  filter:drop-shadow(0 10px 28px rgba(201,168,76,.32));
+}
+.star-medallion svg{width:100%;height:100%;display:block;}
+.star-medallion-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding-top:6px;
+}
+.star-num{
+  font-family:'Playfair Display',serif;font-size:2.75rem;font-weight:900;
+  color:var(--navy);line-height:1;
+}
+.star-unit{
+  font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--navy);margin-top:.2rem;
+}
+.star-caption{
+  font-size:.84rem;color:var(--textgrey);line-height:1.65;
+  max-width:240px;border-left:3px solid var(--gold);padding-left:1.15rem;
+}
+
+/* Section 4: securisez (dark CTA) */
+.acc-cta{
+  background:var(--navy);padding:5rem 3rem;text-align:center;
+}
+.acc-cta .tag-label{justify-content:center;}
+.acc-cta .tag-label::before{background:rgba(255,255,255,.4);}
+.acc-cta h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:#fff;margin-top:.5rem;}
+.acc-cta p{font-size:.88rem;color:rgba(255,255,255,.6);max-width:580px;margin:.8rem auto 0;line-height:1.7;}
+
+/* ══════════════════════════════════
+   PAGE: SERVICES
+══════════════════════════════════ */
+/* Hero with video bg */
+.svc-hero{
+  height:55vh;display:flex;align-items:center;
+  background:var(--navy);
+}
+.svc-hero .overlay{background:rgba(10,18,30,.5);}
+.svc-hero .hero-content{padding:0 4rem;}
+.svc-hero .tag-label{color:var(--gold);}
+.svc-hero h1{
+  font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:700;color:#fff;line-height:1.1;
+}
+.svc-hero p{font-size:1rem;color:rgba(255,255,255,.7);max-width:580px;margin-top:1rem;line-height:1.7;}
+
+/* Section 2: talents split */
+.svc-talents{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--offwhite);padding:0;
+}
+.svc-talents-left{padding:4rem 3.5rem;display:flex;flex-direction:column;justify-content:center;}
+.svc-talents-right{position:relative;overflow:hidden;min-height:380px;}
+.svc-talents-right img{width:100%;height:100%;object-fit:cover;border-radius:8px;padding:2rem;}
+
+/* Section 3: rigueur dark navy */
+.svc-rigueur{background:var(--navy3);padding:4rem 3rem;text-align:center;}
+.svc-rigueur h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:#fff;}
+.svc-rigueur h2 em{font-style:italic;color:var(--gold);}
+.svc-rigueur p{font-size:.85rem;color:rgba(255,255,255,.55);max-width:600px;margin:.8rem auto 0;line-height:1.7;}
+.svc-rigueur hr{border:none;border-top:1px solid rgba(201,168,76,.3);margin:2rem auto;max-width:800px;}
+.rigueur-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;max-width:900px;margin:2rem auto 0;
+}
+.rig-card{
+  border:1px solid rgba(201,168,76,.25);padding:2rem 1.5rem;text-align:left;
+  transition:transform var(--ease),border-color var(--ease),background var(--ease);
+}
+.rig-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.45);background:rgba(255,255,255,.03);}
+.rig-card-tag{font-size:.65rem;letter-spacing:.15em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:.8rem;}
+.rig-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:.8rem;}
+.rig-card p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* Section 4: rigueur scientifique */
+.svc-science{background:var(--grey);padding:4rem 3rem;}
+.svc-science .tag-label{color:#888;font-size:.7rem;}
+.svc-science h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);}
+.svc-science p{font-size:.85rem;color:var(--textgrey);max-width:600px;margin:.6rem 0 2rem;line-height:1.7;}
+.science-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+.science-left{display:flex;flex-direction:column;gap:1rem;}
+.sci-item{background:#fff;padding:1.5rem;border-left:3px solid transparent;transition:border-color .2s;}
+.sci-item:hover{border-left-color:var(--gold);}
+.sci-item h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;}
+.sci-item p{font-size:.82rem;color:var(--textgrey);line-height:1.6;}
+.science-right{position:relative;overflow:hidden;border-radius:4px;}
+.science-right img{width:100%;height:340px;object-fit:cover;border-radius:4px;}
+
+/* Section 5: deux approches */
+.svc-approches{background:var(--navy);padding:4rem 3rem;}
+.svc-approches .tag-label{color:var(--gold);}
+.svc-approches h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--gold);margin-bottom:.5rem;}
+.svc-approches p{font-size:.85rem;color:rgba(255,255,255,.5);max-width:580px;line-height:1.7;}
+.approches-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;}
+.app-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:2rem;}
+.app-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:.8rem;}
+.app-card p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.65;}
+
+/* Section 6: FAQ */
+.svc-faq{background:var(--offwhite);padding:4rem 3rem;}
+.svc-faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.faq-left h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:1rem;}
+.faq-left p{font-size:.85rem;color:var(--textgrey);line-height:1.7;}
+.faq-right{display:flex;flex-direction:column;gap:1.5rem;}
+.faq-item h4{font-size:.9rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;}
+.faq-item p{font-size:.82rem;color:var(--textgrey);line-height:1.65;}
+
+/* ══════════════════════════════════
+   PAGE: ENTREPRISES
+══════════════════════════════════ */
+.ent-hero{
+  min-height:60vh;display:flex;align-items:center;
+  background:var(--navy);
+}
+.ent-hero .overlay{background:rgba(8,16,26,.55);}
+.ent-hero .hero-content{padding:0 4rem;max-width:750px;}
+.ent-hero .tag-label{color:var(--gold);}
+.ent-hero h1{
+  font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.2rem);
+  font-weight:700;color:#fff;line-height:1.05;margin-top:.5rem;
+}
+.ent-hero p{font-size:.9rem;color:rgba(255,255,255,.7);max-width:620px;margin-top:1rem;line-height:1.75;}
+
+.ent-video-separator{
+  display:flex;align-items:center;justify-content:center;gap:1.25rem;
+  padding:1.1rem 2rem;background:var(--navy2);
+  border-top:1px solid rgba(201,168,76,.15);
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+.ent-sep-line{width:min(140px,22vw);height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.ent-sep-mark{
+  width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex-shrink:0;opacity:.9;
+}
+
+/* Section 2: recrutement permanent (video bg) */
+.ent-recrutement{
+  min-height:60vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy3);
+}
+.ent-recrutement .overlay{background:rgba(10,18,30,.6);}
+.ent-recrutement .hero-content{padding:3rem 3rem;max-width:750px;}
+.ent-recrutement .tag-label{justify-content:flex-start;text-align:left;}
+.ent-recrutement h2{
+  font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:700;color:#fff;line-height:1.1;text-align:left;
+}
+.ent-recrutement .body-text{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;text-align:left;margin-top:1rem;}
+
+/* Section 3: engagements */
+.ent-engagements{background:var(--offwhite);padding:4rem 3rem;}
+.ent-engagements .tag-label{color:#888;}
+.ent-engagements h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);}
+.ent-engagements h2 em{font-style:italic;color:var(--gold);}
+.ent-engagements p{font-size:.85rem;color:var(--textgrey);max-width:580px;margin:.5rem 0 2rem;line-height:1.7;}
+.eng-contract-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.eng-c-card{background:#fff;padding:2rem;border:1px solid #e5e7eb;transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease);}
+.eng-c-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(201,168,76,.35);}
+.eng-c-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;}
+.eng-c-card p{font-size:.82rem;color:var(--textgrey);line-height:1.65;}
+
+/* Section 4: logo + text */
+.ent-logo-section{background:#fff;padding:3.5rem;text-align:center;}
+.ent-logo-section .logo-emblem{
+  width:90px;height:90px;background:radial-gradient(circle at 40% 40%,#2a3a50,#0d1b2e);
+  border-radius:50%;border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;
+}
+.ent-logo-section .logo-emblem span{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold);}
+.ent-logo-section h3{font-family:'Playfair Display',serif;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:1rem;}
+.ent-logo-section p{font-size:.85rem;color:var(--textgrey);max-width:620px;margin:0 auto;line-height:1.75;}
+
+/* Section 5: Notre approche (5 steps) */
+.ent-approche{background:var(--offwhite);padding:4rem 3rem;text-align:center;}
+.ent-approche .tag-label{justify-content:center;}
+.ent-approche h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:700;color:var(--navy);}
+.ent-approche h2 em{font-style:normal;color:var(--gold);}
+.ent-approche>p{font-size:.85rem;color:var(--textgrey);max-width:480px;margin:.6rem auto 2.5rem;line-height:1.7;}
+.steps-row{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:0;max-width:960px;margin:0 auto;
+  position:relative;
+}
+.steps-row::before{
+  content:'';position:absolute;top:22px;left:10%;right:10%;
+  height:1px;background:var(--gold);opacity:.3;z-index:0;
+}
+.step-item{position:relative;z-index:1;padding:.5rem;}
+.step-circle{
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--gold);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .8rem;
+}
+.step-circle span{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);}
+.step-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin:.6rem auto;}
+.step-title{font-size:.72rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;line-height:1.3;margin-bottom:.5rem;}
+.step-desc{font-size:.75rem;color:var(--textgrey);line-height:1.55;}
+.ent-approche .tagline{
+  margin-top:2.5rem;font-size:.9rem;font-style:italic;color:var(--textgrey);
+}
+.ent-approche .tagline em{color:var(--gold);font-style:italic;}
+
+/* ══════════════════════════════════
+   PAGE: CANDIDATS
+══════════════════════════════════ */
+.cand-hero{
+  min-height:60vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy);
+}
+.cand-hero .overlay{background:rgba(8,16,26,.5);}
+.cand-hero .hero-content{padding:2rem;}
+.cand-hero .tag-label{justify-content:center;}
+.cand-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:#fff;line-height:1.1;}
+.cand-hero p{font-size:.9rem;color:rgba(255,255,255,.65);max-width:560px;margin:.8rem auto 0;line-height:1.7;}
+
+/* Section 2: discretion / marche cache split */
+.cand-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--offwhite);
+}
+.cand-split-item{padding:3rem;border-right:1px solid #e5e7eb;}
+.cand-split-item:last-child{border-right:none;}
+.cand-split-item h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;}
+.cand-split-item p{font-size:.85rem;color:var(--textgrey);line-height:1.7;}
+
+/* Section 3: alignement (video bg) */
+.cand-alignement{
+  min-height:60vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy3);
+}
+.cand-alignement .overlay{background:rgba(8,16,26,.6);}
+.cand-alignement .hero-content{padding:3rem;}
+.cand-alignement .tag-label{justify-content:center;}
+.cand-alignement h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:#fff;}
+.align-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;}
+.align-card{background:rgba(13,27,46,.7);border:1px solid rgba(255,255,255,.1);padding:2rem;text-align:left;}
+.align-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.7rem;}
+.align-card p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.65;}
+
+/* Section 4: confier parcours */
+.cand-confier{background:#fff;padding:4rem 3rem;text-align:center;}
+.cand-confier .logo-emblem{
+  width:80px;height:80px;background:radial-gradient(circle at 40% 40%,#2a3a50,#0d1b2e);
+  border-radius:50%;border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;
+}
+.cand-confier .logo-emblem span{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--gold);}
+.cand-confier .tag-label{justify-content:center;color:#9ca3af;}
+.cand-confier h2{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2vw,1.8rem);font-weight:700;color:var(--navy);}
+.cand-confier p{font-size:.85rem;color:var(--textgrey);max-width:620px;margin:.8rem auto 0;line-height:1.75;}
+
+/* Section 5: demarche candidats */
+.cand-demarche{background:var(--offwhite);padding:4rem 3rem;}
+.cand-demarche-bg{
+  position:relative;padding:3rem;overflow:hidden;
+}
+.cand-demarche-bg::before{content:'';position:absolute;inset:0;background:rgba(240,238,234,.88);z-index:1;}
+.cand-demarche-bg .rel{position:relative;z-index:2;}
+.cand-demarche .tag-label{justify-content:center;color:var(--gold);}
+.cand-demarche h2{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2vw,1.6rem);font-weight:900;color:var(--navy);text-align:center;letter-spacing:.05em;text-transform:uppercase;}
+.cand-demarche>p{font-size:.82rem;color:var(--textgrey);text-align:center;margin:.5rem auto 0;max-width:400px;line-height:1.6;}
+.cand-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-top:2rem;}
+.cand-step{text-align:center;}
+.cand-step-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold);line-height:1;}
+.cand-step-title{font-size:.65rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;margin:.3rem 0;line-height:1.3;}
+.cand-step-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin:.4rem auto;}
+.cand-step-desc{font-size:.72rem;color:var(--textgrey);line-height:1.55;}
+
+/* CV Upload form section */
+.cand-cv-section{background:var(--offwhite);padding:5rem 2.5rem;}
+.cand-cv-grid{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(340px,1.15fr);gap:3.5rem;align-items:start;max-width:1080px;margin:0 auto;}
+.cand-cv-info{padding-top:.25rem;}
+.cand-cv-info h3{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,1.85rem);font-weight:700;color:var(--navy);margin-bottom:1rem;line-height:1.25;}
+.cand-cv-info p{font-size:.88rem;color:var(--textgrey);line-height:1.75;margin-bottom:.85rem;}
+.cand-cv-info .cand-cv-commit{
+  margin-top:1.75rem;background:var(--navy);padding:1.35rem 1.5rem;border-radius:6px;
+  border-left:3px solid var(--gold);
+}
+.cand-cv-info .cand-cv-commit-label{font-size:.68rem;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.45rem;font-weight:600;}
+.cand-cv-info .cand-cv-commit p{font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.7;margin:0;}
+.cand-cv-form{
+  background:#fff;padding:2rem 2.25rem 2.25rem;
+  border:1px solid #e8ecf0;border-radius:8px;
+  box-shadow:0 10px 40px rgba(13,27,46,.07);
+}
+.cand-cv-form-title{
+  font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;
+  color:var(--navy);margin-bottom:1.5rem;padding-bottom:1rem;
+  border-bottom:1px solid #eef0f3;
+}
+.shift-choices{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.15rem;}
+.shift-chip{cursor:pointer;user-select:none;position:relative;}
+.shift-chip input{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
+.shift-chip span{
+  display:inline-block;padding:.5rem .95rem;
+  font-size:.78rem;font-weight:500;color:var(--navy);letter-spacing:.01em;
+  background:#fafbfc;border:1.5px solid #e5e7eb;border-radius:999px;
+  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease);
+}
+.shift-chip:hover span{border-color:var(--gold);background:#fff;}
+.shift-chip input:checked + span{
+  background:var(--navy);border-color:var(--navy);color:#fff;
+  box-shadow:0 3px 10px rgba(13,27,46,.18);
+}
+.shift-chip input:focus-visible + span{outline:2px solid var(--gold);outline-offset:2px;}
+.form-hint{font-size:.76rem;color:#6b7280;margin-top:.45rem;line-height:1.45;}
+.cv-file-wrap{
+  border:1.5px dashed #d1d5db;border-radius:6px;padding:.85rem 1rem;
+  background:#fafbfc;transition:border-color .2s,background .2s;
+}
+.cv-file-wrap:hover{border-color:var(--gold);background:#fff;}
+.cv-file-wrap input[type=file]{width:100%;border:none;padding:0;background:transparent;cursor:pointer;font-size:.82rem;color:var(--navy);}
+.cand-cv-form .btn.btn-dark{margin-top:.15rem;border-radius:4px;letter-spacing:.04em;}
+
+/* ══════════════════════════════════
+   PAGE: CONTACT
+══════════════════════════════════ */
+.con-hero{
+  height:50vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy);
+}
+.con-hero .overlay{background:rgba(8,16,26,.55);}
+.con-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;}
+.con-hero p{font-size:.9rem;color:rgba(255,255,255,.65);max-width:600px;margin:.8rem auto 0;line-height:1.7;}
+
+/* Section 2: form + info */
+.con-form-section{background:var(--navy3);padding:4rem 3rem;}
+.con-form-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:3.5rem;max-width:960px;margin:0 auto;}
+.con-info .tag-label{color:var(--gold);}
+.con-info h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;color:#fff;line-height:1.2;}
+.con-info p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.75;margin-top:.8rem;}
+
+/* Section 3: presence quebec */
+.con-presence{background:var(--navy2);padding:4rem 3rem;}
+.con-presence-inner{max-width:900px;margin:0 auto;text-align:center;}
+.con-presence .tag-label{color:var(--gold);justify-content:center;}
+.con-presence h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.6rem);font-weight:700;color:#fff;margin-bottom:.5rem;}
+.con-presence p{font-size:.85rem;color:rgba(255,255,255,.5);max-width:660px;line-height:1.7;margin:0 auto 2rem;}
+.con-presence hr{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.5rem auto;max-width:720px;}
+.bureau-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:1.5rem;max-width:840px;margin:0 auto;text-align:left;}
+.bureau-card{background:var(--navy3);padding:2rem;border:1px solid rgba(201,168,76,.2);}
+.bureau-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:.8rem;}
+.bureau-card p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7;}
+.bureau-card hr{border:none;border-top:1px dashed rgba(255,255,255,.15);margin:1rem 0;}
+.bureau-map{background:#1e2d3d;border:1px solid rgba(255,255,255,.1);overflow:hidden;border-radius:4px;}
+.bureau-map iframe{width:100%;height:260px;border:none;}
+
+/* ══════════════════════════════════
+   PAGE: JOB
+══════════════════════════════════ */
+.job-hero{
+  height:38vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy3);
+}
+.job-hero .overlay{background:rgba(8,16,26,.55);}
+.job-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#fff;}
+.job-hero p{font-size:.9rem;color:rgba(255,255,255,.6);max-width:500px;margin:.6rem auto 0;}
+.job-hero-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(0,0,0,.35);padding:.6rem 2rem;
+  font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;
+  text-align:left;
+}
+
+/* search section */
+.job-search{background:#fff;padding:3.5rem 3rem;}
+.job-search h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);text-align:center;}
+.job-search>p{font-size:.85rem;color:var(--textgrey);text-align:center;margin:.4rem 0 2rem;}
+.search-bar{
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:.65rem;
+  max-width:1100px;margin:0 auto 1.25rem;
+  background:var(--offwhite);border:1px solid #e5e7eb;padding:1rem;
+}
+.geo-banner{
+  max-width:1100px;margin:0 auto 1.5rem;padding:1rem 1.25rem;
+  background:#fff;border:1px solid #e5e7eb;border-left:3px solid var(--gold);
+  border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.geo-banner.highlight{box-shadow:0 0 0 3px rgba(201,168,76,.25);}
+.geo-banner p{margin:0;font-size:.82rem;color:var(--textgrey);line-height:1.55;flex:1;min-width:220px;}
+.geo-banner button{
+  background:var(--navy);color:#fff;border:none;padding:.6rem 1.1rem;
+  font-size:.78rem;font-weight:500;cursor:pointer;border-radius:4px;white-space:nowrap;
+  transition:background .2s;
+}
+.geo-banner button:hover{background:#1a3350;}
+.geo-status{
+  max-width:1100px;margin:0 auto 1.25rem;padding:.75rem 1.1rem;
+  background:rgba(13,27,46,.06);border:1px solid rgba(13,27,46,.1);border-radius:6px;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.8rem;color:var(--navy);
+}
+.geo-status button{
+  background:transparent;border:1px solid #d1d5db;color:#6b7280;
+  padding:.35rem .75rem;font-size:.72rem;cursor:pointer;border-radius:4px;
+}
+.geo-status button:hover{border-color:var(--navy);color:var(--navy);}
+.job-content-grid{
+  display:grid;grid-template-columns:1fr minmax(260px,340px);
+  gap:2rem;max-width:1100px;margin:0 auto;align-items:start;
+}
+.job-side-video{
+  position:sticky;top:calc(var(--nav-height) + 1rem);
+  border-radius:12px;overflow:hidden;background:var(--navy);
+  min-height:520px;box-shadow:var(--shadow-md);
+}
+.job-side-video video{
+  width:100%;height:100%;min-height:520px;object-fit:cover;display:block;
+}
+.search-bar input,.search-bar select{
+  flex:1;border:1px solid #e5e7eb;padding:.7rem 1rem;
+  font-family:'Inter',sans-serif;font-size:.85rem;outline:none;
+  background:#fff;color:var(--navy);
+}
+.search-bar input:focus,.search-bar select:focus{border-color:var(--navy);}
+.search-bar select{cursor:pointer;min-width:160px;}
+.search-bar button{
+  background:var(--navy);color:#fff;border:none;
+  padding:.7rem 1.6rem;font-size:.85rem;font-weight:500;cursor:pointer;
+  transition:background var(--ease),transform .15s ease;
+  letter-spacing:.03em;
+}
+.search-bar button:hover{background:#1a3350;transform:translateY(-1px);}
+
+/* job cards */
+.jobs-wrap{max-width:none;margin:0;}
+.job-card{
+  border:1px solid #e5e7eb;padding:1.8rem 2rem;margin-bottom:1rem;
+  cursor:pointer;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);background:#fff;
+  border-radius:6px;
+}
+.job-card:hover{border-color:rgba(201,168,76,.5);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.job-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.jc-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.jc-meta{font-size:.8rem;color:#9ca3af;}
+.jc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45rem;}
+.jc-tag{font-size:.72rem;color:#4b5563;background:#f3f4f6;padding:.22rem .65rem;border-radius:999px;font-weight:500;}
+.jc-tag.jc-dist{color:var(--navy);background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.35);}
+.jc-tag.jc-remote{color:#065f46;background:#d1fae5;}
+.jc-salary{
+  margin-top:.65rem;font-size:.8rem;font-weight:600;color:var(--navy);
+  display:inline-block;background:rgba(201,168,76,.14);padding:.35rem .85rem;border-radius:999px;
+  border:1px solid rgba(201,168,76,.35);
+}
+.jc-desc{margin-top:.75rem;font-size:.84rem;color:var(--textgrey);line-height:1.6;}
+.jc-btn{
+  margin-top:1rem;background:var(--navy);color:#fff;border:none;
+  padding:.55rem 1.2rem;font-size:.8rem;font-weight:500;cursor:pointer;
+  transition:background .2s;border-radius:2px;
+}
+.jc-btn:hover{background:#1a3350;}
+.jobs-loading,.jobs-empty{text-align:center;padding:3rem;color:#9ca3af;font-size:.9rem;}
+.jobs-pagination{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:1rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid #e5e7eb;
+}
+.jobs-pagination-info{font-size:.8rem;color:#6b7280;}
+.jobs-pagination-nav{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.jobs-pag-btn{
+  background:#fff;border:1px solid #e5e7eb;color:var(--navy);
+  padding:.45rem .85rem;font-size:.78rem;font-weight:500;cursor:pointer;border-radius:4px;
+  transition:background .2s,border-color .2s,color .2s;min-width:2.25rem;text-align:center;
+}
+.jobs-pag-btn:hover:not(:disabled){border-color:var(--navy);background:var(--offwhite);}
+.jobs-pag-btn:disabled{opacity:.35;cursor:not-allowed;}
+.jobs-pag-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.jobs-pag-ellipsis{padding:0 .25rem;color:#9ca3af;font-size:.85rem;}
+
+/* ══════════════════════════════════
+   FORMS
+══════════════════════════════════ */
+.form-group{margin-bottom:1.1rem;}
+.form-group label{
+  display:block;font-size:.72rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:#9ca3af;margin-bottom:.4rem;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:.75rem 1rem;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);
+  font-family:'Inter',sans-serif;font-size:.85rem;
+  color:#fff;outline:none;transition:border-color .2s;
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.25);}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15);}
+.form-group textarea{resize:vertical;min-height:110px;}
+.form-group select option{background:var(--navy2);color:#fff;}
+/* light form variant */
+.form-light .form-group label{color:#6b7280;}
+.form-light .form-group input,.form-light .form-group textarea,.form-light .form-group select{
+  background:#fff;border:1px solid #e5e7eb;color:var(--navy);
+}
+.form-light .form-group input::placeholder,.form-light .form-group textarea::placeholder{color:#9ca3af;}
+.form-light .form-group input:focus,.form-light .form-group textarea:focus{border-color:var(--navy);}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-success{
+  display:none;background:#d1fae5;border:1px solid #10b981;
+  color:#065f46;padding:.8rem 1rem;margin-top:1rem;font-size:.82rem;text-align:center;
+}
+.form-success.show{display:block;}
+
+/* ══════════════════════════════════
+   MODAL
+══════════════════════════════════ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(8,16,26,.75);z-index:2000;
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:#fff;max-width:540px;width:100%;padding:2.5rem;
+  max-height:90vh;overflow-y:auto;position:relative;
+  animation:fadeUp .3s ease;border-radius:8px;box-shadow:var(--shadow-lg);
+}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;background:none;border:none;
+  font-size:1.3rem;cursor:pointer;color:#9ca3af;
+}
+.modal-close:hover{color:var(--navy);}
+.modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+.modal-meta{font-size:.8rem;color:#9ca3af;padding-bottom:1.2rem;border-bottom:1px solid #e5e7eb;margin-bottom:1.5rem;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media(max-width:900px){
+  nav{padding:0 1.2rem;}
+  .nav-toggle{display:flex;}
+  .nav-links{
+    position:fixed;top:var(--nav-height);left:0;right:0;
+    background:var(--navy);flex-direction:column;align-items:stretch;
+    padding:1rem 1.5rem 1.5rem;gap:0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-110%);opacity:0;pointer-events:none;
+    transition:transform var(--ease),opacity var(--ease);
+  }
+  .nav-links{z-index:999;}
+  .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .nav-links li{width:100%;}
+  .nav-links a{display:block;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.07);}
+  .nav-socials{display:none;}
+  .acc-hero,.svc-talents,.ent-recrutement .hero-content,.cand-split,
+  .con-form-grid,.bureau-grid,.cand-cv-grid,.acc-performance,.job-content-grid{grid-template-columns:1fr;}
+  .cand-cv-section{padding:3rem 1.25rem;}
+  .shift-choices{gap:.4rem;}
+  .shift-chip span{padding:.45rem .75rem;font-size:.75rem;}
+  .acc-hero-right{height:50vw;}
+  .job-side-video{min-height:360px;position:relative;top:0;}
+  .job-side-video video{min-height:360px;}
+  .engagement-cards,.rigueur-cards,.approches-cards,.eng-contract-cards,.align-cards{grid-template-columns:1fr;}
+  .steps-row,.cand-steps{grid-template-columns:repeat(2,1fr);}
+  .steps-row::before{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .svc-hero .hero-content,.ent-hero .hero-content{padding:0 1.5rem;}
+  .search-bar{grid-template-columns:1fr;}
+  .jobs-pagination{flex-direction:column;align-items:stretch;text-align:center;}
+  .jobs-pagination-nav{justify-content:center;}
+  .science-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .nav-logo-img{height:58px;}
+  .nav-links a{font-size:.9rem;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;gap:.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     NAVIGATION
+══════════════════════════════════ -->
+<nav id="main-nav">
+  <a class="nav-logo" onclick="showPage('accueil')">
+    <img class="nav-logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
+  </a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a onclick="showPage('accueil')" id="nav-accueil" class="active">Accueil</a></li>
+    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a onclick="showPage('entreprises')" id="nav-entreprises">Entreprises</a></li>
+    <li><a onclick="showPage('candidats')" id="nav-candidats">Candidats</a></li>
+    <li><a onclick="showPage('job')" id="nav-job">Recherche d'emploi</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-socials">
+      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    </div>
+    <div class="nav-cart"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════
+     PAGE: ACCUEIL
+══════════════════════════════════ -->
+<div id="page-accueil" class="page active">
+
+  <!-- Hero split -->
+  <section class="acc-hero">
+    <div class="acc-hero-left">
+      <div class="tag-label slash"><span>/ Cabinet de recrutement</span></div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:1.2rem;">Connecter les talents.<br/>Propulser les entreprises.</h1>
+      <p style="font-size:.88rem;color:var(--textgrey);line-height:1.8;max-width:420px;">Nobilis RH accompagne les entreprises dans la recherche et la sélection des meilleurs talents. Grâce à une approche personnalisée, nous aidons nos clients à recruter des professionnels qualifiés et à bâtir des équipes performantes. Notre engagement repose sur la qualité, la rigueur et la compréhension des besoins de chaque organisation.</p>
+      <div class="btn-row">
+        <button class="btn btn-dark" onclick="showPage('entreprises')">Trouver un talent</button>
+        <button class="btn btn-dark" onclick="showPage('candidats')">Déposer mon CV</button>
+      </div>
+    </div>
+    <div class="acc-hero-right">
+      <div class="img-rounded">
+        <img src="resources/photo d'accueil 1.png" alt="Connecter les talents"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre engagement envers l'excellence -->
+  <section class="acc-engagement">
+    <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Notre méthodologie</div>
+    <h2>Notre engagement envers l'excellence</h2>
+    <p>Chez Nobilis RH, nous croyons que chaque recrutement est un investissement stratégique. Notre approche repose sur la compréhension des besoins de nos clients, une sélection rigoureuse des candidats et un accompagnement personnalisé tout au long du processus.</p>
+    <div class="engagement-cards">
+      <div class="eng-card">
+        <div class="eng-card-num">01 / Expertise</div>
+        <div class="eng-card-title">Recrutement ciblé</div>
+        <p class="eng-card-text">Nous identifions les meilleurs talents grâce à une approche proactive et à un vaste réseau de candidats qualifiés.</p>
+      </div>
+      <div class="eng-card">
+        <div class="eng-card-num">02 / Sélection</div>
+        <div class="eng-card-title">Évaluation rigoureuse</div>
+        <p class="eng-card-text">Chaque candidat est évalué selon ses compétences, son expérience et son adéquation avec la culture de l'entreprise.</p>
+      </div>
+      <div class="eng-card">
+        <div class="eng-card-num">03 / Accompagnement</div>
+        <div class="eng-card-title">Partenariat durable</div>
+        <p class="eng-card-text">Nous accompagnons nos clients et nos candidats pour bâtir des relations professionnelles durables et performantes.</p>
+      </div>
+      <div class="eng-card">
+        <div class="eng-card-num">04 / Garantie</div>
+        <div class="eng-card-title">Satisfaction assurée</div>
+        <p class="eng-card-text">Nous offrons une garantie de remplacement afin d'assurer la réussite à long terme de chaque placement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Un engagement de performance -->
+  <section class="acc-performance">
+    <div class="acc-perf-left">
+      <img src="resources/photo d'acceuil.png" alt="Engagement de performance" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>
+    </div>
+    <div class="acc-perf-right">
+      <div class="acc-perf-right tag-label-sm" style="font-size:.7rem;color:#9ca3af;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Garantie de réussite</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.15;">Un engagement de<br/>performance</h2>
+      <p style="font-size:.85rem;color:var(--textgrey);line-height:1.75;margin-top:.8rem;max-width:400px;">Nous ne croyons pas aux bases de données génériques. Notre équipe s'immerge dans votre structure pour comprendre vos défis réels. Cette rigueur nous permet d'offrir une garantie de remplacement exclusive sur chaque recrutement permanent.</p>
+      <div class="acc-star-wrap">
+        <div class="star-medallion">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="#c9a84c" d="M60 6 L73.5 44.5 H114.5 L81.5 67.5 L93.5 108 L60 86 L26.5 108 L38.5 67.5 L5.5 44.5 H46.5 Z"/>
+          </svg>
+          <div class="star-medallion-inner">
+            <span class="star-num">28</span>
+            <span class="star-unit">jours</span>
+          </div>
+        </div>
+        <p class="star-caption">Délai moyen pour présenter un dossier final de candidats qualifiés.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sécurisez vos prochains leaders -->
+  <section class="acc-cta">
+    <div class="tag-label" style="justify-content:center;color:rgba(255,255,255,.4);font-size:.7rem;">• Consultation confidentielle</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:#fff;margin-top:.5rem;">Sécurisez vos prochains leaders</h2>
+    <p style="font-size:.88rem;color:rgba(255,255,255,.55);max-width:580px;margin:.8rem auto 0;line-height:1.7;">Discutons de vos besoins de recrutement permanent en toute discrétion. Nos associés vous accompagnent avec la rigueur qui définit notre cabinet.</p>
+    <div style="margin-top:2rem;">
+      <button class="btn btn-outline-gold" onclick="showPage('contact')">Échanger avec un associé</button>
+    </div>
+  </section>
+
+</div><!-- /accueil -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════════ -->
+<div id="page-services" class="page">
+
+  <!-- Hero with video bg -->
+  <section class="vid-hero svc-hero">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
+      <source src="videos/construction.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
+    <div class="hero-content" style="padding:0 4rem;">
+      <div class="tag-label" style="color:var(--gold);">CABINET DE SÉLECTION</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:700;color:#fff;line-height:1.05;">L'art de la précision..</h1>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.7);max-width:620px;margin-top:1rem;line-height:1.75;">Pour les organisations de Québec qui ne peuvent se permettre aucune erreur de recrutement, nous concevons des recherches sur mesure alliant rigueur scientifique et discrétion absolue.</p>
+    </div>
+  </section>
+
+  <!-- Les talents d'exception -->
+  <section class="svc-talents">
+    <div class="svc-talents-left">
+      <div class="tag-label" style="color:#888;font-size:.7rem;">→ Approche directe</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.1;">Les talents d'exception<br/>ne cherchent pas<br/>toujours un emploi..</h2>
+      <p style="font-size:.85rem;color:var(--textgrey);line-height:1.75;margin-top:1rem;">Chez Nobilis RH, nous ciblons et approchons de manière confidentielle les professionnels les plus qualifiés de leur secteur. Grâce à notre réseau et à notre méthodologie de recherche proactive, nous identifions les candidats stratégiques capables d'apporter une réelle valeur ajoutée à votre organisation.</p>
+      <div style="margin-top:1.5rem;"><button class="btn btn-outline-gold" onclick="showPage('job')">Initier une recherche</button></div>
+    </div>
+    <div class="svc-talents-right">
+      <img src="resources/formulaire trouver talent/photo 1.png" alt="Talent d'exception"/>
+    </div>
+  </section>
+
+  <!-- La rigueur de sélection (dark) -->
+  <section class="svc-rigueur">
+    <div style="max-width:800px;margin:0 auto;">
+      <div class="tag-label" style="justify-content:center;color:#9ca3af;font-size:.7rem;">Notre méthodologie</div>
+      <h2>La <em>rigueur</em> de sélection.</h2>
+      <p>Notre approche directe repose sur une analyse minutieuse du marché local. Nous ne laissons rien au hasard pour sécuriser les talents indispensables qui propulseront la croissance de votre entreprise.</p>
+      <hr/>
+    </div>
+    <div class="rigueur-cards">
+      <div class="rig-card">
+        <div class="rig-card-tag">01 / Cartographie</div>
+        <h3>Ciblage de précision</h3>
+        <p>Nous cartographions méthodiquement les entreprises cibles du marché québécois afin de repérer les professionnels les plus performants et respectés de votre secteur.</p>
+      </div>
+      <div class="rig-card">
+        <div class="rig-card-tag">02 / Évaluation</div>
+        <h3>Alignement culturel</h3>
+        <p>Chaque candidat fait l'objet d'une évaluation rigoureuse de ses réalisations professionnelles, de son style de leadership et de son adéquation avec votre culture organisationnelle.</p>
+      </div>
+      <div class="rig-card">
+        <div class="rig-card-tag">03 / Négociation</div>
+        <h3>Discrétion absolue</h3>
+        <p>Nous agissons comme un intermédiaire de confiance, protégeant l'identité de votre entreprise et la confidentialité des échanges jusqu'à la phase finale de négociation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- La rigueur scientifique -->
+  <section class="svc-science">
+    <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">MÉTHODOLOGIE DE SÉLECTION</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);">La rigueur scientifique</h2>
+    <p>Notre processus d'évaluation élimine l'incertitude. Nous analysons l'adéquation technique et l'alignement culturel avec une rigueur mathématique.</p>
+    <div class="science-grid">
+      <div class="science-left">
+        <div class="sci-item">
+          <h4>Évaluation multidimensionnelle</h4>
+          <p>Au-delà des compétences techniques évidentes, nous mesurons l'alignement comportemental et la compatibilité à long terme avec vos valeurs d'entreprise.</p>
+        </div>
+        <div class="sci-item">
+          <h4>Préservation du capital</h4>
+          <p>En éliminant les erreurs de casting dès la phase de présélection, nous protégeons vos investissements et stabilisons vos équipes clés.</p>
+        </div>
+      </div>
+      <div class="science-right">
+        <video autoplay muted loop playsinline poster="resources/notre démarche 03.png">
+          <source src="videos/lab.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deux approches exclusives -->
+  <section class="svc-approches">
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="tag-label" style="color:var(--gold);font-size:.7rem;">NOS EXPERTISES</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--gold);">Deux approches exclusives</h2>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.45);margin:.5rem 0 2rem;line-height:1.7;">Chaque mission reçoit une méthodologie approfondie. Nous sélectionnons notre approche selon le poste et le niveau d'avancement souhaité.</p>
+      <div class="approches-cards">
+        <div class="app-card">
+          <h3>Recrutement et placement de personnel</h3>
+          <p>Nous identifions et sélectionnons des professionnels qualifiés qui contribueront durablement à la croissance et au succès de votre organisation.</p>
+        </div>
+        <div class="app-card">
+          <h3>Acquisition de talents</h3>
+          <p>Recrutement de pointe pour les experts techniques, scientifiques et ingénieurs rares indispensables à votre croissance, avec une entente de confidentialité stricte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="svc-faq">
+    <div class="svc-faq-grid" style="max-width:900px;margin:0 auto;">
+      <div class="faq-left">
+        <div style="font-size:.7rem;color:#9ca3af;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Foire aux questions</div>
+        <h3>Des réponses précises</h3>
+        <p>Nous opérons exclusivement sur mandat exclusif pour garantir un niveau de service et de discrétion inégalé sur le marché québécois.</p>
+      </div>
+      <div class="faq-right">
+        <div class="faq-item">
+          <h4>Comment garantissez-vous la discrétion ?</h4>
+          <p>Toutes nos approches initiales sont anonymisées. Nous ne révélons l'identité de nos clients qu'après une entente de confidentialité stricte.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Quels secteurs couvrez-vous ?</h4>
+          <p>Nous intervenons dans une large variété de secteurs, incluant l’ingénierie, la construction, la santé, les technologies, la recherche scientifique, l’industrie, ainsi que d’autres domaines professionnels et techniques.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /services -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: ENTREPRISES
+══════════════════════════════════ -->
+<div id="page-entreprises" class="page">
+
+  <!-- Hero -->
+  <section class="vid-hero ent-hero">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.png">
+      <source src="videos/buildoze.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
+    <div class="hero-content" style="padding:0 4rem;max-width:800px;">
+      <div class="tag-label" style="color:var(--gold);">Mandats exclusifs</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:#fff;line-height:1.05;margin-top:.5rem;">Votre succès repose sur les bons talents.</h1>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.7);max-width:680px;margin-top:1rem;line-height:1.8;">Chez <strong style="color:#fff;">Nobilis RH</strong>, nous comprenons que chaque embauche est une décision déterminante pour la croissance de votre organisation. C'est pourquoi nous allons bien au-delà de la simple recherche de candidats. Nous prenons le temps de comprendre votre entreprise, votre culture, vos objectifs et les défis propres à votre secteur afin d'identifier les talents qui contribueront réellement à votre succès.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.7);max-width:680px;margin-top:.8rem;line-height:1.8;">Grâce à notre approche rigoureuse et à notre réseau de professionnels qualifiés, nous vous présentons des candidats soigneusement sélectionnés, évalués tant sur leurs compétences que sur leur capacité à s'intégrer à votre environnement de travail.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.7);max-width:680px;margin-top:.8rem;line-height:1.8;">Que vous recherchiez un gestionnaire, un spécialiste technique ou un professionnel clé pour soutenir votre développement, notre équipe vous accompagne à chaque étape du processus avec discrétion, efficacité et professionnalisme.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.85);max-width:680px;margin-top:.8rem;line-height:1.8;font-weight:600;">Votre croissance mérite les meilleurs talents. Nobilis RH est votre partenaire de confiance pour les attirer et les recruter.</p>
+      <div style="margin-top:1.8rem;"><button class="btn btn-gold" onclick="goToEntDemarche()">Notre Démarche</button></div>
+    </div>
+  </section>
+
+  <div class="ent-video-separator" aria-hidden="true">
+    <span class="ent-sep-line"></span>
+    <span class="ent-sep-mark"></span>
+    <span class="ent-sep-line"></span>
+  </div>
+
+  <!-- Recrutement permanent de précision (video bg) -->
+  <section class="vid-hero ent-recrutement">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
+      <source src="videos/construction.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay" style="background:rgba(8,16,26,.62);"></div>
+    <div class="hero-content" style="padding:3rem 4rem;max-width:760px;">
+      <div class="tag-label" style="color:var(--gold);justify-content:flex-start;">■ Partenaire stratégique</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#fff;line-height:1.05;margin-top:.5rem;">Recrutement permanent de précision.</h2>
+      <p class="body-text">Chez Nobilis RH, nous croyons que les meilleurs talents sont le moteur de la réussite des entreprises. Notre mission est d'aider les organisations à attirer, évaluer et recruter des professionnels d'exception qui créeront une réelle valeur ajoutée à long terme.</p>
+      <p class="body-text" style="margin-top:.8rem;">Grâce à notre méthodologie éprouvée, à notre vaste réseau de candidats et à notre approche proactive, nous identifions les profils les plus recherchés du marché, y compris ceux qui ne sont pas activement en recherche d'emploi. Nous accompagnons nos clients à chaque étape du processus afin de garantir des recrutements stratégiques, durables et alignés avec leurs objectifs d'affaires.</p>
+      <p class="body-text" style="margin-top:.8rem;">Avec Nobilis RH, vous bénéficiez d'un partenaire de confiance dédié à la croissance de votre entreprise et à la réussite de vos équipes.</p>
+      <div style="margin-top:2rem;"><button class="btn btn-outline-gold" onclick="showPage('contact')">Soumettre un besoin</button></div>
+    </div>
+  </section>
+
+  <!-- Nos engagements contractuels -->
+  <section class="ent-engagements">
+    <div style="max-width:960px;margin:0 auto;">
+      <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Rigueur &amp; Confiance</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);">Nos <em>engagements contractuels.</em></h2>
+      <p>Chaque mandat confié à notre cabinet bénéficie d'un protocole rigoureux garantissant la pérennité de vos embauches.</p>
+      <div class="eng-contract-cards">
+        <div class="eng-c-card">
+          <h3>Discrétion absolue</h3>
+          <p>Nous protégeons votre marque employeur et vos projets stratégiques dès nos premiers échanges.</p>
+        </div>
+        <div class="eng-c-card">
+          <h3>Réponse sous 24h</h3>
+          <p>Un conseiller principal vous contacte pour qualifier précisément les compétences techniques et l'alignement culturel requis.</p>
+        </div>
+        <div class="eng-c-card">
+          <h3>Garantie de placement</h3>
+          <p>Chaque recrutement permanent est couvert par une garantie contractuelle, assurant un partenariat de croissance à long terme.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo + text -->
+  <section class="ent-logo-section">
+    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
+    <p>Chez Nobilis RH, chaque mandat débute par une compréhension approfondie de votre réalité d'affaires. Notre processus de recrutement est conçu pour identifier des candidats qualifiés qui répondent non seulement à vos exigences du poste, mais également à la culture et aux objectifs de votre organisation.</p>
+  </section>
+
+  <!-- Notre approche, votre succès (5 steps) -->
+  <section class="ent-approche" id="ent-demarche">
+    <div class="tag-label" style="justify-content:center;font-size:.7rem;color:#9ca3af;">NOTRE DÉMARCHE</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;">Notre approche, <em style="font-style:italic;color:var(--gold);">votre succès.</em></h2>
+    <p>Une démarche complète pour identifier les meilleurs talents<br/>et bâtir des équipes performantes et durables.</p>
+    <div class="steps-row" style="margin-top:3rem;">
+      <div class="step-item">
+        <div class="step-circle"><span>01</span></div>
+        <div class="step-dot"></div>
+        <div class="step-title">Analyse<br/>des besoins</div>
+        <div class="step-desc">Nous comprenons votre entreprise, vos objectifs et les compétences recherchées.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><span>02</span></div>
+        <div class="step-dot"></div>
+        <div class="step-title">Recherche<br/>ciblée</div>
+        <div class="step-desc">Nous identifions et approchons les meilleurs talents grâce à notre réseau et notre expertise du marché.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><span>03</span></div>
+        <div class="step-dot"></div>
+        <div class="step-title">Évaluation<br/>rigoureuse</div>
+        <div class="step-desc">Chaque candidat est évalué pour ses compétences, son expérience et son potentiel d'intégration.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><span>04</span></div>
+        <div class="step-dot"></div>
+        <div class="step-title">Embauche<br/>réussie</div>
+        <div class="step-desc">Nous vous présentons les meilleurs profils et vous accompagnons jusqu'à la décision finale.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle"><span>05</span></div>
+        <div class="step-dot"></div>
+        <div class="step-title">Suivi après<br/>embauche</div>
+        <div class="step-desc">Nous restons à vos côtés après l'embauche pour assurer une intégration réussie et durable.</div>
+      </div>
+    </div>
+    <p class="tagline">Plus qu'un recrutement, <em>un partenariat pour votre croissance.</em></p>
+  </section>
+
+</div><!-- /entreprises -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: CANDIDATS
+══════════════════════════════════ -->
+<div id="page-candidats" class="page">
+
+  <!-- Hero -->
+  <section class="vid-hero cand-hero">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/01.png">
+      <source src="videos/meeting.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay" style="background:rgba(8,16,26,.5);"></div>
+    <div class="hero-content">
+      <div class="tag-label" style="justify-content:center;color:rgba(255,255,255,.5);font-size:.7rem;">PORTAIL EXCLUSIF</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:#fff;line-height:1.05;">Votre prochaine trajectoire<br/>stratégique</h1>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.65);max-width:560px;margin:.8rem auto 0;line-height:1.7;">Accédez à des mandats de direction et de rôles critiques non publiés à Québec. Nous protégeons votre démarche avec une rigueur absolue.</p>
+      <div style="margin-top:2rem;"><button class="btn btn-dark" onclick="document.getElementById('cv-form-section').scrollIntoView({behavior:'smooth'})">Déposer votre CV</button></div>
+    </div>
+  </section>
+
+  <!-- Discrétion totale / Marché caché -->
+  <section class="cand-split">
+    <div class="cand-split-item">
+      <h3>Discrétion totale</h3>
+      <p>Aucun contact avec votre employeur actuel. Vos informations restant chiffrées et ne sont partagées qu'avec votre accord explicite.</p>
+    </div>
+    <div class="cand-split-item">
+      <h3>Marché caché</h3>
+      <p>Plus de soixante pourcent de nos mandats de cadres et d'experts ne font l'objet d'aucune publication publique.</p>
+    </div>
+  </section>
+
+  <!-- L'art de l'alignement (video bg) -->
+  <section class="vid-hero cand-alignement">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/02.png">
+      <source src="videos/hand.mp4" type="video/mp4"/>
+    </video>
+    <div class="overlay" style="background:rgba(8,16,26,.65);"></div>
+    <div class="hero-content" style="padding:3rem;max-width:900px;">
+      <div class="tag-label" style="justify-content:center;color:rgba(255,255,255,.4);font-size:.7rem;">NOTRE ENGAGEMENT</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:#fff;">L'art de l'alignement</h2>
+      <div class="align-cards">
+        <div class="align-card">
+          <h3>Sélection rigoureuse</h3>
+          <p>Nous analysons en profondeur la culture de votre future organisation. Cette rigueur garantit une intégration durable et un alignement stratégique parfait.</p>
+        </div>
+        <div class="align-card">
+          <h3>Accompagnement</h3>
+          <p>Un conseiller dédié vous guide à chaque étape de votre transition de carrière. Nous assurons une médiation fluide et hautement personnalisée.</p>
+        </div>
+        <div class="align-card">
+          <h3>Réseau d'élite</h3>
+          <p>Bénéficiez d'un accès direct aux décideurs clés des plus grandes entreprises de Québec. Nous ouvrons des portes souvent inaccessibles au public.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confiez votre parcours -->
+  <section class="cand-confier">
+    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
+    <div class="tag-label" style="justify-content:center;color:#9ca3af;font-size:.7rem;">TRANSMISSION SÉCURISÉE</div>
+    <h2>Confiez-nous votre parcours professionnel en toute sécurité.</h2>
+    <p>Notre équipe de spécialistes en recrutement et en chasse de têtes évalue votre profil avec rigueur, professionnalisme et discrétion. Nous prenons le temps de comprendre votre expérience, vos valeurs et vos forces afin de vous représenter auprès d'employeurs de premier choix et de vous ouvrir les portes d'opportunités stratégiques.</p>
+  </section>
+
+  <!-- Notre démarche avec nos candidats -->
+  <section class="cand-demarche">
+    <div class="cand-demarche-bg">
+      <video autoplay muted loop playsinline>
+        <source src="videos/hand.mp4" type="video/mp4"/>
+      </video>
+      <div class="rel">
+        <div class="tag-label" style="justify-content:center;color:var(--gold);font-size:.7rem;">NOTRE DÉMARCHE</div>
+        <h2>NOTRE DÉMARCHE AVEC NOS CANDIDATS</h2>
+        <p style="font-size:.82rem;color:var(--textgrey);text-align:center;margin:.5rem auto 0;max-width:400px;line-height:1.6;">Un accompagnement humain et personnalisé<br/>à chaque étape de votre parcours professionnel.</p>
+        <div class="cand-steps">
+          <div class="cand-step">
+            <div class="cand-step-num">01</div>
+            <div class="cand-step-title">Écoute<br/>et analyse</div>
+            <div class="cand-step-dot"></div>
+            <div class="cand-step-desc">Nous prenons le temps de comprendre votre parcours, vos compétences et vos aspirations.</div>
+          </div>
+          <div class="cand-step">
+            <div class="cand-step-num">02</div>
+            <div class="cand-step-title">Opportunités<br/>ciblées</div>
+            <div class="cand-step-dot"></div>
+            <div class="cand-step-desc">Nous vous présentons des mandats en adéquation avec vos objectifs et vos valeurs.</div>
+          </div>
+          <div class="cand-step">
+            <div class="cand-step-num">03</div>
+            <div class="cand-step-title">Préparation<br/>et soutien</div>
+            <div class="cand-step-dot"></div>
+            <div class="cand-step-desc">Nous vous accompagnons et vous outillons pour mettre en valeur votre profil et vos forces.</div>
+          </div>
+          <div class="cand-step">
+            <div class="cand-step-num">04</div>
+            <div class="cand-step-title">Présentation<br/>auprès de nos clients</div>
+            <div class="cand-step-dot"></div>
+            <div class="cand-step-desc">Nous vous représentons avec professionnalisme auprès de nos clients et facilitons les échanges.</div>
+          </div>
+          <div class="cand-step">
+            <div class="cand-step-num">05</div>
+            <div class="cand-step-title">Suivi et<br/>intégration</div>
+            <div class="cand-step-dot"></div>
+            <div class="cand-step-desc">Nous restons à vos côtés même après votre entrée en poste pour assurer une intégration réussie et durable.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CV Upload Form -->
+  <section class="cand-cv-section" id="cv-form-section">
+    <div class="cand-cv-grid">
+      <div class="cand-cv-info">
+        <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Déposer votre candidature</div>
+        <h3>Rejoignez notre réseau de talents</h3>
+        <p>En déposant votre CV auprès de Nobilis RH, vous accédez à des opportunités exclusives et discrètes dans votre secteur.</p>
+        <p>Nous garantissons une confidentialité totale de votre démarche et traitons chaque dossier avec la plus grande attention.</p>
+        <div class="cand-cv-commit">
+          <div class="cand-cv-commit-label">Notre engagement</div>
+          <p>Confidentialité absolue · Réponse sous 48h · Accompagnement personnalisé</p>
+        </div>
+      </div>
+      <div class="cand-cv-form form-light">
+        <h3 class="cand-cv-form-title">Déposer votre candidature</h3>
+        <div class="form-row2">
+          <div class="form-group"><label>Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean"/></div>
+          <div class="form-group"><label>Nom *</label><input type="text" id="cv-nom" placeholder="Dupont"/></div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group"><label>Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com"/></div>
+          <div class="form-group"><label>Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000"/></div>
+        </div>
+        <div class="form-group">
+          <label>Secteur d'activité</label>
+          <select id="cv-secteur">
+            <option value="">Sélectionner...</option>
+            <option>Ingénierie &amp; Construction</option>
+            <option>Finance &amp; Comptabilité</option>
+            <option>Technologies de l'information</option>
+            <option>Ressources humaines</option>
+            <option>Direction générale</option>
+            <option>Ventes &amp; Marketing</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Disponibilité horaire *</label>
+          <div class="shift-choices" role="radiogroup" aria-label="Disponibilité horaire">
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Jour"/><span>Jour</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Soir"/><span>Soir</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Nuit"/><span>Nuit</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Fin de semaine"/><span>Fin de semaine</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="N'importe"/><span>N'importe</span></label>
+          </div>
+          <p class="form-hint">Indiquez le quart de travail qui vous convient le mieux.</p>
+        </div>
+        <div class="form-group"><label>Message (optionnel)</label><textarea id="cv-message" placeholder="Décrivez brièvement votre profil..."></textarea></div>
+        <div class="form-group">
+          <label>Votre CV (optionnel — PDF, DOCX — max 5 Mo)</label>
+          <div class="cv-file-wrap">
+            <input type="file" id="cv-file" accept=".pdf,.doc,.docx"/>
+          </div>
+          <p class="form-hint">Pas de CV pour l'instant? Vous pouvez quand même envoyer votre candidature — un conseiller vous contactera.</p>
+        </div>
+        <div class="form-group form-consent">
+          <label class="consent-label">
+            <input type="checkbox" id="cv-consent"/>
+            <span>
+              J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
+              <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
+            </span>
+          </label>
+        </div>
+        <button class="btn btn-dark" style="width:100%;padding:1rem;font-size:.9rem;" onclick="submitCV()">Envoyer ma candidature</button>
+        <div class="form-success" id="cv-success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /candidats -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════ -->
+<div id="page-contact" class="page">
+
+  <!-- Hero -->
+  <section class="vid-hero con-hero">
+    <img class="bg-img" src="resources/formulaire de condidat/02.png" alt=""/>
+    <div class="overlay" style="background:rgba(8,16,26,.58);"></div>
+    <div class="hero-content" style="padding:2rem;">
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">L'art de la discrétion</h1>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.65);max-width:640px;margin:.8rem auto 0;line-height:1.7;">Que vous soyez un dirigeant à la recherche d'un profil d'exception ou un cadre supérieur en transition confidentielle, notre cabinet orchestre vos rencontres stratégiques au cœur de la ville de Québec.</p>
+    </div>
+  </section>
+
+  <!-- Form section (dark navy) -->
+  <section class="con-form-section">
+    <div class="con-form-grid">
+      <div class="con-info">
+        <div class="tag-label" style="color:var(--gold);font-size:.7rem;">Premier échange</div>
+        <h2>Initier le dialogue</h2>
+        <p>Nos consultations se déroulent exclusivement sur rendez-vous individuel. Nous vous offrons un environnement hautement sécurisé et confidentiel pour analyser avec rigueur vos enjeux de recrutement permanent à long terme.</p>
+      </div>
+      <div>
+        <div class="form-group"><label>Nom complet *</label><input type="text" id="con-nom" placeholder="Jean Tremblay"/></div>
+        <div class="form-group"><label>Courriel professionnel *</label><input type="email" id="con-email" placeholder="j.tremblay@entreprise.ca"/></div>
+        <div class="form-group"><label>Téléphone direct</label><input type="tel" id="con-tel" placeholder="418-555-0199"/></div>
+        <div class="form-group">
+          <label>Votre message (confidentiel) *</label>
+          <textarea id="con-message" placeholder="Décrivez brièvement vos besoins ou votre situation..." style="min-height:130px;"></textarea>
+        </div>
+        <button class="btn btn-gold" style="padding:.85rem 2rem;" onclick="submitContact()">Soumettre la demande</button>
+        <div class="form-success" id="con-success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Présence à Québec -->
+  <section class="con-presence">
+    <div class="con-presence-inner">
+      <div class="tag-label" style="color:var(--gold);font-size:.7rem;">Notre cabinet</div>
+      <h2>Présence à Québec</h2>
+      <p>Situé sur la prestigieuse Grande Allée, notre bureau physique offre un cadre neutre, discret et raffiné pour vos entretiens les plus sensibles et vos prises de décision stratégiques.</p>
+      <hr/>
+      <div class="bureau-grid">
+        <div class="bureau-card">
+          <h3>Bureau de Québec</h3>
+          <p>Grande Allée Est, Québec, QC, Canada.<br/>Nos locaux sont conçus pour garantir une confidentialité totale lors de vos visites.</p>
+          <hr/>
+          <p>Pour toute demande urgente ou hautement stratégique, notre ligne directe vous met en relation immédiate avec l'un de nos associés principaux.</p>
+        </div>
+        <div class="bureau-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2727.0!2d-71.2281!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb895e7b0a3a0b3%3A0x7!2sGrande+All%C3%A9e+Est%2C+Qu%C3%A9bec%2C+QC!5e0!3m2!1sfr!2sca!4v1"
+            allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /contact -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: JOB
+══════════════════════════════════ -->
+<div id="page-job" class="page">
+
+  <!-- Hero -->
+  <section class="vid-hero job-hero" style="position:relative;">
+    <img class="bg-img" src="resources/parler à un conseiller/01.png" alt=""/>
+    <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
+    <div class="hero-content" style="padding:2rem;z-index:2;">
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Recherche d'emploi</h1>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil, votre ville et le périmètre autour de chez vous.</p>
+    </div>
+    <div class="job-hero-label" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.3);padding:.6rem 2rem;">
+      <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Recherche d'emploi</span>
+    </div>
+  </section>
+
+  <!-- Search + listings -->
+  <section class="job-search">
+    <h2>Recherche d'emploi</h2>
+    <p>Trouvez les opportunités qui correspondent à votre profil, votre ville et votre périmètre de recherche.</p>
+    <div class="geo-banner" id="geo-banner">
+      <p>Pour filtrer par <strong>périmètre</strong>, autorisez l'accès à votre position. Nous calculerons la distance entre votre emplacement et chaque offre.</p>
+      <button type="button" onclick="requestUserLocation()">Autoriser ma position</button>
+    </div>
+    <div class="geo-status" id="geo-status" style="display:none;"></div>
+    <div class="search-bar">
+      <input type="text" id="search-poste" placeholder="Nom du poste"/>
+      <input type="text" id="search-ville" placeholder="Ville ou Remote"/>
+      <select id="search-type" aria-label="Type de contrat">
+        <option value="">Tous les types</option>
+        <option value="Temps plein">Temps plein</option>
+        <option value="Temps partiel">Temps partiel</option>
+        <option value="Contrat">Contrat</option>
+        <option value="Freelance">Freelance</option>
+      </select>
+      <select id="search-perimetre" aria-label="Périmètre de recherche">
+        <option value="">Périmètre de recherche</option>
+        <option value="10 km">10 km</option>
+        <option value="25 km">25 km</option>
+        <option value="50 km">50 km</option>
+        <option value="75 km">75 km</option>
+        <option value="N'importe où">N'importe où</option>
+      </select>
+      <button type="button" onclick="filterJobs()">Rechercher</button>
+    </div>
+    <div class="job-content-grid">
+      <div class="jobs-wrap">
+        <div id="jobs-loading" class="jobs-loading">Chargement des offres...</div>
+        <div id="jobs-list"></div>
+        <div id="jobs-pagination" class="jobs-pagination" style="display:none;"></div>
+        <div id="jobs-empty" class="jobs-empty" style="display:none;">Aucune offre ne correspond à votre recherche.</div>
+      </div>
+      <div class="job-side-video">
+        <video autoplay muted loop playsinline poster="resources/formulaire de condidat/01.png">
+          <source src="videos/vertical.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /job -->
+
+
+<!-- ══════════════════════════════════
+     PAGE: POLITIQUE DE CONFIDENTIALITÉ
+══════════════════════════════════ -->
+<div id="page-confidentialite" class="page">
+
+  <section class="privacy-hero">
+    <h1>Politique de confidentialité</h1>
+    <p>Dernière mise à jour : 01 juillet 2026</p>
+  </section>
+
+  <div class="privacy-body">
+    <p class="privacy-intro">Chez Nobilis RH, la protection de vos renseignements personnels est au cœur de nos valeurs et de nos obligations professionnelles. Dans le cadre de nos activités de recrutement, de recherche de talents et de placement de personnel au Québec, nous collectons et traitons des données hautement confidentielles.</p>
+    <p class="privacy-intro">La présente Politique de confidentialité a pour but de vous informer de manière transparente sur la façon dont nous collectons, utilisons, communiquons, conservons et protégeons vos renseignements personnels, conformément à la Loi sur la protection des renseignements personnels dans le secteur privé (Loi 25 du Québec).</p>
+
+    <h2>1. Quels renseignements personnels collectons-nous ?</h2>
+    <p>Nous collectons uniquement les renseignements nécessaires pour vous offrir nos services de recrutement et d'accompagnement de carrière. Cela inclut notamment :</p>
+    <ul>
+      <li><strong>Informations d'identification :</strong> Votre nom, prénom, adresse résidentielle, adresse courriel et numéro de téléphone.</li>
+      <li><strong>Données professionnelles (Votre CV) :</strong> Votre historique d'emploi, votre formation académique, vos compétences, vos certifications professionnelles, vos affiliations, ainsi que vos distinctions.</li>
+      <li><strong>Préférences de carrière :</strong> Vos attentes salariales, le type de poste recherché, votre disponibilité et vos préférences géographiques ou de télétravail.</li>
+      <li><strong>Évaluations et suivis :</strong> Nos notes d'entrevues, les résultats de tests de compétences (si applicables) et les commentaires issus des vérifications de références professionnelles (toujours effectuées avec votre accord préalable).</li>
+    </ul>
+
+    <h2>2. Comment collectons-nous vos renseignements ?</h2>
+    <p>Vos renseignements personnels sont collectés directement auprès de vous lorsque :</p>
+    <ul>
+      <li>Vous postulez à l'une de nos offres d'emploi ou déposez votre candidature spontanée sur notre site web ;</li>
+      <li>Vous communiquez avec l'un de nos conseillers par courriel, téléphone ou via les plateformes professionnelles (ex : LinkedIn) ;</li>
+      <li>Vous participez à une entrevue de sélection avec notre équipe.</li>
+    </ul>
+
+    <h2>3. Pourquoi utilisons-nous vos renseignements ? (Les fins)</h2>
+    <p>Nobilis RH utilise vos données uniquement pour des finalités légitimes liées à nos services de recrutement :</p>
+    <ul>
+      <li>Évaluer votre profil, vos compétences et votre admissibilité aux postes à combler ;</li>
+      <li>Vous présenter des opportunités d'emploi correspondant à votre profil ;</li>
+      <li>Communiquer avec vous pour planifier des entrevues ou effectuer des suivis de candidature ;</li>
+      <li>Proposer votre profil à nos entreprises clientes à la recherche de talents (votre CV ne sera toutefois partagé qu'après discussion avec vous) ;</li>
+      <li>Alimenter notre banque de talents interne afin de pouvoir vous recontacter pour de futures opportunités professionnelles.</li>
+    </ul>
+
+    <h2>4. Avec qui partageons-nous vos renseignements ?</h2>
+    <p>Dans le cadre strict de nos mandats de recrutement, vos renseignements personnels (votre profil et votre CV) peuvent être transmis à :</p>
+    <ul>
+      <li><strong>Nos clients (Employeurs potentiels) :</strong> Des entreprises situées principalement au Québec qui ont mandaté Nobilis RH pour combler des postes et qui se sont engagées contractuellement à respecter la confidentialité de vos données.</li>
+      <li><strong>Nos fournisseurs technologiques :</strong> Des tiers de confiance qui hébergent notre site web, notre système de gestion des candidatures (ATS) ou nos outils de communication. Ces fournisseurs sont soumis à des ententes de confidentialité strictes et ne peuvent utiliser vos données pour d'autres fins.</li>
+    </ul>
+    <p>Nobilis RH ne vend, ne loue, ni ne commercialise d'aucune façon vos renseignements personnels à des tiers.</p>
+
+    <h2>5. Consentement</h2>
+    <p>En cochant la case de consentement sur notre site web lors du dépôt de votre candidature, vous consentez de manière manifeste, libre et éclairée à ce que Nobilis RH collecte, utilise et partage vos renseignements personnels conformément à la présente politique.</p>
+    <p>Vous pouvez retirer votre consentement à tout moment. Toutefois, le retrait de votre consentement pourrait nous empêcher de poursuivre l'évaluation de votre candidature ou de vous proposer des opportunités d'emploi.</p>
+
+    <h2>6. Durée de conservation des données</h2>
+    <p>Nous conservons vos renseignements personnels aussi longtemps que nécessaire pour accomplir nos services de recrutement ou pour nous conformer à nos obligations légales.</p>
+    <p>Si vous ne souhaitez plus faire partie de notre banque de talents, vous pouvez nous demander en tout temps de détruire votre dossier (voir section 9). À défaut d'une telle demande, les profils inactifs sont réévalués, anonymisés ou détruits de façon sécuritaire après une période de 3 ans d'inactivité continue.</p>
+
+    <h2>7. Sécurité de vos données</h2>
+    <p>Nobilis RH déploie des mesures de sécurité physiques, techniques et administratives rigoureuses pour protéger vos renseignements personnels contre l'accès non autorisé, la perte, le vol, la modification ou la divulgation involontaire. Nos serveurs et outils informatiques sont sécurisés et l'accès à vos données est strictement restreint aux employés de Nobilis RH qui en ont besoin dans le cadre de leurs fonctions.</p>
+
+    <h2>8. Vos droits (Accès, rectification et portabilité)</h2>
+    <p>En vertu des lois du Québec, vous disposez des droits suivants concernant vos renseignements personnels :</p>
+    <ul>
+      <li><strong>Droit d'accès :</strong> Le droit de savoir si nous détenons des renseignements sur vous et d'en obtenir une copie.</li>
+      <li><strong>Droit de rectification :</strong> Le droit de faire corriger, mettre à jour ou compléter des renseignements inexacts ou incomplets.</li>
+      <li><strong>Droit à l'effacement :</strong> Le droit de demander la suppression de vos renseignements personnels de nos systèmes et de notre banque de talents.</li>
+      <li><strong>Droit à la portabilité :</strong> Le droit d'obtenir vos renseignements personnels dans un format technologique structuré et couramment utilisé.</li>
+    </ul>
+
+    <h2>9. Responsable de la protection des renseignements personnels</h2>
+    <p>Pour exercer vos droits, poser une question ou formuler une plainte concernant la gestion de vos renseignements personnels, vous pouvez communiquer par écrit avec notre Responsable de la protection des renseignements personnels :</p>
+    <div class="privacy-contact">
+      <strong>Nobilis RH</strong><br/>
+      À l'attention du Responsable de la protection des données<br/>
+      Adresse courriel : <a href="mailto:confidentialite@nobilisrh.ca">confidentialite@nobilisrh.ca</a>
+    </div>
+    <p>Nous nous engageons à répondre à toute demande d'accès ou de rectification dans un délai maximal de trente (30) jours ouvrables suivant sa réception, conformément à la loi.</p>
+
+    <h2>10. Modification de la présente politique</h2>
+    <p>Nobilis RH se réserve le droit de modifier la présente Politique de confidentialité à tout moment afin de refléter l'évolution de nos pratiques ou des exigences légales. Toute modification sera publiée sur cette page avec la date de mise à jour.</p>
+  </div>
+
+</div><!-- /confidentialite -->
+
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer id="site-footer">
+  <div class="footer-grid">
+    <div>
+      <img class="footer-brand-logo" src="resources/logo/01.png" alt="Nobilis RH"/>
+      <div class="footer-gold-line"></div>
+      <div class="footer-brand-name">Nobilis RH</div>
+      <div class="footer-brand-sub">Chasse de têtes de précision et recrutement stratégique à Québec.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a onclick="showPage('accueil')">Accueil</a></li>
+        <li><a onclick="showPage('services')">Service</a></li>
+        <li><a onclick="showPage('entreprises')">Entreprise</a></li>
+        <li><a onclick="showPage('candidats')">Candidat</a></li>
+        <li><a onclick="showPage('job')">Recherche d'emploi</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a href="#confidentialite" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-col-right" style="grid-column:3/5;">
+      <div class="footer-gold-label">Bureau de Québec</div>
+      <p>contact@nobilisrh.ca<br/>Québec, QC, Canada<br/>Consultations confidentielles sur rendez-vous</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>(C) 2026 Nobilis RH — Cabinet de recrutement de précision à Québec.</span>
+    <div class="footer-bottom-right">
+      <span>EXCELLENCE</span> · <span>INTÉGRITÉ</span> · <span>ENGAGEMENT</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════
+     APPLY MODAL
+══════════════════════════════════ -->
+<div class="modal-overlay" id="apply-modal" onclick="closeModal(event)">
+  <div class="modal form-light">
+    <button class="modal-close" onclick="document.getElementById('apply-modal').classList.remove('open')">✕</button>
+    <h3 id="modal-title">Postuler</h3>
+    <div class="modal-meta" id="modal-meta"></div>
+    <div class="form-row2">
+      <div class="form-group"><label>Prénom *</label><input type="text" id="app-prenom" placeholder="Jean"/></div>
+      <div class="form-group"><label>Nom *</label><input type="text" id="app-nom" placeholder="Dupont"/></div>
+    </div>
+    <div class="form-group"><label>Courriel *</label><input type="email" id="app-email" placeholder="jean@email.com"/></div>
+    <div class="form-group"><label>Téléphone</label><input type="tel" id="app-tel" placeholder="+1 418 000 0000"/></div>
+    <div class="form-group"><label>Lettre de motivation</label><textarea id="app-lettre" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
+    <div class="form-group">
+      <label>CV (PDF, DOCX) *</label>
+      <input type="file" id="app-cv" accept=".pdf,.doc,.docx" style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
+    </div>
+    <div class="form-group form-consent">
+      <label class="consent-label">
+        <input type="checkbox" id="app-consent"/>
+        <span>
+          J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
+          <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
+        </span>
+      </label>
+    </div>
+    <button class="btn btn-dark" style="width:100%;padding:.9rem;" onclick="submitApplication()">Postuler</button>
+    <div class="form-success" id="app-success">✓ Candidature envoyée avec succès!</div>
+  </div>
+</div>
+
+
+<script>
+// ══════════════════════════════
+// ⚙️  CONFIGURATION — À MODIFIER
+// ══════════════════════════════
+
+// 1. EmailJS — créez un compte gratuit sur emailjs.com
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ex: 'abcDEF123456'
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ex: 'service_abc123'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ex: 'template_xyz789'
+
+// 2. Google Sheets CSV — feuille publiée sur le Web
+//    Lien publié : .../pubhtml → utiliser .../pub?output=csv pour le site
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrcij3jvwG-pT0xaMGOeszhZOHNQGbp-bZV6r60O9nYKdBxbcv2dLje8i6aQPE93ojqECeW1NI3E13/pub?output=csv';
+// Colonnes feuille : Titre | Localisation | Type | Description | Email | Salaire | AfficherSalaire
+const JOBS_PER_PAGE = 5;
+
+// 3. Vidéos assignées (dossier /videos/)
+//    photo d'accueil 1.png → Accueil hero (image)
+//    vertical.mp4                  → Job listings (colonne droite)
+//    parler à un conseiller/01.png → Job hero (image)
+//    construction.mp4       → Services hero + Entreprises recrutement permanent
+//    lab.mp4                → Services rigueur scientifique
+//    buildoze.mp4           → Entreprises hero
+//    meeting.mp4                         → Candidats hero
+//    formulaire de condidat/02.png       → Contact hero (image)
+//    hand.mp4          → Candidats alignement + démarche candidats
+
+// ══════════════════════════════
+// NAVIGATION
+// ══════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  history.pushState({page: id}, '', '#' + id);
+  closeNav();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  document.querySelectorAll('video').forEach(v => {
+    const onActivePage = v.closest('.page.active');
+    if (onActivePage) v.play().catch(() => {});
+    else v.pause();
+  });
+  if (id === 'job') loadJobs();
+}
+
+function toggleNav() {
+  document.getElementById('nav-links').classList.toggle('open');
+  document.getElementById('nav-toggle').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('nav-links').classList.remove('open');
+  document.getElementById('nav-toggle').classList.remove('open');
+}
+
+function goToEntDemarche() {
+  const page = document.getElementById('page-entreprises');
+  const section = document.getElementById('ent-demarche');
+  if (!page.classList.contains('active')) {
+    showPage('entreprises');
+    setTimeout(() => section.scrollIntoView({behavior:'smooth'}), 400);
+  } else {
+    section.scrollIntoView({behavior:'smooth'});
+  }
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 8);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.replace('#', '');
+  const pages = ['accueil','services','entreprises','candidats','contact','job','confidentialite'];
+  if (pages.includes(hash)) showPage(hash);
+  window.addEventListener('popstate', e => {
+    const id = e.state?.page || location.hash.replace('#','') || 'accueil';
+    if (pages.includes(id)) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      const navLink = document.getElementById('nav-' + id);
+      if (navLink) navLink.classList.add('active');
+      if (id === 'job') loadJobs();
+    }
+  });
+});
+
+// ══════════════════════════════
+// GOOGLE SHEETS JOBS
+// ══════════════════════════════
+let allJobs = [];
+let displayedJobs = [];
+let currentJobPage = 1;
+let currentJob = null;
+let userLocation = null;
+const geocodeCache = {};
+
+function isRemoteLocation(loc) {
+  const l = String(loc || '').toLowerCase().trim();
+  return !l || l === 'remote' || l === 'télétravail' || l === 'teletravail' || l.includes('remote');
+}
+
+function parsePerimetreKm(val) {
+  if (!val || val === "N'importe où") return null;
+  const m = String(val).match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+async function geocodeLocation(name) {
+  const key = String(name || '').trim().toLowerCase();
+  if (!key || isRemoteLocation(key)) return null;
+  if (geocodeCache[key] !== undefined) return geocodeCache[key];
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1&language=fr&format=json`;
+    const r = await fetch(url);
+    const data = await r.json();
+    if (data.results && data.results[0]) {
+      geocodeCache[key] = { lat: data.results[0].latitude, lon: data.results[0].longitude };
+    } else {
+      geocodeCache[key] = null;
+    }
+  } catch {
+    geocodeCache[key] = null;
+  }
+  return geocodeCache[key];
+}
+
+async function geocodeAllLocations(locations) {
+  const unique = [...new Set(locations.filter(l => !isRemoteLocation(l)))];
+  await Promise.all(unique.map(loc => geocodeLocation(loc)));
+}
+
+function requestUserLocation() {
+  if (!navigator.geolocation) {
+    alert('La géolocalisation n\'est pas supportée par votre navigateur.');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLocation = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      document.getElementById('geo-banner').style.display = 'none';
+      const status = document.getElementById('geo-status');
+      status.style.display = 'flex';
+      status.innerHTML = '<span>Position activée — distances calculées depuis votre emplacement actuel.</span><button type="button" onclick="clearUserLocation()">Désactiver</button>';
+    },
+    err => {
+      document.getElementById('geo-banner').classList.add('highlight');
+      const msg = err.code === 1
+        ? 'Accès refusé. Autorisez la localisation dans votre navigateur pour utiliser le filtre par périmètre.'
+        : 'Impossible d\'obtenir votre position. Vérifiez votre connexion et réessayez.';
+      alert(msg);
+    },
+    { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
+  );
+}
+
+function clearUserLocation() {
+  userLocation = null;
+  document.getElementById('geo-status').style.display = 'none';
+  document.getElementById('geo-banner').style.display = 'flex';
+  document.getElementById('geo-banner').classList.remove('highlight');
+}
+
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function normalizeJob(raw) {
+  const showSalary = String(
+    raw.affichersalaire || raw.showsalary || ''
+  ).trim().toUpperCase() === 'TRUE';
+  return {
+    title: raw.titre || raw.title || raw['nomduposte'] || '',
+    location: raw.localisation || raw.location || raw.ville || raw.lieu || '',
+    type: raw.type || '',
+    description: raw.description || '',
+    email: raw.email || raw.courriel || '',
+    salary: raw.salaire || raw.salary || '',
+    showSalary
+  };
+}
+
+function normalizeType(s) {
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+}
+
+function matchJobType(jobType, filter) {
+  if (!filter) return true;
+  const j = normalizeType(jobType);
+  const f = normalizeType(filter);
+  const aliases = {
+    'temps plein': ['temps plein', 'full-time', 'full time'],
+    'temps partiel': ['temps partiel', 'part-time', 'part time'],
+    'contrat': ['contrat', 'contract'],
+    'freelance': ['freelance']
+  };
+  const list = aliases[f] || [f];
+  return list.some(a => j === a || j.includes(a));
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '', inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line.charAt(i);
+    if (c === '"') { inQuotes = !inQuotes; continue; }
+    if (c === ',' && !inQuotes) { result.push(cur.trim()); cur = ''; continue; }
+    cur += c;
+  }
+  result.push(cur.trim());
+  return result.map(v => v.replace(/^"|"$/g, ''));
+}
+
+function isValidSheetCsv(text) {
+  if (!text || text.includes('<!DOCTYPE') || text.includes('<html')) return false;
+  const firstLine = text.split(/\r?\n/)[0] || '';
+  return /\btitre\b/i.test(firstLine) || /\btitle\b/i.test(firstLine);
+}
+
+async function fetchSheetCSV() {
+  const sources = [
+    { name: 'direct', url: SHEET_CSV_URL },
+    { name: 'proxy', url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent(SHEET_CSV_URL) },
+  ];
+
+  for (const src of sources) {
+    try {
+      const r = await fetch(src.url, { cache: 'no-store' });
+      if (!r.ok) continue;
+      const text = (await r.text()).replace(/^\uFEFF/, '');
+      if (isValidSheetCsv(text)) return text;
+    } catch (err) {
+      console.warn('Sheet fetch (' + src.name + ') failed:', err);
+    }
+  }
+
+  try {
+    const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(SHEET_CSV_URL));
+    if (r.ok) {
+      const data = await r.json();
+      const text = (data.contents || '').replace(/^\uFEFF/, '');
+      if (isValidSheetCsv(text)) return text;
+    }
+  } catch (err) {
+    console.warn('Sheet fetch (allorigins get) failed:', err);
+  }
+
+  throw new Error('fetch_failed');
+}
+
+async function loadJobs() {
+  const list = document.getElementById('jobs-list');
+  const loading = document.getElementById('jobs-loading');
+  const empty = document.getElementById('jobs-empty');
+  loading.style.display = 'block';
+  loading.textContent = 'Chargement des offres...';
+  list.innerHTML = '';
+  document.getElementById('jobs-pagination').style.display = 'none';
+  empty.style.display = 'none';
+  empty.textContent = 'Aucune offre ne correspond à votre recherche.';
+
+  try {
+    const t = await fetchSheetCSV();
+    allJobs = parseCSV(t).map(normalizeJob).filter(j => j.title);
+    if (!allJobs.length) throw new Error('empty_sheet');
+    setDisplayedJobs(allJobs);
+  } catch(e) {
+    console.error('Google Sheet load failed:', e);
+    allJobs = [];
+    displayedJobs = [];
+    list.innerHTML = '';
+    document.getElementById('jobs-pagination').style.display = 'none';
+    empty.style.display = 'block';
+    if (location.protocol === 'file:') {
+      empty.textContent = 'Les offres ne peuvent pas se charger depuis un fichier local. Lancez un serveur local (npx serve) puis ouvrez http://localhost:3000';
+    } else {
+      empty.textContent = 'Impossible de charger les offres depuis Google Sheets. Rafraîchissez (Ctrl+F5) ou réessayez dans quelques instants.';
+    }
+  }
+  loading.style.display = 'none';
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const headers = parseCSVLine(lines[0]).map(h => h.trim().toLowerCase().replace(/[\s"]/g,''));
+  return lines.slice(1).map(line => {
+    const vals = parseCSVLine(line);
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = vals[i] || ''; });
+    return obj;
+  });
+}
+
+function setDisplayedJobs(jobs) {
+  displayedJobs = jobs;
+  currentJobPage = 1;
+  renderJobsPage();
+}
+
+function goToJobPage(page) {
+  const totalPages = Math.max(1, Math.ceil(displayedJobs.length / JOBS_PER_PAGE));
+  if (page < 1 || page > totalPages) return;
+  currentJobPage = page;
+  renderJobsPage();
+  document.getElementById('jobs-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderPagination(totalPages) {
+  const pag = document.getElementById('jobs-pagination');
+  if (!displayedJobs.length || totalPages <= 1) {
+    pag.style.display = 'none';
+    return;
+  }
+  pag.style.display = 'flex';
+  const start = (currentJobPage - 1) * JOBS_PER_PAGE + 1;
+  const end = Math.min(currentJobPage * JOBS_PER_PAGE, displayedJobs.length);
+  const total = displayedJobs.length;
+
+  let pagesHtml = '';
+  for (let i = 1; i <= totalPages; i++) {
+    if (totalPages > 7 && i > 2 && i < totalPages - 1 && Math.abs(i - currentJobPage) > 1) {
+      if (pagesHtml.slice(-25) !== '<span class="jobs-pag-ellipsis">…</span>') {
+        pagesHtml += '<span class="jobs-pag-ellipsis">…</span>';
+      }
+      continue;
+    }
+    pagesHtml += `<button type="button" class="jobs-pag-btn${i === currentJobPage ? ' active' : ''}" onclick="goToJobPage(${i})">${i}</button>`;
+  }
+
+  pag.innerHTML = `
+    <span class="jobs-pagination-info">Affichage ${start}–${end} sur ${total} offre${total > 1 ? 's' : ''}</span>
+    <div class="jobs-pagination-nav">
+      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage - 1})" ${currentJobPage === 1 ? 'disabled' : ''}>Précédent</button>
+      <div class="jobs-pag-pages">${pagesHtml}</div>
+      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage + 1})" ${currentJobPage === totalPages ? 'disabled' : ''}>Suivant</button>
+    </div>
+  `;
+}
+
+function renderJobCard(job) {
+  const j = normalizeJob(job);
+  const dist = job.distanceKm;
+  const isRemote = job.isRemote || isRemoteLocation(j.location);
+  const tags = [];
+  if (j.location) tags.push({ text: j.location, cls: isRemote ? 'jc-tag jc-remote' : 'jc-tag' });
+  if (j.type) tags.push({ text: j.type, cls: 'jc-tag' });
+  if (dist != null) tags.push({ text: '≈ ' + dist + ' km', cls: 'jc-tag jc-dist' });
+  const div = document.createElement('div');
+  div.className = 'job-card';
+  div.innerHTML = `
+    <div class="job-card-head">
+      <div>
+        <div class="jc-title">${escHtml(j.title)}</div>
+        ${tags.length ? `<div class="jc-tags">${tags.map(t => `<span class="${t.cls}">${escHtml(t.text)}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>
+    ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(j.salary)}</div>` : ''}
+    ${j.description ? `<div class="jc-desc">${escHtml(j.description)}</div>` : ''}
+    <button class="jc-btn" type="button">Postuler</button>
+  `;
+  div.querySelector('.jc-btn').addEventListener('click', () => openModal({ ...j, distanceKm: dist, isRemote }));
+  return div;
+}
+
+function renderJobsPage() {
+  const list = document.getElementById('jobs-list');
+  const empty = document.getElementById('jobs-empty');
+  const pag = document.getElementById('jobs-pagination');
+  list.innerHTML = '';
+
+  if (!displayedJobs.length) {
+    empty.style.display = 'block';
+    pag.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+
+  const totalPages = Math.ceil(displayedJobs.length / JOBS_PER_PAGE);
+  if (currentJobPage > totalPages) currentJobPage = totalPages;
+  const start = (currentJobPage - 1) * JOBS_PER_PAGE;
+  const pageJobs = displayedJobs.slice(start, start + JOBS_PER_PAGE);
+
+  pageJobs.forEach(job => list.appendChild(renderJobCard(job)));
+  renderPagination(totalPages);
+}
+
+async function filterJobs() {
+  const p = document.getElementById('search-poste').value.toLowerCase();
+  const v = document.getElementById('search-ville').value.toLowerCase();
+  const typeFilter = document.getElementById('search-type').value;
+  const perKm = parsePerimetreKm(document.getElementById('search-perimetre').value);
+  const loading = document.getElementById('jobs-loading');
+  const list = document.getElementById('jobs-list');
+
+  let filtered = allJobs.filter(j => {
+    const n = normalizeJob(j);
+    const matchTitle = !p || n.title.toLowerCase().includes(p);
+    const matchLoc = !v || n.location.toLowerCase().includes(v);
+    const matchType = matchJobType(n.type, typeFilter);
+    return matchTitle && matchLoc && matchType;
+  });
+
+  if (perKm !== null && !userLocation) {
+    document.getElementById('geo-banner').classList.add('highlight');
+    document.getElementById('geo-banner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    alert('Pour filtrer par périmètre, veuillez d\'abord autoriser l\'accès à votre position.');
+    return;
+  }
+
+  if (userLocation && filtered.length) {
+    loading.style.display = 'block';
+    loading.textContent = 'Calcul des distances...';
+    list.innerHTML = '';
+    document.getElementById('jobs-empty').style.display = 'none';
+
+    await geocodeAllLocations(filtered.map(j => normalizeJob(j).location));
+
+    const results = [];
+    for (const job of filtered) {
+      const n = normalizeJob(job);
+      if (isRemoteLocation(n.location)) {
+        results.push({ ...n, distanceKm: null, isRemote: true });
+        continue;
+      }
+      const coords = geocodeCache[n.location.trim().toLowerCase()];
+      if (!coords) {
+        if (perKm === null) results.push({ ...n, distanceKm: null, isRemote: false });
+        continue;
+      }
+      const dist = haversineKm(userLocation.lat, userLocation.lon, coords.lat, coords.lon);
+      if (perKm === null || dist <= perKm) {
+        results.push({ ...n, distanceKm: Math.round(dist), isRemote: false });
+      }
+    }
+    results.sort((a, b) => {
+      if (a.isRemote && !b.isRemote) return 1;
+      if (!a.isRemote && b.isRemote) return -1;
+      if (a.distanceKm == null) return 1;
+      if (b.distanceKm == null) return -1;
+      return a.distanceKm - b.distanceKm;
+    });
+
+    loading.style.display = 'none';
+    loading.textContent = 'Chargement des offres...';
+    setDisplayedJobs(results);
+    return;
+  }
+
+  setDisplayedJobs(filtered.map(j => normalizeJob(j)));
+}
+
+// ══════════════════════════════
+// MODAL
+// ══════════════════════════════
+function openModal(job) {
+  currentJob = job;
+  document.getElementById('modal-title').textContent = job.title;
+  const metaParts = [job.location, job.type].filter(Boolean);
+  if (job.showSalary && job.salary) metaParts.push(job.salary);
+  document.getElementById('modal-meta').textContent = metaParts.join(' · ');
+  document.getElementById('apply-modal').classList.add('open');
+  document.getElementById('app-success').classList.remove('show');
+  ['app-prenom','app-nom','app-email','app-tel','app-lettre'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('app-consent').checked = false;
+  document.getElementById('app-cv').value = '';
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('apply-modal'))
+    document.getElementById('apply-modal').classList.remove('open');
+}
+
+// ══════════════════════════════
+// EMAILJS
+// ══════════════════════════════
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+function sendEmail(params, successId) {
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+    .then(() => document.getElementById(successId).classList.add('show'))
+    .catch(err => {
+      console.error(err);
+      alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+    });
+}
+
+function submitCV() {
+  const p = document.getElementById('cv-prenom').value;
+  const n = document.getElementById('cv-nom').value;
+  const e = document.getElementById('cv-email').value;
+  if (!p||!n||!e) { alert('Veuillez remplir les champs obligatoires.'); return; }
+  if (!document.getElementById('cv-consent').checked) {
+    alert('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    return;
+  }
+  const shiftEl = document.querySelector('input[name="cv-shift"]:checked');
+  if (!shiftEl) {
+    alert('Veuillez sélectionner votre disponibilité horaire.');
+    return;
+  }
+  const file = document.getElementById('cv-file').files[0];
+  sendEmail({
+    from_name: p+' '+n, from_email: e,
+    phone: document.getElementById('cv-tel').value,
+    secteur: document.getElementById('cv-secteur').value,
+    disponibilite: shiftEl.value,
+    message: document.getElementById('cv-message').value||'—',
+    cv_file: file ? file.name : 'Non joint',
+    consent: 'Oui — J\'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels conformément à la Politique de confidentialité.',
+    subject: 'Candidature spontanée — '+p+' '+n,
+  }, 'cv-success');
+}
+
+function submitContact() {
+  const n = document.getElementById('con-nom').value;
+  const e = document.getElementById('con-email').value;
+  const m = document.getElementById('con-message').value;
+  if (!n||!e||!m) { alert('Veuillez remplir les champs obligatoires.'); return; }
+  sendEmail({
+    from_name: n, from_email: e,
+    phone: document.getElementById('con-tel').value,
+    message: m,
+    subject: 'Message de contact — '+n,
+  }, 'con-success');
+}
+
+function submitApplication() {
+  const p = document.getElementById('app-prenom').value;
+  const n = document.getElementById('app-nom').value;
+  const e = document.getElementById('app-email').value;
+  if (!p||!n||!e) { alert('Veuillez remplir les champs obligatoires.'); return; }
+  if (!document.getElementById('app-consent').checked) {
+    alert('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    return;
+  }
+  const file = document.getElementById('app-cv').files[0];
+  if (!file) { alert('Veuillez joindre votre CV.'); return; }
+  sendEmail({
+    from_name: p+' '+n, from_email: e,
+    phone: document.getElementById('app-tel').value,
+    message: document.getElementById('app-lettre').value||'—',
+    cv_file: file.name,
+    consent: 'Oui — J\'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels conformément à la Politique de confidentialité.',
+    poste: currentJob?.title || document.getElementById('modal-title').textContent,
+    job_location: currentJob?.location || '',
+    job_type: currentJob?.type || '',
+    job_email: currentJob?.email || '',
+    subject: 'Candidature — '+(currentJob?.title || document.getElementById('modal-title').textContent)+' — '+p+' '+n,
+  }, 'app-success');
+}
+</script>
+
+</body>
+</html>
