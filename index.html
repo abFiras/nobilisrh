@@ -881,6 +881,11 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   color:#065f46;padding:.8rem 1rem;margin-top:1rem;font-size:.82rem;text-align:center;
 }
 .form-success.show{display:block;}
+.form-error{
+  display:none;background:#fee2e2;border:1px solid #f87171;
+  color:#991b1b;padding:.8rem 1rem;margin-top:1rem;font-size:.82rem;text-align:center;line-height:1.5;
+}
+.form-error.show{display:block;}
 
 /* ══════════════════════════════════
    MODAL
@@ -1887,6 +1892,7 @@ img,video{max-width:100%;}
           </label>
         </div>
         <button type="submit" class="btn btn-dark" id="app-submit-btn" style="width:100%;padding:.9rem;">Postuler</button>
+        <div class="form-error" id="app-error" role="alert"></div>
         <div class="form-success" id="app-success">✓ Candidature envoyée avec succès!</div>
       </form>
     </div>
@@ -2723,7 +2729,7 @@ function openModal(job) {
   descEl.textContent = job.description || '';
   document.getElementById('apply-modal').classList.add('open');
   document.body.classList.add('modal-open');
-  document.getElementById('app-success').classList.remove('show');
+  clearAppMessages();
   const appForm = document.getElementById('app-form');
   if (appForm) appForm.reset();
   setAppSubmitLoading(false);
@@ -2772,11 +2778,21 @@ async function uploadCvToSupabase(file) {
     upsert: false
   });
   if (error) throw error;
-  const { data: signedData, error: signError } = await sb.storage
-    .from(SUPABASE_CV_BUCKET)
-    .createSignedUrl(path, 60 * 60 * 24 * 30);
-  if (signError) throw signError;
-  return { path, publicUrl: signedData?.signedUrl || null };
+  return { path };
+}
+
+async function archiveApplicationToSupabase(file, meta) {
+  if (!isSupabaseConfigured()) return;
+  try {
+    const cvStorage = await uploadCvToSupabase(file);
+    await saveApplicationToSupabase({
+      ...meta,
+      cv_storage_path: cvStorage?.path || null,
+      cv_url: null
+    });
+  } catch (err) {
+    console.warn('Supabase archive failed (candidature envoyée via Formspree):', err);
+  }
 }
 
 async function saveApplicationToSupabase(record) {
@@ -2810,6 +2826,40 @@ function setAppSubmitLoading(loading) {
   if (!btn) return;
   btn.disabled = loading;
   btn.textContent = loading ? 'Envoi en cours…' : 'Postuler';
+}
+
+function clearAppMessages() {
+  document.getElementById('app-success')?.classList.remove('show');
+  const err = document.getElementById('app-error');
+  if (err) {
+    err.textContent = '';
+    err.classList.remove('show');
+  }
+}
+
+function showAppError(message) {
+  const err = document.getElementById('app-error');
+  document.getElementById('app-success')?.classList.remove('show');
+  if (!err) return;
+  err.textContent = message;
+  err.classList.add('show');
+  err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showAppSuccess() {
+  clearAppMessages();
+  document.getElementById('app-success')?.classList.add('show');
+}
+
+function formatApplicationError(err) {
+  const msg = String(err?.message || err || '').toLowerCase();
+  if (msg.includes('formulaire de candidature non configuré')) {
+    return 'Le formulaire n\'est pas encore configuré. Réessayez plus tard.';
+  }
+  if (msg.includes('failed to fetch') || msg.includes('network')) {
+    return 'Connexion impossible. Vérifiez votre réseau et réessayez.';
+  }
+  return err?.message || 'Erreur lors de l\'envoi. Veuillez réessayer.';
 }
 
 // ══════════════════════════════
@@ -2882,23 +2932,23 @@ async function submitApplication(event) {
   const jobEmail = currentJob?.email || '';
 
   if (!p || !n || !e) {
-    alert('Veuillez remplir les champs obligatoires.');
+    showAppError('Veuillez remplir les champs obligatoires.');
     return;
   }
   if (!document.getElementById('app-consent').checked) {
-    alert('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    showAppError('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
     return;
   }
 
   const file = document.getElementById('app-cv').files[0];
   if (!file) {
-    alert('Veuillez joindre votre CV.');
+    showAppError('Veuillez joindre votre CV.');
     return;
   }
 
   const maxCvBytes = 10 * 1024 * 1024;
   if (file.size > maxCvBytes) {
-    alert('Le CV ne doit pas dépasser 10 Mo.');
+    showAppError('Le CV ne doit pas dépasser 10 Mo.');
     return;
   }
 
@@ -2919,42 +2969,31 @@ async function submitApplication(event) {
   formData.append('attachment', file, file.name);
 
   setAppSubmitLoading(true);
-  document.getElementById('app-success').classList.remove('show');
+  clearAppMessages();
 
-  let cvStorage = null;
   try {
-    if (isSupabaseConfigured()) {
-      cvStorage = await uploadCvToSupabase(file);
-      if (cvStorage?.publicUrl) formData.append('cv_url', cvStorage.publicUrl);
-      if (cvStorage?.path) formData.append('cv_storage_path', cvStorage.path);
-    }
-
     await submitToFormspree(formData);
 
-    if (isSupabaseConfigured()) {
-      await saveApplicationToSupabase({
-        prenom: p,
-        nom: n,
-        email: e,
-        telephone: tel || null,
-        lettre_motivation: lettre || null,
-        poste,
-        localisation: jobLocation || null,
-        type_contrat: jobType || null,
-        email_offre: jobEmail || null,
-        cv_filename: file.name,
-        cv_storage_path: cvStorage?.path || null,
-        cv_url: cvStorage?.publicUrl || null,
-        consentement: true
-      });
-    }
+    await archiveApplicationToSupabase(file, {
+      prenom: p,
+      nom: n,
+      email: e,
+      telephone: tel || null,
+      lettre_motivation: lettre || null,
+      poste,
+      localisation: jobLocation || null,
+      type_contrat: jobType || null,
+      email_offre: jobEmail || null,
+      cv_filename: file.name,
+      consentement: true
+    });
 
-    document.getElementById('app-success').classList.add('show');
+    showAppSuccess();
     document.getElementById('app-form').reset();
     document.getElementById('app-consent').checked = false;
   } catch (err) {
     console.error(err);
-    alert(err.message || 'Erreur lors de l\'envoi. Veuillez réessayer.');
+    showAppError(formatApplicationError(err));
   } finally {
     setAppSubmitLoading(false);
   }

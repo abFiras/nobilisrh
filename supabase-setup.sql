@@ -40,3 +40,6 @@ create policy "Allow anonymous upload cvs"
   for insert
   to anon
   with check (bucket_id = 'cvs');
+
+-- Optional: allow reading uploaded files in Supabase Dashboard (service role bypasses RLS)
+-- Anonymous users do NOT need SELECT — the site uploads only, Formspree receives the CV file.
