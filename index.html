@@ -768,22 +768,26 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .modal-overlay{
   position:fixed;inset:0;background:rgba(8,16,26,.75);z-index:2000;
   display:none;align-items:center;justify-content:center;padding:1.5rem;
+  overscroll-behavior:contain;
 }
 .modal-overlay.open{display:flex;align-items:center;justify-content:center;}
+body.modal-open{overflow:hidden;touch-action:none;}
 .modal{
   background:#fff;width:100%;padding:2rem 1.75rem 2rem;
-  max-height:92vh;overflow-y:auto;position:relative;
+  max-height:min(92vh,92dvh);overflow-y:auto;position:relative;
   animation:fadeUp .3s ease;border-radius:10px;box-shadow:var(--shadow-lg);
+  -webkit-overflow-scrolling:touch;
 }
 .modal.modal-apply{
   max-width:920px;
   padding:0;
   overflow:hidden;
-  display:block;
+  display:flex;flex-direction:column;
+  max-height:min(92vh,92dvh);
 }
 .modal-apply-grid{
   display:grid;grid-template-columns:minmax(260px,.95fr) minmax(320px,1.05fr);
-  max-height:88vh;
+  max-height:min(88vh,88dvh);min-height:0;
 }
 .modal-apply-info{
   background:var(--navy);color:#fff;padding:2rem 2rem 2.25rem;
@@ -816,6 +820,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .modal-desc:empty{display:none;}
 .modal-apply-form{
   padding:2rem 2rem 2.25rem;overflow-y:auto;background:#fff;
+  min-height:0;-webkit-overflow-scrolling:touch;
 }
 .modal-apply-form .form-group{margin-bottom:.95rem;}
 .modal-apply-form textarea{min-height:88px;}
@@ -831,6 +836,10 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .modal-meta{font-size:.8rem;color:#9ca3af;padding-bottom:1.2rem;border-bottom:1px solid #e5e7eb;margin-bottom:1.5rem;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* responsive media */
+img,video{max-width:100%;}
+.responsive-media{width:100%;height:auto;display:block;object-fit:cover;}
 
 /* ══════════════════════════════════
    RESPONSIVE
@@ -860,8 +869,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   .shift-choices{gap:.4rem;}
   .shift-chip span{padding:.45rem .75rem;font-size:.75rem;}
   .acc-hero-right{height:50vw;}
-  .job-side-video{min-height:360px;position:relative;top:0;}
-  .job-side-video video{min-height:360px;}
   .engagement-cards,.rigueur-cards,.approches-cards,.eng-contract-cards,.align-cards{grid-template-columns:1fr;}
   .steps-row,.cand-steps{grid-template-columns:repeat(2,1fr);}
   .steps-row::before{display:none;}
@@ -872,10 +879,49 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   .jobs-pagination{flex-direction:column;align-items:stretch;text-align:center;}
   .jobs-pagination-nav{justify-content:center;}
   .science-grid{grid-template-columns:1fr;}
-  .modal-apply-grid{grid-template-columns:1fr;max-height:92vh;}
-  .modal-apply-info{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);max-height:none;}
-  .modal-desc{max-height:min(28vh,200px);}
-  .modal.modal-apply{max-width:calc(100vw - 2rem);}
+  .modal-overlay.open{align-items:flex-end;padding:0;}
+  .modal.modal-apply{
+    max-width:100%;width:100%;
+    max-height:min(94dvh,94vh);
+    border-radius:16px 16px 0 0;
+    margin:0;
+  }
+  .modal-apply-grid{
+    grid-template-columns:1fr;
+    max-height:none;
+    display:flex;flex-direction:column;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    flex:1;min-height:0;
+  }
+  .modal-apply-info{
+    border-right:none;border-bottom:1px solid rgba(255,255,255,.1);
+    max-height:none;flex-shrink:0;
+    padding-top:2.75rem;
+  }
+  .modal-desc{max-height:none;overflow:visible;flex:none;}
+  .modal-apply-form{overflow:visible;flex-shrink:0;padding-bottom:max(1.35rem,env(safe-area-inset-bottom));}
+  .modal-close{top:.75rem;right:.75rem;width:40px;height:40px;font-size:1.35rem;}
+  .form-row2{grid-template-columns:1fr;}
+  .acc-hero-left,.svc-talents-left{padding:3rem 1.5rem;}
+  .acc-perf-right,.acc-engagement,.svc-science,.svc-approches,.svc-faq,
+  .ent-engagements,.ent-logo-section,.cand-confier,.cand-demarche,
+  .con-form-section,.con-presence,.job-search{padding-left:1.25rem;padding-right:1.25rem;}
+  .svc-hero .hero-content,.ent-hero .hero-content,.ent-recrutement .hero-content{padding-left:1.5rem;padding-right:1.5rem;}
+  .cand-split-item{padding:2rem 1.25rem;border-right:none;border-bottom:1px solid #e5e7eb;}
+  .cand-split-item:last-child{border-bottom:none;}
+  .acc-star-wrap{flex-direction:column;text-align:center;}
+  .star-caption{max-width:none;border-left:none;padding-left:0;border-top:3px solid var(--gold);padding-top:1rem;}
+  .science-right video,.science-right img{height:auto;min-height:220px;max-height:50vw;}
+  .acc-perf-left{min-height:280px;padding:1.25rem;}
+  .svc-talents-right{min-height:280px;}
+  .svc-talents-right img{padding:1.25rem;}
+  .job-side-video{min-height:min(70vw,420px);position:relative;top:0;}
+  .job-side-video video{min-height:min(70vw,420px);height:auto;}
+  .job-card{padding:1.35rem 1.25rem;}
+  .job-card-head{flex-direction:column;gap:.5rem;}
+  .vid-hero{min-height:42vh;}
+  .svc-hero,.con-hero,.job-hero{height:auto;min-height:42vh;}
+  .ent-hero,.cand-hero,.ent-recrutement,.cand-alignement{min-height:50vh;}
 }
 @media(max-width:600px){
   .nav-logo-img{height:58px;}
@@ -887,8 +933,13 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   .footer-brand-logo{height:56px;}
   .footer-bottom{flex-direction:column;text-align:center;gap:.75rem;}
   .footer-bottom-right{justify-content:center;}
-  .modal.modal-apply{max-width:calc(100vw - 1.5rem);}
-  .modal-apply-info,.modal-apply-form{padding:1.35rem 1.25rem;}
+  .modal-apply-info,.modal-apply-form{padding:1.35rem 1rem;}
+  .modal-apply-info{padding-top:2.5rem;}
+  .steps-row,.cand-steps{grid-template-columns:1fr;}
+  .search-bar select{min-width:0;width:100%;}
+  .search-bar button{width:100%;}
+  .jc-title{font-size:1rem;}
+  footer{padding:2.5rem 1rem 1.25rem;}
 }
 </style>
 </head>
@@ -1514,10 +1565,12 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   <!-- Search + listings -->
   <section class="job-search">
     <h2>Recherche d'emploi</h2>
-    <p>Indiquez une ville au Canada et un périmètre pour afficher les offres à proximité.</p>
+    <p>Indiquez un nom de poste, sélectionnez une ville au Canada et un périmètre pour afficher les offres à proximité.</p>
     <div class="search-bar">
       <input type="text" id="search-poste" placeholder="Nom du poste"/>
-      <input type="text" id="search-ville" placeholder="Ville au Canada (ex. Québec)"/>
+      <select id="search-ville" aria-label="Ville au Canada">
+        <option value="">Ville au Canada</option>
+      </select>
       <select id="search-type" aria-label="Type de contrat">
         <option value="">Tous les types</option>
         <option value="Temps plein">Temps plein</option>
@@ -1679,7 +1732,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 ══════════════════════════════════ -->
 <div class="modal-overlay" id="apply-modal" onclick="closeModal(event)">
   <div class="modal modal-apply form-light" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="document.getElementById('apply-modal').classList.remove('open')">✕</button>
+    <button class="modal-close" type="button" onclick="closeApplyModal()" aria-label="Fermer">✕</button>
     <div class="modal-apply-grid">
       <div class="modal-apply-info">
         <h3 id="modal-title">Postuler</h3>
@@ -1790,6 +1843,7 @@ window.addEventListener('scroll', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCanadianCitySelect();
   const hash = location.hash.replace('#', '');
   const pages = ['accueil','services','entreprises','candidats','contact','job','confidentialite'];
   if (pages.includes(hash)) showPage(hash);
@@ -1814,6 +1868,239 @@ let displayedJobs = [];
 let currentJobPage = 1;
 let currentJob = null;
 const geocodeCache = {};
+
+const CANADIAN_CITIES = [
+  { province: 'Alberta', cities: [
+    { name: 'Calgary', lat: 51.0447, lon: -114.0719 },
+    { name: 'Edmonton', lat: 53.5461, lon: -113.4938 },
+    { name: 'Red Deer', lat: 52.2681, lon: -113.8112 },
+    { name: 'Lethbridge', lat: 49.6956, lon: -112.8451 },
+    { name: 'St. Albert', lat: 53.6303, lon: -113.6258 },
+    { name: 'Medicine Hat', lat: 50.0405, lon: -110.6764 },
+    { name: 'Grande Prairie', lat: 55.1707, lon: -118.7947 },
+    { name: 'Airdrie', lat: 51.2917, lon: -114.0147 },
+    { name: 'Spruce Grove', lat: 53.5450, lon: -113.9008 },
+    { name: 'Fort McMurray', lat: 56.7267, lon: -111.3790 },
+    { name: 'Leduc', lat: 53.2594, lon: -113.5492 },
+    { name: 'Lloydminster', lat: 53.2842, lon: -110.0059 },
+    { name: 'Camrose', lat: 53.0168, lon: -112.8353 },
+    { name: 'Brooks', lat: 50.5642, lon: -111.8989 },
+    { name: 'Cold Lake', lat: 54.4642, lon: -110.1825 }
+  ]},
+  { province: 'Colombie-Britannique', cities: [
+    { name: 'Vancouver', lat: 49.2827, lon: -123.1207 },
+    { name: 'Surrey', lat: 49.1913, lon: -122.8490 },
+    { name: 'Burnaby', lat: 49.2488, lon: -122.9805 },
+    { name: 'Richmond', lat: 49.1666, lon: -123.1336 },
+    { name: 'Abbotsford', lat: 49.0504, lon: -122.3045 },
+    { name: 'Coquitlam', lat: 49.2838, lon: -122.7932 },
+    { name: 'Kelowna', lat: 49.8880, lon: -119.4960 },
+    { name: 'Langley', lat: 49.1044, lon: -122.6606 },
+    { name: 'Victoria', lat: 48.4284, lon: -123.3656 },
+    { name: 'Kamloops', lat: 50.6745, lon: -120.3273 },
+    { name: 'Nanaimo', lat: 49.1659, lon: -123.9401 },
+    { name: 'Chilliwack', lat: 49.1579, lon: -121.9514 },
+    { name: 'Prince George', lat: 53.9171, lon: -122.7497 },
+    { name: 'Vernon', lat: 50.2670, lon: -119.2720 },
+    { name: 'Courtenay', lat: 49.6878, lon: -124.9945 },
+    { name: 'Penticton', lat: 49.4991, lon: -119.5937 },
+    { name: 'Campbell River', lat: 50.0248, lon: -125.2475 },
+    { name: 'Cranbrook', lat: 49.5128, lon: -115.7693 },
+    { name: 'Fort St. John', lat: 56.2465, lon: -120.8476 },
+    { name: 'Nelson', lat: 49.4928, lon: -117.2948 }
+  ]},
+  { province: 'Île-du-Prince-Édouard', cities: [
+    { name: 'Charlottetown', lat: 46.2382, lon: -63.1311 },
+    { name: 'Summerside', lat: 46.3959, lon: -63.7892 },
+    { name: 'Stratford', lat: 46.2200, lon: -63.0880 },
+    { name: 'Cornwall', lat: 46.2260, lon: -63.2180 }
+  ]},
+  { province: 'Manitoba', cities: [
+    { name: 'Winnipeg', lat: 49.8954, lon: -97.1385 },
+    { name: 'Brandon', lat: 49.8480, lon: -99.9500 },
+    { name: 'Steinbach', lat: 49.5258, lon: -96.6845 },
+    { name: 'Thompson', lat: 55.7435, lon: -97.8551 },
+    { name: 'Portage la Prairie', lat: 49.9728, lon: -98.2919 },
+    { name: 'Winkler', lat: 49.1817, lon: -97.9400 },
+    { name: 'Selkirk', lat: 50.1436, lon: -96.8845 },
+    { name: 'Morden', lat: 49.1919, lon: -98.1014 }
+  ]},
+  { province: 'Nouveau-Brunswick', cities: [
+    { name: 'Moncton', lat: 46.0878, lon: -64.7782 },
+    { name: 'Saint John', lat: 45.2733, lon: -66.0633 },
+    { name: 'Fredericton', lat: 45.9636, lon: -66.6431 },
+    { name: 'Dieppe', lat: 46.0989, lon: -64.7242 },
+    { name: 'Miramichi', lat: 47.0000, lon: -65.4667 },
+    { name: 'Edmundston', lat: 47.3737, lon: -68.3251 },
+    { name: 'Bathurst', lat: 47.6186, lon: -65.6513 },
+    { name: 'Campbellton', lat: 48.0075, lon: -66.6728 }
+  ]},
+  { province: 'Nouvelle-Écosse', cities: [
+    { name: 'Halifax', lat: 44.6488, lon: -63.5752 },
+    { name: 'Dartmouth', lat: 44.6713, lon: -63.5772 },
+    { name: 'Sydney', lat: 46.1368, lon: -60.1942 },
+    { name: 'Truro', lat: 45.3667, lon: -63.2833 },
+    { name: 'New Glasgow', lat: 45.5834, lon: -62.6486 },
+    { name: 'Glace Bay', lat: 46.1969, lon: -59.9570 },
+    { name: 'Kentville', lat: 45.0776, lon: -64.4960 },
+    { name: 'Amherst', lat: 45.8167, lon: -64.2000 }
+  ]},
+  { province: 'Nunavut', cities: [
+    { name: 'Iqaluit', lat: 63.7467, lon: -68.5170 },
+    { name: 'Rankin Inlet', lat: 62.8094, lon: -92.0852 },
+    { name: 'Arviat', lat: 61.1086, lon: -94.0586 },
+    { name: 'Baker Lake', lat: 64.3189, lon: -96.0167 }
+  ]},
+  { province: 'Ontario', cities: [
+    { name: 'Toronto', lat: 43.6532, lon: -79.3832 },
+    { name: 'Ottawa', lat: 45.4215, lon: -75.6972 },
+    { name: 'Mississauga', lat: 43.5890, lon: -79.6441 },
+    { name: 'Brampton', lat: 43.7315, lon: -79.7624 },
+    { name: 'Hamilton', lat: 43.2557, lon: -79.8711 },
+    { name: 'London', lat: 42.9849, lon: -81.2453 },
+    { name: 'Markham', lat: 43.8561, lon: -79.3370 },
+    { name: 'Vaughan', lat: 43.8361, lon: -79.4983 },
+    { name: 'Kitchener', lat: 43.4516, lon: -80.4925 },
+    { name: 'Windsor', lat: 42.3149, lon: -83.0364 },
+    { name: 'Richmond Hill', lat: 43.8828, lon: -79.4403 },
+    { name: 'Oakville', lat: 43.4675, lon: -79.6877 },
+    { name: 'Burlington', lat: 43.3255, lon: -79.7990 },
+    { name: 'Greater Sudbury', lat: 46.4917, lon: -80.9930 },
+    { name: 'Oshawa', lat: 43.8971, lon: -78.8658 },
+    { name: 'Barrie', lat: 44.3894, lon: -79.6903 },
+    { name: 'St. Catharines', lat: 43.1594, lon: -79.2469 },
+    { name: 'Cambridge', lat: 43.3616, lon: -80.3144 },
+    { name: 'Kingston', lat: 44.2312, lon: -76.4860 },
+    { name: 'Guelph', lat: 43.5448, lon: -80.2482 },
+    { name: 'Thunder Bay', lat: 48.3809, lon: -89.2477 },
+    { name: 'Waterloo', lat: 43.4643, lon: -80.5204 },
+    { name: 'Brantford', lat: 43.1394, lon: -80.2644 },
+    { name: 'Pickering', lat: 43.8384, lon: -79.0868 },
+    { name: 'Niagara Falls', lat: 43.0896, lon: -79.0849 },
+    { name: 'Peterborough', lat: 44.3091, lon: -78.3197 },
+    { name: 'Sarnia', lat: 42.9745, lon: -82.4066 },
+    { name: 'Newmarket', lat: 44.0592, lon: -79.4613 },
+    { name: 'Sault Ste. Marie', lat: 46.5219, lon: -84.3195 },
+    { name: 'North Bay', lat: 46.3091, lon: -79.4608 },
+    { name: 'Cornwall', lat: 45.0181, lon: -74.7282 },
+    { name: 'Belleville', lat: 44.1628, lon: -77.3832 },
+    { name: 'Chatham-Kent', lat: 42.4048, lon: -82.1910 },
+    { name: 'Whitby', lat: 43.8975, lon: -78.9429 },
+    { name: 'Ajax', lat: 43.8509, lon: -79.0204 },
+    { name: 'Orillia', lat: 44.6082, lon: -79.4207 },
+    { name: 'Stouffville', lat: 43.9701, lon: -79.2503 },
+    { name: 'Timmins', lat: 48.4758, lon: -81.3305 },
+    { name: 'Pembroke', lat: 45.8267, lon: -77.1108 }
+  ]},
+  { province: 'Québec', cities: [
+    { name: 'Montréal', lat: 45.5017, lon: -73.5673 },
+    { name: 'Québec', lat: 46.8139, lon: -71.2080 },
+    { name: 'Laval', lat: 45.6066, lon: -73.7124 },
+    { name: 'Gatineau', lat: 45.4765, lon: -75.7013 },
+    { name: 'Longueuil', lat: 45.5312, lon: -73.5186 },
+    { name: 'Sherbrooke', lat: 45.4042, lon: -71.8929 },
+    { name: 'Saguenay', lat: 48.4167, lon: -71.0667 },
+    { name: 'Lévis', lat: 46.8033, lon: -71.1779 },
+    { name: 'Trois-Rivières', lat: 46.3432, lon: -72.5432 },
+    { name: 'Terrebonne', lat: 45.7000, lon: -73.6333 },
+    { name: 'Saint-Jean-sur-Richelieu', lat: 45.3073, lon: -73.2626 },
+    { name: 'Repentigny', lat: 45.7420, lon: -73.4501 },
+    { name: 'Brossard', lat: 45.4584, lon: -73.4551 },
+    { name: 'Drummondville', lat: 45.8833, lon: -72.4833 },
+    { name: 'Granby', lat: 45.4000, lon: -72.7333 },
+    { name: 'Saint-Jérôme', lat: 45.7800, lon: -74.0000 },
+    { name: 'Blainville', lat: 45.6700, lon: -73.8833 },
+    { name: 'Shawinigan', lat: 46.5667, lon: -72.7500 },
+    { name: 'Dollard-des-Ormeaux', lat: 45.4942, lon: -73.8242 },
+    { name: 'Rimouski', lat: 48.4488, lon: -68.5240 },
+    { name: 'Victoriaville', lat: 46.0667, lon: -71.9667 },
+    { name: 'Saint-Hyacinthe', lat: 45.6306, lon: -72.9569 },
+    { name: 'Mirabel', lat: 45.6500, lon: -74.0833 },
+    { name: 'Joliette', lat: 46.0167, lon: -73.4500 },
+    { name: 'Mascouche', lat: 45.7497, lon: -73.5997 },
+    { name: 'Rouyn-Noranda', lat: 48.2333, lon: -79.0167 },
+    { name: 'Salaberry-de-Valleyfield', lat: 45.2500, lon: -74.1333 },
+    { name: 'Sorel-Tracy', lat: 46.0333, lon: -73.1167 },
+    { name: 'Val-d\'Or', lat: 48.1000, lon: -77.7833 },
+    { name: 'Alma', lat: 48.5500, lon: -71.6500 },
+    { name: 'Baie-Comeau', lat: 49.2167, lon: -68.1500 },
+    { name: 'Sept-Îles', lat: 50.2000, lon: -66.3833 },
+    { name: 'Thetford Mines', lat: 46.1000, lon: -71.3000 },
+    { name: 'Magog', lat: 45.2667, lon: -72.1500 },
+    { name: 'Saint-Eustache', lat: 45.5650, lon: -73.9050 },
+    { name: 'Vaudreuil-Dorion', lat: 45.4000, lon: -74.0333 },
+    { name: 'Saint-Bruno-de-Montarville', lat: 45.5333, lon: -73.3500 },
+    { name: 'Châteauguay', lat: 45.3667, lon: -73.7500 },
+    { name: 'Chicoutimi', lat: 48.4297, lon: -71.0577 },
+    { name: 'Gaspé', lat: 48.8333, lon: -64.4833 },
+    { name: 'Matane', lat: 48.8500, lon: -67.5333 },
+    { name: 'Rivière-du-Loup', lat: 47.8333, lon: -69.5333 },
+    { name: 'Mont-Tremblant', lat: 46.2120, lon: -74.5844 },
+    { name: 'Saint-Georges', lat: 46.1167, lon: -70.6667 },
+    { name: 'Cowansville', lat: 45.2000, lon: -72.7500 }
+  ]},
+  { province: 'Saskatchewan', cities: [
+    { name: 'Saskatoon', lat: 52.1332, lon: -106.6700 },
+    { name: 'Regina', lat: 50.4452, lon: -104.6189 },
+    { name: 'Prince Albert', lat: 53.2033, lon: -105.7531 },
+    { name: 'Moose Jaw', lat: 50.3934, lon: -105.5519 },
+    { name: 'Swift Current', lat: 50.2881, lon: -107.7939 },
+    { name: 'Yorkton', lat: 51.2139, lon: -102.4628 },
+    { name: 'North Battleford', lat: 52.7575, lon: -108.2861 },
+    { name: 'Estevan', lat: 49.1392, lon: -102.9861 },
+    { name: 'Weyburn', lat: 49.6611, lon: -103.8525 }
+  ]},
+  { province: 'Terre-Neuve-et-Labrador', cities: [
+    { name: 'St. John\'s', lat: 47.5615, lon: -52.7126 },
+    { name: 'Mount Pearl', lat: 47.5189, lon: -52.8058 },
+    { name: 'Corner Brook', lat: 48.9500, lon: -57.9500 },
+    { name: 'Gander', lat: 48.9569, lon: -54.6089 },
+    { name: 'Grand Falls-Windsor', lat: 48.9333, lon: -55.6500 },
+    { name: 'Labrador City', lat: 52.9463, lon: -66.9114 }
+  ]},
+  { province: 'Territoires du Nord-Ouest', cities: [
+    { name: 'Yellowknife', lat: 62.4540, lon: -114.3718 },
+    { name: 'Hay River', lat: 60.8156, lon: -115.7999 },
+    { name: 'Inuvik', lat: 68.3607, lon: -133.7230 },
+    { name: 'Fort Smith', lat: 60.0042, lon: -111.8936 }
+  ]},
+  { province: 'Yukon', cities: [
+    { name: 'Whitehorse', lat: 60.7212, lon: -135.0568 },
+    { name: 'Dawson City', lat: 64.0601, lon: -139.4336 },
+    { name: 'Watson Lake', lat: 60.0631, lon: -128.7089 }
+  ]}
+];
+
+function initCanadianCitySelect() {
+  const sel = document.getElementById('search-ville');
+  if (!sel || sel.options.length > 1) return;
+  CANADIAN_CITIES.forEach(group => {
+    const og = document.createElement('optgroup');
+    og.label = group.province;
+    group.cities.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.textContent = c.name;
+      opt.dataset.lat = c.lat;
+      opt.dataset.lon = c.lon;
+      og.appendChild(opt);
+      const key = c.name.trim().toLowerCase();
+      geocodeCache[key] = { lat: c.lat, lon: c.lon, name: c.name };
+      geocodeCache['ca:' + key] = geocodeCache[key];
+    });
+    sel.appendChild(og);
+  });
+}
+
+function getSelectedCityCoords() {
+  const sel = document.getElementById('search-ville');
+  const opt = sel?.options[sel.selectedIndex];
+  if (!opt?.value) return null;
+  const lat = parseFloat(opt.dataset.lat);
+  const lon = parseFloat(opt.dataset.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  return { lat, lon, name: opt.value };
+}
 
 function isRemoteLocation(loc) {
   const l = String(loc || '').toLowerCase().trim();
@@ -2090,7 +2377,8 @@ function renderJobsPage() {
 
 async function filterJobs() {
   const p = document.getElementById('search-poste').value.toLowerCase().trim();
-  const refCity = document.getElementById('search-ville').value.trim();
+  const refCoords = getSelectedCityCoords();
+  const refCity = refCoords?.name || '';
   const typeFilter = document.getElementById('search-type').value;
   const perKm = parsePerimetreKm(document.getElementById('search-perimetre').value);
   const loading = document.getElementById('jobs-loading');
@@ -2104,24 +2392,16 @@ async function filterJobs() {
   });
 
   if (perKm !== null && !refCity) {
-    alert('Veuillez entrer une ville au Canada pour utiliser le filtre par périmètre.');
+    alert('Veuillez sélectionner une ville au Canada pour utiliser le filtre par périmètre.');
     document.getElementById('search-ville').focus();
     return;
   }
 
-  if (refCity && (perKm !== null || refCity)) {
+  if (refCity) {
     loading.style.display = 'block';
     loading.textContent = 'Calcul des distances...';
     list.innerHTML = '';
     document.getElementById('jobs-empty').style.display = 'none';
-
-    const refCoords = await geocodeLocation(refCity, 'CA');
-    if (!refCoords) {
-      loading.style.display = 'none';
-      loading.textContent = 'Chargement des offres...';
-      alert('Ville introuvable. Essayez « Québec », « Montréal », « Toronto », etc.');
-      return;
-    }
 
     await geocodeAllLocations(filtered.map(j => normalizeJob(j).location));
 
@@ -2172,17 +2452,29 @@ function openModal(job) {
   const descEl = document.getElementById('modal-desc');
   descEl.textContent = job.description || '';
   document.getElementById('apply-modal').classList.add('open');
+  document.body.classList.add('modal-open');
   document.getElementById('app-success').classList.remove('show');
   ['app-prenom','app-nom','app-email','app-tel','app-lettre'].forEach(id => {
     document.getElementById(id).value = '';
   });
   document.getElementById('app-consent').checked = false;
   document.getElementById('app-cv').value = '';
+  requestAnimationFrame(() => {
+    document.querySelector('.modal-apply-grid')?.scrollTo(0, 0);
+  });
+}
+function closeApplyModal() {
+  document.getElementById('apply-modal').classList.remove('open');
+  document.body.classList.remove('modal-open');
 }
 function closeModal(e) {
   if (e.target === document.getElementById('apply-modal'))
-    document.getElementById('apply-modal').classList.remove('open');
+    closeApplyModal();
 }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('apply-modal').classList.contains('open'))
+    closeApplyModal();
+});
 
 // ══════════════════════════════
 // EMAILJS
