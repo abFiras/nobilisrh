@@ -56,6 +56,7 @@ nav{
   z-index:1000;
   border-bottom:1px solid rgba(255,255,255,.06);
   transition:box-shadow var(--ease);
+  gap:1rem;
 }
 nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-logo{display:flex;align-items:center;gap:.7rem;cursor:pointer;text-decoration:none;transition:opacity var(--ease);}
@@ -77,6 +78,7 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-toggle{
   display:none;flex-direction:column;justify-content:center;gap:5px;
   width:40px;height:40px;background:none;border:none;cursor:pointer;padding:6px;
+  flex-shrink:0;z-index:1001;
 }
 .nav-toggle span{display:block;height:2px;background:#fff;border-radius:1px;transition:transform var(--ease),opacity var(--ease);}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -205,7 +207,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   color:rgba(255,255,255,.55);font-size:.82rem;text-decoration:none;cursor:pointer;transition:color .2s;
 }
 .footer-col ul li a:hover{color:#fff;}
-.footer-col-right{text-align:right;}
+.footer-col-right{text-align:right;grid-column:3/5;}
 .footer-col-right h4{text-align:right;}
 .footer-col-right p{font-size:.82rem;line-height:1.8;}
 .footer-gold-label{color:var(--gold);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;}
@@ -654,30 +656,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   max-width:1100px;margin:0 auto 1.25rem;
   background:var(--offwhite);border:1px solid #e5e7eb;padding:1rem;
 }
-.geo-banner{
-  max-width:1100px;margin:0 auto 1.5rem;padding:1rem 1.25rem;
-  background:#fff;border:1px solid #e5e7eb;border-left:3px solid var(--gold);
-  border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-}
-.geo-banner.highlight{box-shadow:0 0 0 3px rgba(201,168,76,.25);}
-.geo-banner p{margin:0;font-size:.82rem;color:var(--textgrey);line-height:1.55;flex:1;min-width:220px;}
-.geo-banner button{
-  background:var(--navy);color:#fff;border:none;padding:.6rem 1.1rem;
-  font-size:.78rem;font-weight:500;cursor:pointer;border-radius:4px;white-space:nowrap;
-  transition:background .2s;
-}
-.geo-banner button:hover{background:#1a3350;}
-.geo-status{
-  max-width:1100px;margin:0 auto 1.25rem;padding:.75rem 1.1rem;
-  background:rgba(13,27,46,.06);border:1px solid rgba(13,27,46,.1);border-radius:6px;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  font-size:.8rem;color:var(--navy);
-}
-.geo-status button{
-  background:transparent;border:1px solid #d1d5db;color:#6b7280;
-  padding:.35rem .75rem;font-size:.72rem;cursor:pointer;border-radius:4px;
-}
-.geo-status button:hover{border-color:var(--navy);color:var(--navy);}
+.geo-banner,.geo-status{display:none!important;}
 .job-content-grid{
   display:grid;grid-template-columns:1fr minmax(260px,340px);
   gap:2rem;max-width:1100px;margin:0 auto;align-items:start;
@@ -712,6 +691,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   cursor:pointer;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);background:#fff;
   border-radius:6px;
 }
+.job-card .jc-btn{cursor:pointer;position:relative;z-index:1;}
 .job-card:hover{border-color:rgba(201,168,76,.5);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .job-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
 .jc-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
@@ -789,17 +769,64 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   position:fixed;inset:0;background:rgba(8,16,26,.75);z-index:2000;
   display:none;align-items:center;justify-content:center;padding:1.5rem;
 }
-.modal-overlay.open{display:flex;}
+.modal-overlay.open{display:flex;align-items:center;justify-content:center;}
 .modal{
-  background:#fff;max-width:540px;width:100%;padding:2.5rem;
-  max-height:90vh;overflow-y:auto;position:relative;
-  animation:fadeUp .3s ease;border-radius:8px;box-shadow:var(--shadow-lg);
+  background:#fff;width:100%;padding:2rem 1.75rem 2rem;
+  max-height:92vh;overflow-y:auto;position:relative;
+  animation:fadeUp .3s ease;border-radius:10px;box-shadow:var(--shadow-lg);
 }
+.modal.modal-apply{
+  max-width:920px;
+  padding:0;
+  overflow:hidden;
+  display:block;
+}
+.modal-apply-grid{
+  display:grid;grid-template-columns:minmax(260px,.95fr) minmax(320px,1.05fr);
+  max-height:88vh;
+}
+.modal-apply-info{
+  background:var(--navy);color:#fff;padding:2rem 2rem 2.25rem;
+  overflow:hidden;border-right:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;min-height:0;
+}
+.modal-apply-info h3{
+  font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;
+  color:#fff;margin-bottom:.5rem;padding-right:2rem;line-height:1.25;flex-shrink:0;
+}
+.modal-apply-info .modal-meta{
+  color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.12);
+  padding-bottom:1rem;margin-bottom:1rem;flex-shrink:0;
+}
+.modal-apply-info .modal-desc-label{
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.6rem;font-weight:600;flex-shrink:0;
+}
+.modal-desc{
+  font-size:.86rem;color:rgba(255,255,255,.78);line-height:1.75;
+  flex:1;min-height:0;max-height:min(42vh,320px);
+  overflow-y:auto;padding-right:.5rem;padding-bottom:.25rem;
+  background:transparent;border:none;border-radius:0;margin:0;
+  scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.5) rgba(255,255,255,.08);
+}
+.modal-desc::-webkit-scrollbar{width:6px;}
+.modal-desc::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:3px;}
+.modal-desc::-webkit-scrollbar-thumb{background:rgba(201,168,76,.45);border-radius:3px;}
+.modal-desc::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,.7);}
+.modal-desc:empty{display:none;}
+.modal-apply-form{
+  padding:2rem 2rem 2.25rem;overflow-y:auto;background:#fff;
+}
+.modal-apply-form .form-group{margin-bottom:.95rem;}
+.modal-apply-form textarea{min-height:88px;}
+.modal-form-scroll{flex:1;min-height:0;}
 .modal-close{
-  position:absolute;top:1rem;right:1rem;background:none;border:none;
-  font-size:1.3rem;cursor:pointer;color:#9ca3af;
+  position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:none;
+  font-size:1.2rem;cursor:pointer;color:#fff;width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;z-index:2;
+  transition:background .2s;
 }
-.modal-close:hover{color:var(--navy);}
+.modal-close:hover{background:rgba(255,255,255,.22);color:#fff;}
 .modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
 .modal-meta{font-size:.8rem;color:#9ca3af;padding-bottom:1.2rem;border-bottom:1px solid #e5e7eb;margin-bottom:1.5rem;}
 
@@ -810,7 +837,8 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 ══════════════════════════════════ */
 @media(max-width:900px){
   nav{padding:0 1.2rem;}
-  .nav-toggle{display:flex;}
+  .nav-toggle{display:flex;margin-left:auto;}
+  .nav-right{display:none;}
   .nav-links{
     position:fixed;top:var(--nav-height);left:0;right:0;
     background:var(--navy);flex-direction:column;align-items:stretch;
@@ -819,6 +847,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
     box-shadow:var(--shadow-lg);
     transform:translateY(-110%);opacity:0;pointer-events:none;
     transition:transform var(--ease),opacity var(--ease);
+    width:100%;
   }
   .nav-links{z-index:999;}
   .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
@@ -837,17 +866,29 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   .steps-row,.cand-steps{grid-template-columns:repeat(2,1fr);}
   .steps-row::before{display:none;}
   .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-col-right{grid-column:auto!important;text-align:left;}
   .svc-hero .hero-content,.ent-hero .hero-content{padding:0 1.5rem;}
   .search-bar{grid-template-columns:1fr;}
   .jobs-pagination{flex-direction:column;align-items:stretch;text-align:center;}
   .jobs-pagination-nav{justify-content:center;}
   .science-grid{grid-template-columns:1fr;}
+  .modal-apply-grid{grid-template-columns:1fr;max-height:92vh;}
+  .modal-apply-info{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);max-height:none;}
+  .modal-desc{max-height:min(28vh,200px);}
+  .modal.modal-apply{max-width:calc(100vw - 2rem);}
 }
 @media(max-width:600px){
   .nav-logo-img{height:58px;}
   .nav-links a{font-size:.9rem;}
-  .footer-grid{grid-template-columns:1fr;}
+  footer{padding:2.5rem 1.25rem 1.25rem;}
+  .footer-grid{grid-template-columns:1fr;gap:2rem;}
+  .footer-col-right{text-align:left!important;}
+  .footer-col-right h4,.footer-col h4{text-align:left;}
+  .footer-brand-logo{height:56px;}
   .footer-bottom{flex-direction:column;text-align:center;gap:.75rem;}
+  .footer-bottom-right{justify-content:center;}
+  .modal.modal-apply{max-width:calc(100vw - 1.5rem);}
+  .modal-apply-info,.modal-apply-form{padding:1.35rem 1.25rem;}
 }
 </style>
 </head>
@@ -860,9 +901,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   <a class="nav-logo" onclick="showPage('accueil')">
     <img class="nav-logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
   </a>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </button>
   <ul class="nav-links" id="nav-links">
     <li><a onclick="showPage('accueil')" id="nav-accueil" class="active">Accueil</a></li>
     <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
@@ -880,6 +918,9 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
     </div>
     <div class="nav-cart"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
   </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 
@@ -999,7 +1040,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
       <div style="margin-top:1.5rem;"><button class="btn btn-outline-gold" onclick="showPage('job')">Initier une recherche</button></div>
     </div>
     <div class="svc-talents-right">
-      <img src="resources/formulaire trouver talent/photo 1.png" alt="Talent d'exception"/>
+      <img src="resources/formulaire trouver talent/photo 1.jpg" alt="Talent d'exception"/>
     </div>
   </section>
 
@@ -1104,7 +1145,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 
   <!-- Hero -->
   <section class="vid-hero ent-hero">
-    <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.png">
+    <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.jpg">
       <source src="videos/buildoze.mp4" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
@@ -1349,16 +1390,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
         </div>
         <div class="form-group">
           <label>Secteur d'activité</label>
-          <select id="cv-secteur">
-            <option value="">Sélectionner...</option>
-            <option>Ingénierie &amp; Construction</option>
-            <option>Finance &amp; Comptabilité</option>
-            <option>Technologies de l'information</option>
-            <option>Ressources humaines</option>
-            <option>Direction générale</option>
-            <option>Ventes &amp; Marketing</option>
-            <option>Autre</option>
-          </select>
+          <input type="text" id="cv-secteur" placeholder="Ex. Ingénierie, TI, Finance..."/>
         </div>
         <div class="form-group">
           <label>Disponibilité horaire *</label>
@@ -1472,7 +1504,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Recherche d'emploi</h1>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil, votre ville et le périmètre autour de chez vous.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil, une ville au Canada et le périmètre autour de celle-ci.</p>
     </div>
     <div class="job-hero-label" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.3);padding:.6rem 2rem;">
       <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Recherche d'emploi</span>
@@ -1482,21 +1514,15 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   <!-- Search + listings -->
   <section class="job-search">
     <h2>Recherche d'emploi</h2>
-    <p>Trouvez les opportunités qui correspondent à votre profil, votre ville et votre périmètre de recherche.</p>
-    <div class="geo-banner" id="geo-banner">
-      <p>Pour filtrer par <strong>périmètre</strong>, autorisez l'accès à votre position. Nous calculerons la distance entre votre emplacement et chaque offre.</p>
-      <button type="button" onclick="requestUserLocation()">Autoriser ma position</button>
-    </div>
-    <div class="geo-status" id="geo-status" style="display:none;"></div>
+    <p>Indiquez une ville au Canada et un périmètre pour afficher les offres à proximité.</p>
     <div class="search-bar">
       <input type="text" id="search-poste" placeholder="Nom du poste"/>
-      <input type="text" id="search-ville" placeholder="Ville ou Remote"/>
+      <input type="text" id="search-ville" placeholder="Ville au Canada (ex. Québec)"/>
       <select id="search-type" aria-label="Type de contrat">
         <option value="">Tous les types</option>
         <option value="Temps plein">Temps plein</option>
         <option value="Temps partiel">Temps partiel</option>
-        <option value="Contrat">Contrat</option>
-        <option value="Freelance">Freelance</option>
+        <option value="Permanent">Permanent</option>
       </select>
       <select id="search-perimetre" aria-label="Périmètre de recherche">
         <option value="">Périmètre de recherche</option>
@@ -1634,7 +1660,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
         <li><a href="#confidentialite" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
       </ul>
     </div>
-    <div class="footer-col footer-col-right" style="grid-column:3/5;">
+    <div class="footer-col footer-col-right">
       <div class="footer-gold-label">Bureau de Québec</div>
       <p>contact@nobilisrh.ca<br/>Québec, QC, Canada<br/>Consultations confidentielles sur rendez-vous</p>
     </div>
@@ -1652,32 +1678,42 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
      APPLY MODAL
 ══════════════════════════════════ -->
 <div class="modal-overlay" id="apply-modal" onclick="closeModal(event)">
-  <div class="modal form-light">
+  <div class="modal modal-apply form-light" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="document.getElementById('apply-modal').classList.remove('open')">✕</button>
-    <h3 id="modal-title">Postuler</h3>
-    <div class="modal-meta" id="modal-meta"></div>
-    <div class="form-row2">
-      <div class="form-group"><label>Prénom *</label><input type="text" id="app-prenom" placeholder="Jean"/></div>
-      <div class="form-group"><label>Nom *</label><input type="text" id="app-nom" placeholder="Dupont"/></div>
+    <div class="modal-apply-grid">
+      <div class="modal-apply-info">
+        <h3 id="modal-title">Postuler</h3>
+        <div class="modal-meta" id="modal-meta"></div>
+        <div class="modal-desc-label">Description du poste</div>
+        <div class="modal-desc" id="modal-desc"></div>
+      </div>
+      <div class="modal-apply-form">
+        <div class="form-row2">
+          <div class="form-group"><label>Prénom *</label><input type="text" id="app-prenom" placeholder="Jean"/></div>
+          <div class="form-group"><label>Nom *</label><input type="text" id="app-nom" placeholder="Dupont"/></div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group"><label>Courriel *</label><input type="email" id="app-email" placeholder="jean@email.com"/></div>
+          <div class="form-group"><label>Téléphone</label><input type="tel" id="app-tel" placeholder="+1 418 000 0000"/></div>
+        </div>
+        <div class="form-group"><label>Lettre de motivation</label><textarea id="app-lettre" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
+        <div class="form-group">
+          <label>CV (PDF, DOCX) *</label>
+          <input type="file" id="app-cv" accept=".pdf,.doc,.docx" style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
+        </div>
+        <div class="form-group form-consent">
+          <label class="consent-label">
+            <input type="checkbox" id="app-consent"/>
+            <span>
+              J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
+              <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
+            </span>
+          </label>
+        </div>
+        <button class="btn btn-dark" style="width:100%;padding:.9rem;" onclick="submitApplication()">Postuler</button>
+        <div class="form-success" id="app-success">✓ Candidature envoyée avec succès!</div>
+      </div>
     </div>
-    <div class="form-group"><label>Courriel *</label><input type="email" id="app-email" placeholder="jean@email.com"/></div>
-    <div class="form-group"><label>Téléphone</label><input type="tel" id="app-tel" placeholder="+1 418 000 0000"/></div>
-    <div class="form-group"><label>Lettre de motivation</label><textarea id="app-lettre" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
-    <div class="form-group">
-      <label>CV (PDF, DOCX) *</label>
-      <input type="file" id="app-cv" accept=".pdf,.doc,.docx" style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
-    </div>
-    <div class="form-group form-consent">
-      <label class="consent-label">
-        <input type="checkbox" id="app-consent"/>
-        <span>
-          J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
-          <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
-        </span>
-      </label>
-    </div>
-    <button class="btn btn-dark" style="width:100%;padding:.9rem;" onclick="submitApplication()">Postuler</button>
-    <div class="form-success" id="app-success">✓ Candidature envoyée avec succès!</div>
   </div>
 </div>
 
@@ -1777,7 +1813,6 @@ let allJobs = [];
 let displayedJobs = [];
 let currentJobPage = 1;
 let currentJob = null;
-let userLocation = null;
 const geocodeCache = {};
 
 function isRemoteLocation(loc) {
@@ -1800,16 +1835,20 @@ function haversineKm(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-async function geocodeLocation(name) {
-  const key = String(name || '').trim().toLowerCase();
-  if (!key || isRemoteLocation(key)) return null;
+async function geocodeLocation(name, countryCode) {
+  const key = (countryCode ? countryCode + ':' : '') + String(name || '').trim().toLowerCase();
+  if (!name || isRemoteLocation(name)) return null;
   if (geocodeCache[key] !== undefined) return geocodeCache[key];
   try {
-    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1&language=fr&format=json`;
+    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=5&language=fr&format=json`;
+    if (countryCode) url += `&countryCode=${countryCode}`;
     const r = await fetch(url);
     const data = await r.json();
-    if (data.results && data.results[0]) {
-      geocodeCache[key] = { lat: data.results[0].latitude, lon: data.results[0].longitude };
+    if (data.results && data.results.length) {
+      const pick = countryCode
+        ? data.results.find(r => r.country_code === countryCode) || data.results[0]
+        : data.results[0];
+      geocodeCache[key] = { lat: pick.latitude, lon: pick.longitude, name: pick.name };
     } else {
       geocodeCache[key] = null;
     }
@@ -1822,37 +1861,6 @@ async function geocodeLocation(name) {
 async function geocodeAllLocations(locations) {
   const unique = [...new Set(locations.filter(l => !isRemoteLocation(l)))];
   await Promise.all(unique.map(loc => geocodeLocation(loc)));
-}
-
-function requestUserLocation() {
-  if (!navigator.geolocation) {
-    alert('La géolocalisation n\'est pas supportée par votre navigateur.');
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      userLocation = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-      document.getElementById('geo-banner').style.display = 'none';
-      const status = document.getElementById('geo-status');
-      status.style.display = 'flex';
-      status.innerHTML = '<span>Position activée — distances calculées depuis votre emplacement actuel.</span><button type="button" onclick="clearUserLocation()">Désactiver</button>';
-    },
-    err => {
-      document.getElementById('geo-banner').classList.add('highlight');
-      const msg = err.code === 1
-        ? 'Accès refusé. Autorisez la localisation dans votre navigateur pour utiliser le filtre par périmètre.'
-        : 'Impossible d\'obtenir votre position. Vérifiez votre connexion et réessayez.';
-      alert(msg);
-    },
-    { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
-  );
-}
-
-function clearUserLocation() {
-  userLocation = null;
-  document.getElementById('geo-status').style.display = 'none';
-  document.getElementById('geo-banner').style.display = 'flex';
-  document.getElementById('geo-banner').classList.remove('highlight');
 }
 
 function escHtml(s) {
@@ -1885,8 +1893,7 @@ function matchJobType(jobType, filter) {
   const aliases = {
     'temps plein': ['temps plein', 'full-time', 'full time'],
     'temps partiel': ['temps partiel', 'part-time', 'part time'],
-    'contrat': ['contrat', 'contract'],
-    'freelance': ['freelance']
+    'permanent': ['permanent', 'contrat', 'contract'],
   };
   const list = aliases[f] || [f];
   return list.some(a => j === a || j.includes(a));
@@ -2036,6 +2043,7 @@ function renderJobCard(job) {
   const j = normalizeJob(job);
   const dist = job.distanceKm;
   const isRemote = job.isRemote || isRemoteLocation(j.location);
+  const payload = { ...j, distanceKm: dist, isRemote };
   const tags = [];
   if (j.location) tags.push({ text: j.location, cls: isRemote ? 'jc-tag jc-remote' : 'jc-tag' });
   if (j.type) tags.push({ text: j.type, cls: 'jc-tag' });
@@ -2050,10 +2058,11 @@ function renderJobCard(job) {
       </div>
     </div>
     ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(j.salary)}</div>` : ''}
-    ${j.description ? `<div class="jc-desc">${escHtml(j.description)}</div>` : ''}
+    ${j.description ? `<div class="jc-desc">${escHtml(j.description.length > 160 ? j.description.slice(0, 160) + '…' : j.description)}</div>` : ''}
     <button class="jc-btn" type="button">Postuler</button>
   `;
-  div.querySelector('.jc-btn').addEventListener('click', () => openModal({ ...j, distanceKm: dist, isRemote }));
+  div.addEventListener('click', () => openModal(payload));
+  div.querySelector('.jc-btn').addEventListener('click', e => { e.stopPropagation(); openModal(payload); });
   return div;
 }
 
@@ -2080,8 +2089,8 @@ function renderJobsPage() {
 }
 
 async function filterJobs() {
-  const p = document.getElementById('search-poste').value.toLowerCase();
-  const v = document.getElementById('search-ville').value.toLowerCase();
+  const p = document.getElementById('search-poste').value.toLowerCase().trim();
+  const refCity = document.getElementById('search-ville').value.trim();
   const typeFilter = document.getElementById('search-type').value;
   const perKm = parsePerimetreKm(document.getElementById('search-perimetre').value);
   const loading = document.getElementById('jobs-loading');
@@ -2090,23 +2099,29 @@ async function filterJobs() {
   let filtered = allJobs.filter(j => {
     const n = normalizeJob(j);
     const matchTitle = !p || n.title.toLowerCase().includes(p);
-    const matchLoc = !v || n.location.toLowerCase().includes(v);
     const matchType = matchJobType(n.type, typeFilter);
-    return matchTitle && matchLoc && matchType;
+    return matchTitle && matchType;
   });
 
-  if (perKm !== null && !userLocation) {
-    document.getElementById('geo-banner').classList.add('highlight');
-    document.getElementById('geo-banner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    alert('Pour filtrer par périmètre, veuillez d\'abord autoriser l\'accès à votre position.');
+  if (perKm !== null && !refCity) {
+    alert('Veuillez entrer une ville au Canada pour utiliser le filtre par périmètre.');
+    document.getElementById('search-ville').focus();
     return;
   }
 
-  if (userLocation && filtered.length) {
+  if (refCity && (perKm !== null || refCity)) {
     loading.style.display = 'block';
     loading.textContent = 'Calcul des distances...';
     list.innerHTML = '';
     document.getElementById('jobs-empty').style.display = 'none';
+
+    const refCoords = await geocodeLocation(refCity, 'CA');
+    if (!refCoords) {
+      loading.style.display = 'none';
+      loading.textContent = 'Chargement des offres...';
+      alert('Ville introuvable. Essayez « Québec », « Montréal », « Toronto », etc.');
+      return;
+    }
 
     await geocodeAllLocations(filtered.map(j => normalizeJob(j).location));
 
@@ -2122,7 +2137,7 @@ async function filterJobs() {
         if (perKm === null) results.push({ ...n, distanceKm: null, isRemote: false });
         continue;
       }
-      const dist = haversineKm(userLocation.lat, userLocation.lon, coords.lat, coords.lon);
+      const dist = haversineKm(refCoords.lat, refCoords.lon, coords.lat, coords.lon);
       if (perKm === null || dist <= perKm) {
         results.push({ ...n, distanceKm: Math.round(dist), isRemote: false });
       }
@@ -2152,7 +2167,10 @@ function openModal(job) {
   document.getElementById('modal-title').textContent = job.title;
   const metaParts = [job.location, job.type].filter(Boolean);
   if (job.showSalary && job.salary) metaParts.push(job.salary);
+  if (job.distanceKm != null) metaParts.push('≈ ' + job.distanceKm + ' km');
   document.getElementById('modal-meta').textContent = metaParts.join(' · ');
+  const descEl = document.getElementById('modal-desc');
+  descEl.textContent = job.description || '';
   document.getElementById('apply-modal').classList.add('open');
   document.getElementById('app-success').classList.remove('show');
   ['app-prenom','app-nom','app-email','app-tel','app-lettre'].forEach(id => {
