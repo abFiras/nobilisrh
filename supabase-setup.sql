@@ -29,10 +29,10 @@ create policy "Allow anonymous insert candidatures"
   to anon
   with check (true);
 
--- 2. Storage bucket for CV files (private)
+-- 2. Storage bucket for CV files (public links for Formspree emails)
 insert into storage.buckets (id, name, public)
-values ('cvs', 'cvs', false)
-on conflict (id) do update set public = false;
+values ('cvs', 'cvs', true)
+on conflict (id) do update set public = true;
 
 drop policy if exists "Allow anonymous upload cvs" on storage.objects;
 create policy "Allow anonymous upload cvs"
@@ -41,5 +41,9 @@ create policy "Allow anonymous upload cvs"
   to anon
   with check (bucket_id = 'cvs');
 
--- Optional: allow reading uploaded files in Supabase Dashboard (service role bypasses RLS)
--- Anonymous users do NOT need SELECT — the site uploads only, Formspree receives the CV file.
+drop policy if exists "Allow public read cvs" on storage.objects;
+create policy "Allow public read cvs"
+  on storage.objects
+  for select
+  to public
+  using (bucket_id = 'cvs');

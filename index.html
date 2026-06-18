@@ -1880,7 +1880,7 @@ img,video{max-width:100%;}
         <div class="form-group"><label for="app-lettre">Lettre de motivation</label><textarea id="app-lettre" name="lettre_motivation" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
         <div class="form-group">
           <label for="app-cv">CV (PDF, DOC, DOCX) *</label>
-          <input type="file" id="app-cv" name="attachment" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
+          <input type="file" id="app-cv" name="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
@@ -2771,28 +2771,15 @@ function sanitizeFileName(name) {
 
 async function uploadCvToSupabase(file) {
   const sb = getSupabase();
-  if (!sb) return null;
+  if (!sb) throw new Error('Supabase non configuré.');
   const path = `candidatures/${Date.now()}_${sanitizeFileName(file.name)}`;
   const { error } = await sb.storage.from(SUPABASE_CV_BUCKET).upload(path, file, {
     contentType: file.type || 'application/octet-stream',
     upsert: false
   });
   if (error) throw error;
-  return { path };
-}
-
-async function archiveApplicationToSupabase(file, meta) {
-  if (!isSupabaseConfigured()) return;
-  try {
-    const cvStorage = await uploadCvToSupabase(file);
-    await saveApplicationToSupabase({
-      ...meta,
-      cv_storage_path: cvStorage?.path || null,
-      cv_url: null
-    });
-  } catch (err) {
-    console.warn('Supabase archive failed (candidature envoyée via Formspree):', err);
-  }
+  const { data } = sb.storage.from(SUPABASE_CV_BUCKET).getPublicUrl(path);
+  return { path, publicUrl: data?.publicUrl || null };
 }
 
 async function saveApplicationToSupabase(record) {
@@ -2853,8 +2840,17 @@ function showAppSuccess() {
 
 function formatApplicationError(err) {
   const msg = String(err?.message || err || '').toLowerCase();
-  if (msg.includes('formulaire de candidature non configuré')) {
+  if (msg.includes('formulaire de candidature non configuré') || msg.includes('supabase non configuré')) {
     return 'Le formulaire n\'est pas encore configuré. Réessayez plus tard.';
+  }
+  if (msg.includes('bucket not found') || msg.includes('bucket')) {
+    return 'Espace de stockage CV non configuré. Contactez Nobilis RH.';
+  }
+  if (msg.includes('row-level security') || msg.includes('policy')) {
+    return 'Impossible d\'enregistrer le CV. Vérifiez la configuration Supabase.';
+  }
+  if (msg.includes('file uploads not permitted')) {
+    return 'Erreur d\'envoi du formulaire. Réessayez dans quelques instants.';
   }
   if (msg.includes('failed to fetch') || msg.includes('network')) {
     return 'Connexion impossible. Vérifiez votre réseau et réessayez.';
@@ -2951,30 +2947,38 @@ async function submitApplication(event) {
     showAppError('Le CV ne doit pas dépasser 10 Mo.');
     return;
   }
-
-  const formData = new FormData();
-  formData.append('email', e);
-  formData.append('_replyto', e);
-  formData.append('_subject', `Candidature — ${poste} — ${p} ${n}`);
-  formData.append('prenom', p);
-  formData.append('nom', n);
-  formData.append('nom_complet', `${p} ${n}`);
-  formData.append('telephone', tel || '—');
-  formData.append('lettre_motivation', lettre || '—');
-  formData.append('poste', poste);
-  formData.append('localisation', jobLocation || '—');
-  formData.append('type_contrat', jobType || '—');
-  formData.append('email_offre', jobEmail || '—');
-  formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
-  formData.append('attachment', file, file.name);
+  if (!isSupabaseConfigured()) {
+    showAppError('Téléversement de CV temporairement indisponible. Réessayez plus tard.');
+    return;
+  }
 
   setAppSubmitLoading(true);
   clearAppMessages();
 
   try {
+    const cvStorage = await uploadCvToSupabase(file);
+
+    const formData = new FormData();
+    formData.append('email', e);
+    formData.append('_replyto', e);
+    formData.append('_subject', `Candidature — ${poste} — ${p} ${n}`);
+    formData.append('prenom', p);
+    formData.append('nom', n);
+    formData.append('nom_complet', `${p} ${n}`);
+    formData.append('telephone', tel || '—');
+    formData.append('lettre_motivation', lettre || '—');
+    formData.append('poste', poste);
+    formData.append('localisation', jobLocation || '—');
+    formData.append('type_contrat', jobType || '—');
+    formData.append('email_offre', jobEmail || '—');
+    formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
+    formData.append('cv_fichier', file.name);
+    formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
+    formData.append('cv_storage_path', cvStorage.path);
+
     await submitToFormspree(formData);
 
-    await archiveApplicationToSupabase(file, {
+    await saveApplicationToSupabase({
       prenom: p,
       nom: n,
       email: e,
@@ -2985,6 +2989,8 @@ async function submitApplication(event) {
       type_contrat: jobType || null,
       email_offre: jobEmail || null,
       cv_filename: file.name,
+      cv_storage_path: cvStorage.path,
+      cv_url: cvStorage.publicUrl,
       consentement: true
     });
 
