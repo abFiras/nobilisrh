@@ -116,7 +116,6 @@
 <link rel="icon" href="resources/logo/kk.ico" type="image/x-icon"/>
 <link rel="apple-touch-icon" href="resources/logo/01.png" sizes="180x180"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 /* ── RESET & BASE ── */
@@ -236,8 +235,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-socials a{color:rgba(255,255,255,.5);display:flex;transition:color var(--ease),transform var(--ease);}
 .nav-socials a:hover{color:var(--gold);transform:translateY(-1px);}
 .nav-socials svg{width:16px;height:16px;}
-.nav-cart{color:rgba(255,255,255,.6);cursor:pointer;display:none;}
-.nav-cart svg{width:20px;height:20px;}
 
 /* ══════════════════════════════════
    SHARED COMPONENTS
@@ -329,6 +326,14 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);
 }
 .footer-bottom-right span{opacity:.4;}
+.footer-credit{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:1.15rem 0 0;margin-top:1.25rem;
+  text-align:center;font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.75;
+}
+.footer-credit a{color:rgba(255,255,255,.65);text-decoration:none;transition:color var(--ease);}
+.footer-credit a:hover{color:var(--gold);}
+.footer-credit-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem .65rem;margin-top:.4rem;}
 
 /* ══════════════════════════════════
    PAGE: ACCUEIL
@@ -774,7 +779,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   max-width:1100px;margin:0 auto 1.25rem;
   background:var(--offwhite);border:1px solid #e5e7eb;padding:1rem;
 }
-.geo-banner,.geo-status{display:none!important;}
 .job-content-grid{
   display:grid;grid-template-columns:1fr minmax(260px,340px);
   gap:2rem;max-width:1100px;margin:0 auto;align-items:start;
@@ -964,7 +968,6 @@ body.modal-open{overflow:hidden;touch-action:none;}
 
 /* responsive media */
 img,video{max-width:100%;}
-.responsive-media{width:100%;height:auto;display:block;object-fit:cover;}
 
 /* ══════════════════════════════════
    RESPONSIVE
@@ -1058,6 +1061,7 @@ img,video{max-width:100%;}
   .footer-brand-logo{height:56px;}
   .footer-bottom{flex-direction:column;text-align:center;gap:.75rem;}
   .footer-bottom-right{justify-content:center;}
+  .footer-credit{padding-top:1rem;}
   .modal-apply-info,.modal-apply-form{padding:1.35rem 1rem;}
   .modal-apply-info{padding-top:2.5rem;}
   .steps-row,.cand-steps{grid-template-columns:1fr;}
@@ -1092,7 +1096,6 @@ img,video{max-width:100%;}
       <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
       <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
     </div>
-    <div class="nav-cart"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
   </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" onclick="toggleNav()">
     <span></span><span></span><span></span>
@@ -1848,6 +1851,14 @@ img,video{max-width:100%;}
       <p>contact@nobilisrh.ca<br/>Québec, QC, Canada<br/>Consultations confidentielles sur rendez-vous</p>
     </div>
   </div>
+  <div class="footer-credit">
+    <span>Développé par <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">Firas Abdallah</a></span>
+    <div class="footer-credit-links">
+      <a href="mailto:abdallah.firas@outlook.fr">abdallah.firas@outlook.fr</a>
+      <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/firas--abdallah/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
   <div class="footer-bottom">
     <span>(C) 2026 Nobilis RH — Cabinet de recrutement de précision à Québec.</span>
     <div class="footer-bottom-right">
@@ -1903,60 +1914,25 @@ img,video{max-width:100%;}
 
 
 <script>
-// ══════════════════════════════
-// ⚙️  CONFIGURATION — chargée depuis /api/config (variables Vercel)
-// ══════════════════════════════
 let APP_CONFIG = {
   formspreeApplicationUrl: '',
   formspreeCandidatUrl: '',
   formspreeContactUrl: '',
   supabaseUrl: '',
   supabaseAnonKey: '',
-  emailjsPublicKey: '',
-  emailjsServiceId: '',
-  emailjsTemplateId: '',
   sheetCsvUrl: '',
 };
-let appConfigLoaded = false;
-let emailjsReady = false;
 
 const SUPABASE_CV_BUCKET = 'cvs';
 const SUPABASE_APPLICATIONS_TABLE = 'candidatures';
 const SUPABASE_CONTACTS_TABLE = 'contacts';
-// Colonnes feuille Google : Titre | Localisation | Type | Description | Email | Salaire | AfficherSalaire
 const JOBS_PER_PAGE = 5;
 
 async function loadAppConfig() {
   const res = await fetch('/api/config');
   if (!res.ok) throw new Error('config_http_' + res.status);
   APP_CONFIG = await res.json();
-  appConfigLoaded = true;
-  if (APP_CONFIG.emailjsPublicKey && typeof emailjs !== 'undefined') {
-    emailjs.init(APP_CONFIG.emailjsPublicKey);
-    emailjsReady = true;
-  }
 }
-
-function isEmailJsConfigured() {
-  return emailjsReady
-    && APP_CONFIG.emailjsServiceId
-    && APP_CONFIG.emailjsTemplateId;
-}
-
-// 3. Vidéos assignées (dossier /videos/)
-//    photo d'accueil 1.png → Accueil hero (image)
-//    vertical.mp4                  → Job listings (colonne droite)
-//    parler à un conseiller/01.png → Job hero (image)
-//    construction.mp4       → Services hero + Entreprises recrutement permanent
-//    lab.mp4                → Services rigueur scientifique
-//    buildoze.mp4           → Entreprises hero
-//    meeting.mp4                         → Candidats hero
-//    formulaire de condidat/02.png       → Contact hero (image)
-//    hand.mp4          → Candidats alignement + démarche candidats
-
-// ══════════════════════════════
-// SEO — titres et descriptions par page
-// ══════════════════════════════
 const SITE_URL = 'https://nobilisrh.ca';
 const PAGE_SEO = {
   accueil: {
@@ -2002,9 +1978,7 @@ function updatePageSEO(pageId) {
   document.getElementById('twitter-description')?.setAttribute('content', seo.description);
 }
 
-// ══════════════════════════════
-// NAVIGATION
-// ══════════════════════════════
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -2072,9 +2046,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// ══════════════════════════════
-// GOOGLE SHEETS JOBS
-// ══════════════════════════════
 let allJobs = [];
 let displayedJobs = [];
 let currentJobPage = 1;
@@ -2720,9 +2691,6 @@ async function filterJobs() {
   setDisplayedJobs(filtered.map(j => normalizeJob(j)));
 }
 
-// ══════════════════════════════
-// MODAL
-// ══════════════════════════════
 function openModal(job) {
   currentJob = job;
   document.getElementById('modal-title').textContent = job.title;
@@ -2755,9 +2723,6 @@ document.addEventListener('keydown', e => {
     closeApplyModal();
 });
 
-// ══════════════════════════════
-// FORMSPREE + SUPABASE (candidatures offres)
-// ══════════════════════════════
 let supabaseClient = null;
 
 function isSupabaseConfigured() {
@@ -2940,21 +2905,6 @@ function showConSuccess() {
   document.getElementById('con-success')?.classList.add('show');
 }
 
-// ══════════════════════════════
-// EMAILJS (contact)
-// ══════════════════════════════
-function sendEmail(params, successId) {
-  if (!isEmailJsConfigured()) {
-    alert('Formulaire temporairement indisponible. Veuillez réessayer plus tard.');
-    return;
-  }
-  emailjs.send(APP_CONFIG.emailjsServiceId, APP_CONFIG.emailjsTemplateId, params)
-    .then(() => document.getElementById(successId).classList.add('show'))
-    .catch(err => {
-      console.error(err);
-      alert('Erreur lors de l\'envoi. Veuillez réessayer.');
-    });
-}
 
 async function submitCV(event) {
   event.preventDefault();
