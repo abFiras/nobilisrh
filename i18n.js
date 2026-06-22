@@ -296,7 +296,7 @@ const I18N_SECTIONS_EN = {
     </div>`,
 
   'services-hero': `<video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
-      <source src="videos/construction.mp4" type="video/mp4"/>
+      <source data-video="construction" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
     <div class="hero-content" style="padding:0 4rem;">
@@ -355,7 +355,7 @@ const I18N_SECTIONS_EN = {
       </div>
       <div class="science-right">
         <video autoplay muted loop playsinline poster="resources/notre démarche 03.png">
-          <source src="videos/lab.mp4" type="video/mp4"/>
+          <source data-video="lab" type="video/mp4"/>
         </video>
       </div>
     </div>`,
@@ -395,7 +395,7 @@ const I18N_SECTIONS_EN = {
     </div>`,
 
   'entreprises-hero': `<video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.jpg">
-      <source src="videos/buildoze.mp4" type="video/mp4"/>
+      <source data-video="buildoze" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
     <div class="hero-content">
@@ -409,7 +409,7 @@ const I18N_SECTIONS_EN = {
     </div>`,
 
   'entreprises-recrutement': `<video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
-      <source src="videos/construction.mp4" type="video/mp4"/>
+      <source data-video="construction" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.62);"></div>
     <div class="hero-content" style="padding:3rem 4rem;max-width:760px;">
@@ -482,7 +482,7 @@ const I18N_SECTIONS_EN = {
     <p class="tagline">More than recruitment, <em>a partnership for your growth.</em></p>`,
 
   'candidats-hero': `<video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/01.png">
-      <source src="videos/meeting.mp4" type="video/mp4"/>
+      <source data-video="meeting" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.5);"></div>
     <div class="hero-content">
@@ -502,7 +502,7 @@ const I18N_SECTIONS_EN = {
     </div>`,
 
   'candidats-alignement': `<video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/02.png">
-      <source src="videos/hand.mp4" type="video/mp4"/>
+      <source data-video="hand" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.65);"></div>
     <div class="hero-content" style="padding:3rem;max-width:900px;">
@@ -531,7 +531,7 @@ const I18N_SECTIONS_EN = {
 
   'candidats-demarche': `<div class="cand-demarche-bg">
       <video autoplay muted loop playsinline>
-        <source src="videos/hand.mp4" type="video/mp4"/>
+        <source data-video="hand" type="video/mp4"/>
       </video>
       <div class="rel">
         <div class="tag-label" style="justify-content:center;color:var(--gold);font-size:.7rem;">OUR PROCESS</div>
@@ -829,6 +829,7 @@ function setSiteLanguage(lang) {
 
   applyI18n();
   refreshJobFilterLabels();
+  if (typeof loadVideosForActivePage === 'function') loadVideosForActivePage();
 
   const jobPage = document.getElementById('page-job');
   if (jobPage?.classList.contains('active') && typeof renderJobsPage === 'function') {

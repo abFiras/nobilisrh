@@ -117,6 +117,7 @@
 <link rel="apple-touch-icon" href="resources/logo/01.png" sizes="180x180"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="media.js"></script>
 <script src="i18n.js"></script>
 <style>
 /* ── RESET & BASE ── */
@@ -1218,7 +1219,7 @@ img,video{max-width:100%;}
   <!-- Hero with video bg -->
   <section class="vid-hero svc-hero" data-i18n-section="services-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
-      <source src="videos/construction.mp4" type="video/mp4"/>
+      <source data-video="construction" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
     <div class="hero-content" style="padding:0 4rem;">
@@ -1286,7 +1287,7 @@ img,video{max-width:100%;}
       </div>
       <div class="science-right">
         <video autoplay muted loop playsinline poster="resources/notre démarche 03.png">
-          <source src="videos/lab.mp4" type="video/mp4"/>
+          <source data-video="lab" type="video/mp4"/>
         </video>
       </div>
     </div>
@@ -1343,7 +1344,7 @@ img,video{max-width:100%;}
   <!-- Hero -->
   <section class="vid-hero ent-hero" data-i18n-section="entreprises-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.jpg">
-      <source src="videos/buildoze.mp4" type="video/mp4"/>
+      <source data-video="buildoze" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
     <div class="hero-content">
@@ -1366,7 +1367,7 @@ img,video{max-width:100%;}
   <!-- Recrutement permanent de précision (video bg) -->
   <section class="vid-hero ent-recrutement" data-i18n-section="entreprises-recrutement">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
-      <source src="videos/construction.mp4" type="video/mp4"/>
+      <source data-video="construction" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.62);"></div>
     <div class="hero-content" style="padding:3rem 4rem;max-width:760px;">
@@ -1459,7 +1460,7 @@ img,video{max-width:100%;}
   <!-- Hero -->
   <section class="vid-hero cand-hero" data-i18n-section="candidats-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/01.png">
-      <source src="videos/meeting.mp4" type="video/mp4"/>
+      <source data-video="meeting" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.5);"></div>
     <div class="hero-content">
@@ -1485,7 +1486,7 @@ img,video{max-width:100%;}
   <!-- L'art de l'alignement (video bg) -->
   <section class="vid-hero cand-alignement" data-i18n-section="candidats-alignement">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/02.png">
-      <source src="videos/hand.mp4" type="video/mp4"/>
+      <source data-video="hand" type="video/mp4"/>
     </video>
     <div class="overlay" style="background:rgba(8,16,26,.65);"></div>
     <div class="hero-content" style="padding:3rem;max-width:900px;">
@@ -1520,7 +1521,7 @@ img,video{max-width:100%;}
   <section class="cand-demarche" data-i18n-section="candidats-demarche">
     <div class="cand-demarche-bg">
       <video autoplay muted loop playsinline>
-        <source src="videos/hand.mp4" type="video/mp4"/>
+        <source data-video="hand" type="video/mp4"/>
       </video>
       <div class="rel">
         <div class="tag-label" style="justify-content:center;color:var(--gold);font-size:.7rem;">NOTRE DÉMARCHE</div>
@@ -1749,7 +1750,7 @@ img,video{max-width:100%;}
       </div>
       <div class="job-side-video">
         <video autoplay muted loop playsinline poster="resources/formulaire de condidat/01.png">
-          <source src="videos/vertical.mp4" type="video/mp4"/>
+          <source data-video="vertical" type="video/mp4"/>
         </video>
       </div>
     </div>
@@ -1941,6 +1942,7 @@ let APP_CONFIG = {
   supabaseUrl: '',
   supabaseAnonKey: '',
   sheetCsvUrl: '',
+  cloudinaryCloudName: '',
 };
 
 const SUPABASE_CV_BUCKET = 'cvs';
@@ -2011,6 +2013,8 @@ function showPage(id) {
   updatePageSEO(id);
   closeNav();
   window.scrollTo({top: 0, behavior: 'smooth'});
+  const activePage = document.getElementById('page-' + id);
+  if (typeof loadVideosForPage === 'function') loadVideosForPage(activePage);
   document.querySelectorAll('video').forEach(v => {
     const onActivePage = v.closest('.page.active');
     if (onActivePage) v.play().catch(() => {});
@@ -2050,6 +2054,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   else refreshJobFilterLabels();
   try {
     await loadAppConfig();
+    if (APP_CONFIG.cloudinaryCloudName && typeof setMediaCloud === 'function') {
+      setMediaCloud(APP_CONFIG.cloudinaryCloudName);
+    }
   } catch (err) {
     console.error('Impossible de charger la configuration serveur:', err);
   }
@@ -2066,6 +2073,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const navLink = document.getElementById('nav-' + id);
       if (navLink) navLink.classList.add('active');
       updatePageSEO(id);
+      const activePage = document.getElementById('page-' + id);
+      if (typeof loadVideosForPage === 'function') loadVideosForPage(activePage);
+      document.querySelectorAll('video').forEach(v => {
+        const onActivePage = v.closest('.page.active');
+        if (onActivePage) v.play().catch(() => {});
+        else v.pause();
+      });
       if (id === 'job') loadJobs();
     }
   });
