@@ -1,11 +1,6 @@
 (function () {
   let cloudName = 'db4xlujhq';
 
-  /**
-   * ONLY edit this table when Cloudinary public IDs differ from the keys.
-   * Keys (left) are used in HTML — never change those.
-   * Values (right) must match the "Public ID" shown in Cloudinary Media Library.
-   */
   const CLOUDINARY_VIDEOS = {
     construction: 'construction_n11cq6',
     lab: 'lab_cwdtqc',

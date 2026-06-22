@@ -1,4 +1,3 @@
-/* Nobilis RH — Internationalization (FR default / EN) */
 let currentLang = localStorage.getItem('nobilis-lang') || 'fr';
 const I18N_FR_CACHE = {};
 const I18N_SECTIONS_FR = {};
@@ -19,9 +18,7 @@ const PROVINCE_EN = {
   'Yukon': 'Yukon'
 };
 
-const I18N_EN = {
-  /* Navigation */
-  'nav.accueil': 'Home',
+const I18N_EN = {  'nav.accueil': 'Home',
   'nav.services': 'Services',
   'nav.entreprises': 'Employers',
   'nav.candidats': 'Candidates',
@@ -29,10 +26,7 @@ const I18N_EN = {
   'nav.contact': 'Contact',
   'nav.openMenu': 'Open menu',
   'nav.closeMenu': 'Close menu',
-  'nav.skipToContent': 'Skip to main content',
-
-  /* Footer */
-  'footer.brandSub': 'Precision executive search and strategic recruitment in Quebec City.',
+  'nav.skipToContent': 'Skip to main content',  'footer.brandSub': 'Precision executive search and strategic recruitment in Quebec City.',
   'footer.navigation': 'Navigation',
   'footer.service': 'Services',
   'footer.entreprise': 'Employers',
@@ -44,17 +38,11 @@ const I18N_EN = {
   'footer.copyright': '(C) 2026 Nobilis RH — Precision recruitment firm in Quebec City.',
   'footer.excellence': 'EXCELLENCE',
   'footer.integrity': 'INTEGRITY',
-  'footer.commitment': 'COMMITMENT',
-
-  /* Accueil hero */
-  'accueil.tag': '/ Recruitment firm',
+  'footer.commitment': 'COMMITMENT',  'accueil.tag': '/ Recruitment firm',
   'accueil.heroTitle': 'Connecting talent.<br/>Powering businesses.',
   'accueil.heroText': 'Nobilis RH supports organizations in finding and selecting top talent. Through a personalized approach, we help our clients recruit qualified professionals and build high-performing teams. Our commitment is built on quality, rigour, and a deep understanding of each organization\'s needs.',
   'accueil.btnTalent': 'Find talent',
-  'accueil.btnCv': 'Submit my résumé',
-
-  /* CV form */
-  'cv.infoTag': 'Submit your application',
+  'accueil.btnCv': 'Submit my résumé',  'cv.infoTag': 'Submit your application',
   'cv.infoTitle': 'Join our talent network',
   'cv.infoText1': 'By submitting your résumé to Nobilis RH, you gain access to exclusive, discreet opportunities in your industry.',
   'cv.infoText2': 'We guarantee complete confidentiality throughout your search and treat every profile with the utmost care.',
@@ -86,10 +74,7 @@ const I18N_EN = {
   'cv.errorConsent': 'Please accept the Privacy Policy before submitting your application.',
   'cv.errorShift': 'Please select your shift availability.',
   'cv.errorUnavailable': 'The form is temporarily unavailable. Please try again later.',
-  'cv.errorFileSize': 'The résumé must not exceed 5 MB.',
-
-  /* Contact form */
-  'con.heroTitle': 'The art of discretion',
+  'cv.errorFileSize': 'The résumé must not exceed 5 MB.',  'con.heroTitle': 'The art of discretion',
   'con.heroText': 'Whether you are an executive seeking an exceptional profile or a senior leader in a confidential transition, our firm orchestrates your strategic meetings in the heart of Quebec City.',
   'con.infoTag': 'First conversation',
   'con.infoTitle': 'Start the dialogue',
@@ -106,10 +91,7 @@ const I18N_EN = {
   'con.sending': 'Sending…',
   'con.success': '✓ Message sent. We will respond as soon as possible.',
   'con.errorRequired': 'Please complete all required fields.',
-  'con.errorUnavailable': 'The form is temporarily unavailable. Please try again later.',
-
-  /* Application modal form */
-  'modal.apply': 'Apply',
+  'con.errorUnavailable': 'The form is temporarily unavailable. Please try again later.',  'modal.apply': 'Apply',
   'modal.jobDesc': 'Job description',
   'modal.close': 'Close',
   'app.prenom': 'First name *',
@@ -127,10 +109,7 @@ const I18N_EN = {
   'app.errorConsent': 'Please accept the Privacy Policy before submitting your application.',
   'app.errorCvRequired': 'Please attach your résumé.',
   'app.errorCvSize': 'The résumé must not exceed 10 MB.',
-  'app.errorUploadUnavailable': 'Résumé upload is temporarily unavailable. Please try again later.',
-
-  /* Job search */
-  'job.heroTitle': 'Job Search',
+  'app.errorUploadUnavailable': 'Résumé upload is temporarily unavailable. Please try again later.',  'job.heroTitle': 'Job Search',
   'job.heroText': 'Find opportunities based on your profile, a Canadian city, and the surrounding area.',
   'job.heroLabel': 'Job Search',
   'job.searchTitle': 'Job Search',
@@ -159,10 +138,7 @@ const I18N_EN = {
   'job.next': 'Next',
   'job.paginationInfo': 'Showing {start}–{end} of {total} listing{plural}',
   'job.apply': 'Apply',
-  'job.selectCityAlert': 'Please select a Canadian city to use the radius filter.',
-
-  /* Dynamic UI strings */
-  'ui.sending': 'Sending…',
+  'job.selectCityAlert': 'Please select a Canadian city to use the radius filter.',  'ui.sending': 'Sending…',
   'ui.apply': 'Apply',
   'ui.submitCv': 'Submit my application',
   'ui.submitContact': 'Submit request',
@@ -180,10 +156,7 @@ const I18N_EN = {
   'ui.errorStorage': 'Résumé storage is not configured. Contact Nobilis RH.',
   'ui.errorSupabase': 'Unable to save the résumé. Check the Supabase configuration.',
   'ui.errorFormSend': 'Form submission error. Please try again in a few moments.',
-  'ui.errorNetwork': 'Connection failed. Check your network and try again.',
-
-  /* SEO */
-  'seo.accueil.title': 'Nobilis RH — Recruitment and executive search in Quebec, Canada',
+  'ui.errorNetwork': 'Connection failed. Check your network and try again.',  'seo.accueil.title': 'Nobilis RH — Recruitment and executive search in Quebec, Canada',
   'seo.accueil.description': 'Nobilis RH supports employers and candidates across Quebec and Canada: executive search, strategic recruitment, and placement of exceptional talent.',
   'seo.services.title': 'Recruitment services | Nobilis RH — Quebec, Canada',
   'seo.services.description': 'Permanent recruitment, executive search, and talent acquisition. Nobilis RH offers a rigorous methodology for organizations across Quebec and Canada.',
@@ -196,10 +169,7 @@ const I18N_EN = {
   'seo.contact.title': 'Contact | Nobilis RH — Recruitment firm Quebec',
   'seo.contact.description': 'Contact Nobilis RH for a recruitment mandate or application. Quebec City office, confidential consultations across Canada.',
   'seo.confidentialite.title': 'Privacy Policy | Nobilis RH',
-  'seo.confidentialite.description': 'Nobilis RH privacy policy regarding the collection and protection of personal information for candidates and clients.',
-
-  /* Privacy hero */
-  'privacy.title': 'Privacy Policy',
+  'seo.confidentialite.description': 'Nobilis RH privacy policy regarding the collection and protection of personal information for candidates and clients.',  'privacy.title': 'Privacy Policy',
   'privacy.updated': 'Last updated: July 1, 2026'
 };
 
