@@ -1629,17 +1629,18 @@ img,video{max-width:100%;}
         <h2>Initier le dialogue</h2>
         <p>Nos consultations se déroulent exclusivement sur rendez-vous individuel. Nous vous offrons un environnement hautement sécurisé et confidentiel pour analyser avec rigueur vos enjeux de recrutement permanent à long terme.</p>
       </div>
-      <div>
-        <div class="form-group"><label>Nom complet *</label><input type="text" id="con-nom" placeholder="Jean Tremblay"/></div>
-        <div class="form-group"><label>Courriel professionnel *</label><input type="email" id="con-email" placeholder="j.tremblay@entreprise.ca"/></div>
-        <div class="form-group"><label>Téléphone direct</label><input type="tel" id="con-tel" placeholder="418-555-0199"/></div>
+      <form id="con-form" class="con-form-fields" onsubmit="submitContact(event)" novalidate>
+        <div class="form-group"><label for="con-nom">Nom complet *</label><input type="text" id="con-nom" placeholder="Jean Tremblay" required/></div>
+        <div class="form-group"><label for="con-email">Courriel professionnel *</label><input type="email" id="con-email" placeholder="j.tremblay@entreprise.ca" required/></div>
+        <div class="form-group"><label for="con-tel">Téléphone direct</label><input type="tel" id="con-tel" placeholder="418-555-0199"/></div>
         <div class="form-group">
-          <label>Votre message (confidentiel) *</label>
-          <textarea id="con-message" placeholder="Décrivez brièvement vos besoins ou votre situation..." style="min-height:130px;"></textarea>
+          <label for="con-message">Votre message (confidentiel) *</label>
+          <textarea id="con-message" placeholder="Décrivez brièvement vos besoins ou votre situation..." style="min-height:130px;" required></textarea>
         </div>
-        <button class="btn btn-gold" style="padding:.85rem 2rem;" onclick="submitContact()">Soumettre la demande</button>
+        <button type="submit" class="btn btn-gold" id="con-submit-btn" style="padding:.85rem 2rem;">Soumettre la demande</button>
+        <div class="form-error" id="con-error" role="alert"></div>
         <div class="form-success" id="con-success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
-      </div>
+      </form>
     </div>
   </section>
 
@@ -1908,6 +1909,7 @@ img,video{max-width:100%;}
 let APP_CONFIG = {
   formspreeApplicationUrl: '',
   formspreeCandidatUrl: '',
+  formspreeContactUrl: '',
   supabaseUrl: '',
   supabaseAnonKey: '',
   emailjsPublicKey: '',
@@ -1920,6 +1922,7 @@ let emailjsReady = false;
 
 const SUPABASE_CV_BUCKET = 'cvs';
 const SUPABASE_APPLICATIONS_TABLE = 'candidatures';
+const SUPABASE_CONTACTS_TABLE = 'contacts';
 // Colonnes feuille Google : Titre | Localisation | Type | Description | Email | Salaire | AfficherSalaire
 const JOBS_PER_PAGE = 5;
 
@@ -2791,6 +2794,13 @@ async function saveApplicationToSupabase(record) {
   if (error) throw error;
 }
 
+async function saveContactToSupabase(record) {
+  const sb = getSupabase();
+  if (!sb) return;
+  const { error } = await sb.from(SUPABASE_CONTACTS_TABLE).insert([record]);
+  if (error) throw error;
+}
+
 async function postToFormspree(url, formData) {
   if (!url) throw new Error('Formulaire non configuré.');
   const response = await fetch(url, {
@@ -2814,6 +2824,10 @@ async function submitToFormspree(formData) {
 
 async function submitToFormspreeCandidat(formData) {
   return postToFormspree(APP_CONFIG.formspreeCandidatUrl, formData);
+}
+
+async function submitToFormspreeContact(formData) {
+  return postToFormspree(APP_CONFIG.formspreeContactUrl, formData);
 }
 
 function setAppSubmitLoading(loading) {
@@ -2894,6 +2908,36 @@ function showCvError(message) {
 function showCvSuccess() {
   clearCvMessages();
   document.getElementById('cv-success')?.classList.add('show');
+}
+
+function setConSubmitLoading(loading) {
+  const btn = document.getElementById('con-submit-btn');
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.textContent = loading ? 'Envoi en cours…' : 'Soumettre la demande';
+}
+
+function clearConMessages() {
+  document.getElementById('con-success')?.classList.remove('show');
+  const err = document.getElementById('con-error');
+  if (err) {
+    err.textContent = '';
+    err.classList.remove('show');
+  }
+}
+
+function showConError(message) {
+  const err = document.getElementById('con-error');
+  document.getElementById('con-success')?.classList.remove('show');
+  if (!err) return;
+  err.textContent = message;
+  err.classList.add('show');
+  err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showConSuccess() {
+  clearConMessages();
+  document.getElementById('con-success')?.classList.add('show');
 }
 
 // ══════════════════════════════
@@ -3007,17 +3051,56 @@ async function submitCV(event) {
   }
 }
 
-function submitContact() {
-  const n = document.getElementById('con-nom').value;
-  const e = document.getElementById('con-email').value;
-  const m = document.getElementById('con-message').value;
-  if (!n||!e||!m) { alert('Veuillez remplir les champs obligatoires.'); return; }
-  sendEmail({
-    from_name: n, from_email: e,
-    phone: document.getElementById('con-tel').value,
-    message: m,
-    subject: 'Message de contact — '+n,
-  }, 'con-success');
+async function submitContact(event) {
+  event.preventDefault();
+
+  const n = document.getElementById('con-nom').value.trim();
+  const e = document.getElementById('con-email').value.trim();
+  const tel = document.getElementById('con-tel').value.trim();
+  const m = document.getElementById('con-message').value.trim();
+
+  if (!n || !e || !m) {
+    showConError('Veuillez remplir les champs obligatoires.');
+    return;
+  }
+  if (!APP_CONFIG.formspreeContactUrl) {
+    showConError('Formulaire temporairement indisponible. Réessayez plus tard.');
+    return;
+  }
+
+  setConSubmitLoading(true);
+  clearConMessages();
+
+  try {
+    const formData = new FormData();
+    formData.append('email', e);
+    formData.append('_replyto', e);
+    formData.append('_subject', `Message de contact — ${n}`);
+    formData.append('nom', n);
+    formData.append('nom_complet', n);
+    formData.append('telephone', tel || '—');
+    formData.append('message', m);
+    formData.append('type', 'Contact');
+
+    await submitToFormspreeContact(formData);
+
+    if (isSupabaseConfigured()) {
+      await saveContactToSupabase({
+        nom: n,
+        email: e,
+        telephone: tel || null,
+        message: m
+      });
+    }
+
+    showConSuccess();
+    document.getElementById('con-form').reset();
+  } catch (err) {
+    console.error(err);
+    showConError(formatApplicationError(err));
+  } finally {
+    setConSubmitLoading(false);
+  }
 }
 
 async function submitApplication(event) {

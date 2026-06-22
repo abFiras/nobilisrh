@@ -47,3 +47,22 @@ create policy "Allow public read cvs"
   for select
   to public
   using (bucket_id = 'cvs');
+
+-- 3. Contact messages table
+create table if not exists public.contacts (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  nom text not null,
+  email text not null,
+  telephone text,
+  message text not null
+);
+
+alter table public.contacts enable row level security;
+
+drop policy if exists "Allow anonymous insert contacts" on public.contacts;
+create policy "Allow anonymous insert contacts"
+  on public.contacts
+  for insert
+  to anon
+  with check (true);

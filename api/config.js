@@ -6,6 +6,7 @@ module.exports = (req, res) => {
   const config = {
     formspreeApplicationUrl: process.env.FORMSPREE_APPLICATION_URL || '',
     formspreeCandidatUrl: process.env.FORMSPREE_CANDIDAT_URL || '',
+    formspreeContactUrl: process.env.FORMSPREE_CONTACT_URL || '',
     supabaseUrl: process.env.SUPABASE_URL || '',
     supabaseAnonKey: process.env.SUPABASE_ANON_KEY || '',
     emailjsPublicKey: process.env.EMAILJS_PUBLIC_KEY || '',
