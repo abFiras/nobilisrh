@@ -117,6 +117,7 @@
 <link rel="apple-touch-icon" href="resources/logo/01.png" sizes="180x180"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="i18n.js"></script>
 <style>
 /* ── RESET & BASE ── */
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -235,6 +236,20 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-socials a{color:rgba(255,255,255,.5);display:flex;transition:color var(--ease),transform var(--ease);}
 .nav-socials a:hover{color:var(--gold);transform:translateY(-1px);}
 .nav-socials svg{width:16px;height:16px;}
+.lang-switch{
+  display:flex;align-items:center;gap:2px;
+  border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:2px;
+  flex-shrink:0;
+}
+.lang-btn{
+  background:none;border:none;color:rgba(255,255,255,.5);
+  font-size:.7rem;font-weight:600;letter-spacing:.06em;
+  padding:.35rem .5rem;cursor:pointer;border-radius:3px;
+  transition:background var(--ease),color var(--ease);
+}
+.lang-btn:hover:not(.active){color:#fff;}
+.lang-btn.active{background:var(--gold);color:var(--navy);}
+.lang-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
 /* ══════════════════════════════════
    SHARED COMPONENTS
@@ -975,7 +990,7 @@ img,video{max-width:100%;}
 @media(max-width:900px){
   nav{padding:0 1.2rem;}
   .nav-toggle{display:flex;margin-left:auto;}
-  .nav-right{display:none;}
+  .nav-right{margin-right:.5rem;}
   .nav-links{
     position:fixed;top:var(--nav-height);left:0;right:0;
     background:var(--navy);flex-direction:column;align-items:stretch;
@@ -1082,22 +1097,25 @@ img,video{max-width:100%;}
     <img class="nav-logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
   </a>
   <ul class="nav-links" id="nav-links">
-    <li><a onclick="showPage('accueil')" id="nav-accueil" class="active">Accueil</a></li>
-    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
-    <li><a onclick="showPage('entreprises')" id="nav-entreprises">Entreprises</a></li>
-    <li><a onclick="showPage('candidats')" id="nav-candidats">Candidats</a></li>
-    <li><a onclick="showPage('job')" id="nav-job">Recherche d'emploi</a></li>
-    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a onclick="showPage('accueil')" id="nav-accueil" class="active" data-i18n="nav.accueil">Accueil</a></li>
+    <li><a onclick="showPage('services')" id="nav-services" data-i18n="nav.services">Services</a></li>
+    <li><a onclick="showPage('entreprises')" id="nav-entreprises" data-i18n="nav.entreprises">Entreprises</a></li>
+    <li><a onclick="showPage('candidats')" id="nav-candidats" data-i18n="nav.candidats">Candidats</a></li>
+    <li><a onclick="showPage('job')" id="nav-job" data-i18n="nav.job">Recherche d'emploi</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
   <div class="nav-right">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang="fr" onclick="setSiteLanguage('fr')">FR</button>
+      <button type="button" class="lang-btn" data-lang="en" onclick="setSiteLanguage('en')">EN</button>
+    </div>
     <div class="nav-socials">
-      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-      <a href="#"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
-      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
-      <a href="#"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
     </div>
   </div>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" onclick="toggleNav()">
+  <button class="nav-toggle" id="nav-toggle" data-i18n-aria="nav.openMenu" aria-label="Ouvrir le menu" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1111,12 +1129,12 @@ img,video{max-width:100%;}
   <!-- Hero split -->
   <section class="acc-hero">
     <div class="acc-hero-left">
-      <div class="tag-label slash"><span>/ Cabinet de recrutement</span></div>
-      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:1.2rem;">Connecter les talents.<br/>Propulser les entreprises.</h1>
-      <p style="font-size:.88rem;color:var(--textgrey);line-height:1.8;max-width:420px;">Nobilis RH accompagne les entreprises dans la recherche et la sélection des meilleurs talents. Grâce à une approche personnalisée, nous aidons nos clients à recruter des professionnels qualifiés et à bâtir des équipes performantes. Notre engagement repose sur la qualité, la rigueur et la compréhension des besoins de chaque organisation.</p>
+      <div class="tag-label slash"><span data-i18n="accueil.tag">/ Cabinet de recrutement</span></div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:1.2rem;" data-i18n-html="accueil.heroTitle">Connecter les talents.<br/>Propulser les entreprises.</h1>
+      <p style="font-size:.88rem;color:var(--textgrey);line-height:1.8;max-width:420px;" data-i18n="accueil.heroText">Nobilis RH accompagne les entreprises dans la recherche et la sélection des meilleurs talents. Grâce à une approche personnalisée, nous aidons nos clients à recruter des professionnels qualifiés et à bâtir des équipes performantes. Notre engagement repose sur la qualité, la rigueur et la compréhension des besoins de chaque organisation.</p>
       <div class="btn-row">
-        <button class="btn btn-dark" onclick="showPage('entreprises')">Trouver un talent</button>
-        <button class="btn btn-dark" onclick="showPage('candidats')">Déposer mon CV</button>
+        <button class="btn btn-dark" onclick="showPage('entreprises')" data-i18n="accueil.btnTalent">Trouver un talent</button>
+        <button class="btn btn-dark" onclick="showPage('candidats')" data-i18n="accueil.btnCv">Déposer mon CV</button>
       </div>
     </div>
     <div class="acc-hero-right">
@@ -1127,7 +1145,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Notre engagement envers l'excellence -->
-  <section class="acc-engagement">
+  <section class="acc-engagement" data-i18n-section="accueil-engagement">
     <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Notre méthodologie</div>
     <h2>Notre engagement envers l'excellence</h2>
     <p>Chez Nobilis RH, nous croyons que chaque recrutement est un investissement stratégique. Notre approche repose sur la compréhension des besoins de nos clients, une sélection rigoureuse des candidats et un accompagnement personnalisé tout au long du processus.</p>
@@ -1156,7 +1174,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Un engagement de performance -->
-  <section class="acc-performance">
+  <section class="acc-performance" data-i18n-section="accueil-performance">
     <div class="acc-perf-left">
       <img src="resources/photo d'acceuil.png" alt="Engagement de performance" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>
     </div>
@@ -1180,7 +1198,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Sécurisez vos prochains leaders -->
-  <section class="acc-cta">
+  <section class="acc-cta" data-i18n-section="accueil-cta">
     <div class="tag-label" style="justify-content:center;color:rgba(255,255,255,.4);font-size:.7rem;">• Consultation confidentielle</div>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:#fff;margin-top:.5rem;">Sécurisez vos prochains leaders</h2>
     <p style="font-size:.88rem;color:rgba(255,255,255,.55);max-width:580px;margin:.8rem auto 0;line-height:1.7;">Discutons de vos besoins de recrutement permanent en toute discrétion. Nos associés vous accompagnent avec la rigueur qui définit notre cabinet.</p>
@@ -1198,7 +1216,7 @@ img,video{max-width:100%;}
 <div id="page-services" class="page">
 
   <!-- Hero with video bg -->
-  <section class="vid-hero svc-hero">
+  <section class="vid-hero svc-hero" data-i18n-section="services-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
       <source src="videos/construction.mp4" type="video/mp4"/>
     </video>
@@ -1211,7 +1229,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Les talents d'exception -->
-  <section class="svc-talents">
+  <section class="svc-talents" data-i18n-section="services-talents">
     <div class="svc-talents-left">
       <div class="tag-label" style="color:#888;font-size:.7rem;">→ Approche directe</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.1;">Les talents d'exception<br/>ne cherchent pas<br/>toujours un emploi..</h2>
@@ -1224,7 +1242,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- La rigueur de sélection (dark) -->
-  <section class="svc-rigueur">
+  <section class="svc-rigueur" data-i18n-section="services-rigueur">
     <div style="max-width:800px;margin:0 auto;">
       <div class="tag-label" style="justify-content:center;color:#9ca3af;font-size:.7rem;">Notre méthodologie</div>
       <h2>La <em>rigueur</em> de sélection.</h2>
@@ -1251,7 +1269,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- La rigueur scientifique -->
-  <section class="svc-science">
+  <section class="svc-science" data-i18n-section="services-science">
     <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">MÉTHODOLOGIE DE SÉLECTION</div>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);">La rigueur scientifique</h2>
     <p>Notre processus d'évaluation élimine l'incertitude. Nous analysons l'adéquation technique et l'alignement culturel avec une rigueur mathématique.</p>
@@ -1275,7 +1293,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Deux approches exclusives -->
-  <section class="svc-approches">
+  <section class="svc-approches" data-i18n-section="services-approches">
     <div style="max-width:900px;margin:0 auto;">
       <div class="tag-label" style="color:var(--gold);font-size:.7rem;">NOS EXPERTISES</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--gold);">Deux approches exclusives</h2>
@@ -1294,7 +1312,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- FAQ -->
-  <section class="svc-faq">
+  <section class="svc-faq" data-i18n-section="services-faq">
     <div class="svc-faq-grid" style="max-width:900px;margin:0 auto;">
       <div class="faq-left">
         <div style="font-size:.7rem;color:#9ca3af;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Foire aux questions</div>
@@ -1323,7 +1341,7 @@ img,video{max-width:100%;}
 <div id="page-entreprises" class="page">
 
   <!-- Hero -->
-  <section class="vid-hero ent-hero">
+  <section class="vid-hero ent-hero" data-i18n-section="entreprises-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire trouver talent/photo 1.jpg">
       <source src="videos/buildoze.mp4" type="video/mp4"/>
     </video>
@@ -1346,7 +1364,7 @@ img,video{max-width:100%;}
   </div>
 
   <!-- Recrutement permanent de précision (video bg) -->
-  <section class="vid-hero ent-recrutement">
+  <section class="vid-hero ent-recrutement" data-i18n-section="entreprises-recrutement">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/couverture.png">
       <source src="videos/construction.mp4" type="video/mp4"/>
     </video>
@@ -1362,7 +1380,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Nos engagements contractuels -->
-  <section class="ent-engagements">
+  <section class="ent-engagements" data-i18n-section="entreprises-engagements">
     <div style="max-width:960px;margin:0 auto;">
       <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Rigueur &amp; Confiance</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);">Nos <em>engagements contractuels.</em></h2>
@@ -1385,13 +1403,13 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Logo + text -->
-  <section class="ent-logo-section">
+  <section class="ent-logo-section" data-i18n-section="entreprises-logo">
     <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
     <p>Chez Nobilis RH, chaque mandat débute par une compréhension approfondie de votre réalité d'affaires. Notre processus de recrutement est conçu pour identifier des candidats qualifiés qui répondent non seulement à vos exigences du poste, mais également à la culture et aux objectifs de votre organisation.</p>
   </section>
 
   <!-- Notre approche, votre succès (5 steps) -->
-  <section class="ent-approche" id="ent-demarche">
+  <section class="ent-approche" id="ent-demarche" data-i18n-section="entreprises-approche">
     <div class="tag-label" style="justify-content:center;font-size:.7rem;color:#9ca3af;">NOTRE DÉMARCHE</div>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;">Notre approche, <em style="font-style:italic;color:var(--gold);">votre succès.</em></h2>
     <p>Une démarche complète pour identifier les meilleurs talents<br/>et bâtir des équipes performantes et durables.</p>
@@ -1439,7 +1457,7 @@ img,video{max-width:100%;}
 <div id="page-candidats" class="page">
 
   <!-- Hero -->
-  <section class="vid-hero cand-hero">
+  <section class="vid-hero cand-hero" data-i18n-section="candidats-hero">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/01.png">
       <source src="videos/meeting.mp4" type="video/mp4"/>
     </video>
@@ -1453,7 +1471,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Discrétion totale / Marché caché -->
-  <section class="cand-split">
+  <section class="cand-split" data-i18n-section="candidats-split">
     <div class="cand-split-item">
       <h3>Discrétion totale</h3>
       <p>Aucun contact avec votre employeur actuel. Vos informations restant chiffrées et ne sont partagées qu'avec votre accord explicite.</p>
@@ -1465,7 +1483,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- L'art de l'alignement (video bg) -->
-  <section class="vid-hero cand-alignement">
+  <section class="vid-hero cand-alignement" data-i18n-section="candidats-alignement">
     <video autoplay muted loop playsinline class="bg-img" poster="resources/formulaire de condidat/02.png">
       <source src="videos/hand.mp4" type="video/mp4"/>
     </video>
@@ -1491,7 +1509,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Confiez votre parcours -->
-  <section class="cand-confier">
+  <section class="cand-confier" data-i18n-section="candidats-confier">
     <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
     <div class="tag-label" style="justify-content:center;color:#9ca3af;font-size:.7rem;">TRANSMISSION SÉCURISÉE</div>
     <h2>Confiez-nous votre parcours professionnel en toute sécurité.</h2>
@@ -1499,7 +1517,7 @@ img,video{max-width:100%;}
   </section>
 
   <!-- Notre démarche avec nos candidats -->
-  <section class="cand-demarche">
+  <section class="cand-demarche" data-i18n-section="candidats-demarche">
     <div class="cand-demarche-bg">
       <video autoplay muted loop playsinline>
         <source src="videos/hand.mp4" type="video/mp4"/>
@@ -1547,7 +1565,7 @@ img,video{max-width:100%;}
   <!-- CV Upload Form -->
   <section class="cand-cv-section" id="cv-form-section">
     <div class="cand-cv-grid">
-      <div class="cand-cv-info">
+      <div class="cand-cv-info" data-i18n-section="candidats-cv-info">
         <div class="tag-label" style="color:#9ca3af;font-size:.7rem;">Déposer votre candidature</div>
         <h3>Rejoignez notre réseau de talents</h3>
         <p>En déposant votre CV auprès de Nobilis RH, vous accédez à des opportunités exclusives et discrètes dans votre secteur.</p>
@@ -1558,50 +1576,50 @@ img,video{max-width:100%;}
         </div>
       </div>
       <form class="cand-cv-form form-light" id="cv-form" onsubmit="submitCV(event)" novalidate>
-        <h3 class="cand-cv-form-title">Déposer votre candidature</h3>
+        <h3 class="cand-cv-form-title" data-i18n="cv.formTitle">Déposer votre candidature</h3>
         <div class="form-row2">
-          <div class="form-group"><label for="cv-prenom">Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean" required/></div>
-          <div class="form-group"><label for="cv-nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required/></div>
+          <div class="form-group"><label for="cv-prenom" data-i18n="cv.prenom">Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean" required/></div>
+          <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required/></div>
         </div>
         <div class="form-row2">
-          <div class="form-group"><label>Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com"/></div>
-          <div class="form-group"><label>Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000"/></div>
+          <div class="form-group"><label data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com"/></div>
+          <div class="form-group"><label data-i18n="cv.tel">Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000"/></div>
         </div>
         <div class="form-group">
-          <label>Secteur d'activité</label>
-          <input type="text" id="cv-secteur" placeholder="Ex. Ingénierie, TI, Finance..."/>
+          <label data-i18n="cv.secteur">Secteur d'activité</label>
+          <input type="text" id="cv-secteur" data-i18n-placeholder="cv.secteurPlaceholder" placeholder="Ex. Ingénierie, TI, Finance..."/>
         </div>
         <div class="form-group">
-          <label>Disponibilité horaire *</label>
-          <div class="shift-choices" role="radiogroup" aria-label="Disponibilité horaire">
-            <label class="shift-chip"><input type="radio" name="cv-shift" value="Jour"/><span>Jour</span></label>
-            <label class="shift-chip"><input type="radio" name="cv-shift" value="Soir"/><span>Soir</span></label>
-            <label class="shift-chip"><input type="radio" name="cv-shift" value="Nuit"/><span>Nuit</span></label>
-            <label class="shift-chip"><input type="radio" name="cv-shift" value="Fin de semaine"/><span>Fin de semaine</span></label>
-            <label class="shift-chip"><input type="radio" name="cv-shift" value="N'importe"/><span>N'importe</span></label>
+          <label data-i18n="cv.availability">Disponibilité horaire *</label>
+          <div class="shift-choices" role="radiogroup" data-i18n-aria="cv.availability" aria-label="Disponibilité horaire">
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Jour"/><span data-i18n="cv.shiftDay">Jour</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Soir"/><span data-i18n="cv.shiftEvening">Soir</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Nuit"/><span data-i18n="cv.shiftNight">Nuit</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="Fin de semaine"/><span data-i18n="cv.shiftWeekend">Fin de semaine</span></label>
+            <label class="shift-chip"><input type="radio" name="cv-shift" value="N'importe"/><span data-i18n="cv.shiftAny">N'importe</span></label>
           </div>
-          <p class="form-hint">Indiquez le quart de travail qui vous convient le mieux.</p>
+          <p class="form-hint" data-i18n="cv.shiftHint">Indiquez le quart de travail qui vous convient le mieux.</p>
         </div>
-        <div class="form-group"><label>Message (optionnel)</label><textarea id="cv-message" placeholder="Décrivez brièvement votre profil..."></textarea></div>
+        <div class="form-group"><label data-i18n="cv.message">Message (optionnel)</label><textarea id="cv-message" data-i18n-placeholder="cv.messagePlaceholder" placeholder="Décrivez brièvement votre profil..."></textarea></div>
         <div class="form-group">
-          <label>Votre CV (optionnel — PDF, DOCX — max 5 Mo)</label>
+          <label data-i18n="cv.file">Votre CV (optionnel — PDF, DOCX — max 5 Mo)</label>
           <div class="cv-file-wrap">
             <input type="file" id="cv-file" accept=".pdf,.doc,.docx"/>
           </div>
-          <p class="form-hint">Pas de CV pour l'instant? Vous pouvez quand même envoyer votre candidature — un conseiller vous contactera.</p>
+          <p class="form-hint" data-i18n="cv.fileHint">Pas de CV pour l'instant? Vous pouvez quand même envoyer votre candidature — un conseiller vous contactera.</p>
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
             <input type="checkbox" id="cv-consent"/>
-            <span>
+            <span data-i18n-html="cv.consent">
               J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
               <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
             </span>
           </label>
         </div>
-        <button type="submit" class="btn btn-dark" id="cv-submit-btn" style="width:100%;padding:1rem;font-size:.9rem;">Envoyer ma candidature</button>
+        <button type="submit" class="btn btn-dark" id="cv-submit-btn" style="width:100%;padding:1rem;font-size:.9rem;" data-i18n="cv.submit">Envoyer ma candidature</button>
         <div class="form-error" id="cv-error" role="alert"></div>
-        <div class="form-success" id="cv-success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
+        <div class="form-success" id="cv-success" data-i18n="cv.success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
       </form>
     </div>
   </section>
@@ -1615,7 +1633,7 @@ img,video{max-width:100%;}
 <div id="page-contact" class="page">
 
   <!-- Hero -->
-  <section class="vid-hero con-hero">
+  <section class="vid-hero con-hero" data-i18n-section="contact-hero">
     <img class="bg-img" src="resources/formulaire de condidat/02.png" alt="Contact Nobilis RH — Cabinet de recrutement à Québec"/>
     <div class="overlay" style="background:rgba(8,16,26,.58);"></div>
     <div class="hero-content" style="padding:2rem;">
@@ -1627,28 +1645,28 @@ img,video{max-width:100%;}
   <!-- Form section (dark navy) -->
   <section class="con-form-section">
     <div class="con-form-grid">
-      <div class="con-info">
+      <div class="con-info" data-i18n-section="contact-form-info">
         <div class="tag-label" style="color:var(--gold);font-size:.7rem;">Premier échange</div>
         <h2>Initier le dialogue</h2>
         <p>Nos consultations se déroulent exclusivement sur rendez-vous individuel. Nous vous offrons un environnement hautement sécurisé et confidentiel pour analyser avec rigueur vos enjeux de recrutement permanent à long terme.</p>
       </div>
       <form id="con-form" class="con-form-fields" onsubmit="submitContact(event)" novalidate>
-        <div class="form-group"><label for="con-nom">Nom complet *</label><input type="text" id="con-nom" placeholder="Jean Tremblay" required/></div>
-        <div class="form-group"><label for="con-email">Courriel professionnel *</label><input type="email" id="con-email" placeholder="j.tremblay@entreprise.ca" required/></div>
-        <div class="form-group"><label for="con-tel">Téléphone direct</label><input type="tel" id="con-tel" placeholder="418-555-0199"/></div>
+        <div class="form-group"><label for="con-nom" data-i18n="con.nom">Nom complet *</label><input type="text" id="con-nom" data-i18n-placeholder="con.nomPlaceholder" placeholder="Jean Tremblay" required/></div>
+        <div class="form-group"><label for="con-email" data-i18n="con.email">Courriel professionnel *</label><input type="email" id="con-email" data-i18n-placeholder="con.emailPlaceholder" placeholder="j.tremblay@entreprise.ca" required/></div>
+        <div class="form-group"><label for="con-tel" data-i18n="con.tel">Téléphone direct</label><input type="tel" id="con-tel" data-i18n-placeholder="con.telPlaceholder" placeholder="418-555-0199"/></div>
         <div class="form-group">
-          <label for="con-message">Votre message (confidentiel) *</label>
-          <textarea id="con-message" placeholder="Décrivez brièvement vos besoins ou votre situation..." style="min-height:130px;" required></textarea>
+          <label for="con-message" data-i18n="con.message">Votre message (confidentiel) *</label>
+          <textarea id="con-message" data-i18n-placeholder="con.messagePlaceholder" placeholder="Décrivez brièvement vos besoins ou votre situation..." style="min-height:130px;" required></textarea>
         </div>
-        <button type="submit" class="btn btn-gold" id="con-submit-btn" style="padding:.85rem 2rem;">Soumettre la demande</button>
+        <button type="submit" class="btn btn-gold" id="con-submit-btn" style="padding:.85rem 2rem;" data-i18n="con.submit">Soumettre la demande</button>
         <div class="form-error" id="con-error" role="alert"></div>
-        <div class="form-success" id="con-success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
+        <div class="form-success" id="con-success" data-i18n="con.success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
       </form>
     </div>
   </section>
 
   <!-- Présence à Québec -->
-  <section class="con-presence">
+  <section class="con-presence" data-i18n-section="contact-presence">
     <div class="con-presence-inner">
       <div class="tag-label" style="color:var(--gold);font-size:.7rem;">Notre cabinet</div>
       <h2>Présence à Québec</h2>
@@ -1680,7 +1698,7 @@ img,video{max-width:100%;}
 <div id="page-job" class="page">
 
   <!-- Hero -->
-  <section class="vid-hero job-hero" style="position:relative;">
+  <section class="vid-hero job-hero" style="position:relative;" data-i18n-section="job-hero">
     <img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Recherche d'emploi au Canada — Nobilis RH"/>
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
@@ -1694,8 +1712,10 @@ img,video{max-width:100%;}
 
   <!-- Search + listings -->
   <section class="job-search">
+    <div data-i18n-section="job-search-intro">
     <h2>Recherche d'emploi</h2>
     <p>Indiquez un nom de poste, sélectionnez une ville au Canada et un périmètre pour afficher les offres à proximité.</p>
+    </div>
     <div class="search-bar">
       <div class="search-poste-wrap">
         <input type="text" id="search-poste" list="job-title-suggestions" placeholder="Nom du poste" autocomplete="off" aria-label="Nom du poste"/>
@@ -1722,10 +1742,10 @@ img,video{max-width:100%;}
     </div>
     <div class="job-content-grid">
       <div class="jobs-wrap">
-        <div id="jobs-loading" class="jobs-loading">Chargement des offres...</div>
+        <div id="jobs-loading" class="jobs-loading" data-i18n="job.loading">Chargement des offres...</div>
         <div id="jobs-list"></div>
         <div id="jobs-pagination" class="jobs-pagination" style="display:none;"></div>
-        <div id="jobs-empty" class="jobs-empty" style="display:none;">Aucune offre ne correspond à votre recherche.</div>
+        <div id="jobs-empty" class="jobs-empty" style="display:none;" data-i18n="job.empty">Aucune offre ne correspond à votre recherche.</div>
       </div>
       <div class="job-side-video">
         <video autoplay muted loop playsinline poster="resources/formulaire de condidat/01.png">
@@ -1744,11 +1764,11 @@ img,video{max-width:100%;}
 <div id="page-confidentialite" class="page">
 
   <section class="privacy-hero">
-    <h1>Politique de confidentialité</h1>
-    <p>Dernière mise à jour : 01 juillet 2026</p>
+    <h1 data-i18n="privacy.title">Politique de confidentialité</h1>
+    <p data-i18n="privacy.updated">Dernière mise à jour : 01 juillet 2026</p>
   </section>
 
-  <div class="privacy-body">
+  <div class="privacy-body" data-i18n-section="privacy-body">
     <p class="privacy-intro">Chez Nobilis RH, la protection de vos renseignements personnels est au cœur de nos valeurs et de nos obligations professionnelles. Dans le cadre de nos activités de recrutement, de recherche de talents et de placement de personnel au Québec, nous collectons et traitons des données hautement confidentielles.</p>
     <p class="privacy-intro">La présente Politique de confidentialité a pour but de vous informer de manière transparente sur la façon dont nous collectons, utilisons, communiquons, conservons et protégeons vos renseignements personnels, conformément à la Loi sur la protection des renseignements personnels dans le secteur privé (Loi 25 du Québec).</p>
 
@@ -1832,27 +1852,27 @@ img,video{max-width:100%;}
       <img class="footer-brand-logo" src="resources/logo/01.png" alt="Nobilis RH"/>
       <div class="footer-gold-line"></div>
       <div class="footer-brand-name">Nobilis RH</div>
-      <div class="footer-brand-sub">Chasse de têtes de précision et recrutement stratégique à Québec.</div>
+      <div class="footer-brand-sub" data-i18n="footer.brandSub">Chasse de têtes de précision et recrutement stratégique à Québec.</div>
     </div>
     <div class="footer-col">
-      <h4>Navigation</h4>
+      <h4 data-i18n="footer.navigation">Navigation</h4>
       <ul>
-        <li><a onclick="showPage('accueil')">Accueil</a></li>
-        <li><a onclick="showPage('services')">Service</a></li>
-        <li><a onclick="showPage('entreprises')">Entreprise</a></li>
-        <li><a onclick="showPage('candidats')">Candidat</a></li>
-        <li><a onclick="showPage('job')">Recherche d'emploi</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
-        <li><a href="#confidentialite" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
+        <li><a onclick="showPage('accueil')" data-i18n="nav.accueil">Accueil</a></li>
+        <li><a onclick="showPage('services')" data-i18n="footer.service">Service</a></li>
+        <li><a onclick="showPage('entreprises')" data-i18n="footer.entreprise">Entreprise</a></li>
+        <li><a onclick="showPage('candidats')" data-i18n="footer.candidat">Candidat</a></li>
+        <li><a onclick="showPage('job')" data-i18n="nav.job">Recherche d'emploi</a></li>
+        <li><a onclick="showPage('contact')" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="#confidentialite" target="_blank" rel="noopener noreferrer" data-i18n="footer.privacy">Politique de confidentialité</a></li>
       </ul>
     </div>
     <div class="footer-col footer-col-right">
-      <div class="footer-gold-label">Bureau de Québec</div>
-      <p>contact@nobilisrh.ca<br/>Québec, QC, Canada<br/>Consultations confidentielles sur rendez-vous</p>
+      <div class="footer-gold-label" data-i18n="footer.bureau">Bureau de Québec</div>
+      <p data-i18n-html="footer.bureauInfo">contact@nobilisrh.ca<br/>Québec, QC, Canada<br/>Consultations confidentielles sur rendez-vous</p>
     </div>
   </div>
   <div class="footer-credit">
-    <span>Développé par <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">Firas Abdallah</a></span>
+    <span data-i18n-html="footer.developed">Développé par <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">Firas Abdallah</a></span>
     <div class="footer-credit-links">
       <a href="mailto:abdallah.firas@outlook.fr">abdallah.firas@outlook.fr</a>
       <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -1860,9 +1880,9 @@ img,video{max-width:100%;}
     </div>
   </div>
   <div class="footer-bottom">
-    <span>(C) 2026 Nobilis RH — Cabinet de recrutement de précision à Québec.</span>
+    <span data-i18n="footer.copyright">(C) 2026 Nobilis RH — Cabinet de recrutement de précision à Québec.</span>
     <div class="footer-bottom-right">
-      <span>EXCELLENCE</span> · <span>INTÉGRITÉ</span> · <span>ENGAGEMENT</span>
+      <span data-i18n="footer.excellence">EXCELLENCE</span> · <span data-i18n="footer.integrity">INTÉGRITÉ</span> · <span data-i18n="footer.commitment">ENGAGEMENT</span>
     </div>
   </div>
 </footer>
@@ -1873,40 +1893,40 @@ img,video{max-width:100%;}
 ══════════════════════════════════ -->
 <div class="modal-overlay" id="apply-modal" onclick="closeModal(event)">
   <div class="modal modal-apply form-light" onclick="event.stopPropagation()">
-    <button class="modal-close" type="button" onclick="closeApplyModal()" aria-label="Fermer">✕</button>
+    <button class="modal-close" type="button" onclick="closeApplyModal()" data-i18n-aria="modal.close" aria-label="Fermer">✕</button>
     <div class="modal-apply-grid">
       <div class="modal-apply-info">
         <h3 id="modal-title">Postuler</h3>
         <div class="modal-meta" id="modal-meta"></div>
-        <div class="modal-desc-label">Description du poste</div>
+        <div class="modal-desc-label" data-i18n="modal.jobDesc">Description du poste</div>
         <div class="modal-desc" id="modal-desc"></div>
       </div>
       <form class="modal-apply-form" id="app-form" onsubmit="submitApplication(event)" novalidate>
         <div class="form-row2">
-          <div class="form-group"><label for="app-prenom">Prénom *</label><input type="text" id="app-prenom" name="prenom" placeholder="Jean" required/></div>
-          <div class="form-group"><label for="app-nom">Nom *</label><input type="text" id="app-nom" name="nom" placeholder="Dupont" required/></div>
+          <div class="form-group"><label for="app-prenom" data-i18n="app.prenom">Prénom *</label><input type="text" id="app-prenom" name="prenom" placeholder="Jean" required/></div>
+          <div class="form-group"><label for="app-nom" data-i18n="app.nom">Nom *</label><input type="text" id="app-nom" name="nom" placeholder="Dupont" required/></div>
         </div>
         <div class="form-row2">
-          <div class="form-group"><label for="app-email">Courriel *</label><input type="email" id="app-email" name="email" placeholder="jean@email.com" required/></div>
-          <div class="form-group"><label for="app-tel">Téléphone</label><input type="tel" id="app-tel" name="telephone" placeholder="+1 418 000 0000"/></div>
+          <div class="form-group"><label for="app-email" data-i18n="app.email">Courriel *</label><input type="email" id="app-email" name="email" placeholder="jean@email.com" required/></div>
+          <div class="form-group"><label for="app-tel" data-i18n="app.tel">Téléphone</label><input type="tel" id="app-tel" name="telephone" placeholder="+1 418 000 0000"/></div>
         </div>
-        <div class="form-group"><label for="app-lettre">Lettre de motivation</label><textarea id="app-lettre" name="lettre_motivation" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
+        <div class="form-group"><label for="app-lettre" data-i18n="app.lettre">Lettre de motivation</label><textarea id="app-lettre" name="lettre_motivation" data-i18n-placeholder="app.lettrePlaceholder" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
         <div class="form-group">
-          <label for="app-cv">CV (PDF, DOC, DOCX) *</label>
+          <label for="app-cv" data-i18n="app.cv">CV (PDF, DOC, DOCX) *</label>
           <input type="file" id="app-cv" name="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
             <input type="checkbox" id="app-consent" required/>
-            <span>
+            <span data-i18n-html="app.consent">
               J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
               <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
             </span>
           </label>
         </div>
-        <button type="submit" class="btn btn-dark" id="app-submit-btn" style="width:100%;padding:.9rem;">Postuler</button>
+        <button type="submit" class="btn btn-dark" id="app-submit-btn" style="width:100%;padding:.9rem;" data-i18n="app.submit">Postuler</button>
         <div class="form-error" id="app-error" role="alert"></div>
-        <div class="form-success" id="app-success">✓ Candidature envoyée avec succès!</div>
+        <div class="form-success" id="app-success" data-i18n="app.success">✓ Candidature envoyée avec succès!</div>
       </form>
     </div>
   </div>
@@ -1966,16 +1986,18 @@ const PAGE_SEO = {
 };
 
 function updatePageSEO(pageId) {
-  const seo = PAGE_SEO[pageId] || PAGE_SEO.accueil;
+  const fr = PAGE_SEO[pageId] || PAGE_SEO.accueil;
+  const title = siteLang() === 'en' ? t(`seo.${pageId}.title`) : fr.title;
+  const description = siteLang() === 'en' ? t(`seo.${pageId}.description`) : fr.description;
   const url = pageId === 'accueil' ? `${SITE_URL}/` : `${SITE_URL}/#${pageId}`;
-  document.title = seo.title;
-  document.querySelector('meta[name="description"]')?.setAttribute('content', seo.description);
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.getElementById('canonical-link')?.setAttribute('href', url);
   document.getElementById('og-url')?.setAttribute('content', url);
-  document.getElementById('og-title')?.setAttribute('content', seo.title);
-  document.getElementById('og-description')?.setAttribute('content', seo.description);
-  document.getElementById('twitter-title')?.setAttribute('content', seo.title);
-  document.getElementById('twitter-description')?.setAttribute('content', seo.description);
+  document.getElementById('og-title')?.setAttribute('content', title);
+  document.getElementById('og-description')?.setAttribute('content', description);
+  document.getElementById('twitter-title')?.setAttribute('content', title);
+  document.getElementById('twitter-description')?.setAttribute('content', description);
 }
 
 
@@ -2023,6 +2045,9 @@ window.addEventListener('scroll', () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
   initCanadianCitySelect();
+  cacheI18nDefaults();
+  if (siteLang() !== 'fr') setSiteLanguage(siteLang());
+  else refreshJobFilterLabels();
   try {
     await loadAppConfig();
   } catch (err) {
@@ -2259,7 +2284,7 @@ function initCanadianCitySelect() {
   if (!sel || sel.options.length > 1) return;
   CANADIAN_CITIES.forEach(group => {
     const og = document.createElement('optgroup');
-    og.label = group.province;
+    og.label = typeof getProvinceLabel === 'function' ? getProvinceLabel(group.province) : group.province;
     group.cities.forEach(c => {
       const opt = document.createElement('option');
       opt.value = c.name;
@@ -2291,7 +2316,7 @@ function isRemoteLocation(loc) {
 }
 
 function parsePerimetreKm(val) {
-  if (!val || val === "N'importe où") return null;
+  if (!val || val === "N'importe où" || val === 'Anywhere') return null;
   const m = String(val).match(/(\d+)/);
   return m ? parseInt(m[1], 10) : null;
 }
@@ -2490,15 +2515,15 @@ async function loadJobs() {
   const loading = document.getElementById('jobs-loading');
   const empty = document.getElementById('jobs-empty');
   loading.style.display = 'block';
-  loading.textContent = 'Chargement des offres...';
+  loading.textContent = t('job.loading');
   list.innerHTML = '';
   document.getElementById('jobs-pagination').style.display = 'none';
   empty.style.display = 'none';
-  empty.textContent = 'Aucune offre ne correspond à votre recherche.';
+  empty.textContent = t('job.empty');
 
   try {
-    const t = await fetchSheetCSV();
-    allJobs = parseCSV(t).map(normalizeJob).filter(j => j.title);
+    const csvText = await fetchSheetCSV();
+    allJobs = parseCSV(csvText).map(normalizeJob).filter(j => j.title);
     if (!allJobs.length) throw new Error('empty_sheet');
     updateJobTitleSuggestions();
     setDisplayedJobs(allJobs);
@@ -2510,11 +2535,11 @@ async function loadJobs() {
     document.getElementById('jobs-pagination').style.display = 'none';
     empty.style.display = 'block';
     if (location.protocol === 'file:') {
-      empty.textContent = 'Les offres ne peuvent pas se charger depuis un fichier local. Utilisez npx vercel dev avec un fichier .env.local.';
+      empty.textContent = t('job.emptyLocal');
     } else if (e.message === 'sheet_url_missing') {
-      empty.textContent = 'Configuration des offres manquante. Ajoutez SHEET_CSV_URL dans les variables d\'environnement Vercel.';
+      empty.textContent = t('job.emptyConfig');
     } else {
-      empty.textContent = 'Impossible de charger les offres depuis Google Sheets. Rafraîchissez (Ctrl+F5) ou réessayez dans quelques instants.';
+      empty.textContent = t('job.emptySheet');
     }
   }
   loading.style.display = 'none';
@@ -2569,11 +2594,11 @@ function renderPagination(totalPages) {
   }
 
   pag.innerHTML = `
-    <span class="jobs-pagination-info">Affichage ${start}–${end} sur ${total} offre${total > 1 ? 's' : ''}</span>
+    <span class="jobs-pagination-info">${formatJobPagination(start, end, total)}</span>
     <div class="jobs-pagination-nav">
-      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage - 1})" ${currentJobPage === 1 ? 'disabled' : ''}>Précédent</button>
+      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage - 1})" ${currentJobPage === 1 ? 'disabled' : ''}>${t('job.prev')}</button>
       <div class="jobs-pag-pages">${pagesHtml}</div>
-      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage + 1})" ${currentJobPage === totalPages ? 'disabled' : ''}>Suivant</button>
+      <button type="button" class="jobs-pag-btn" onclick="goToJobPage(${currentJobPage + 1})" ${currentJobPage === totalPages ? 'disabled' : ''}>${t('job.next')}</button>
     </div>
   `;
 }
@@ -2593,12 +2618,12 @@ function renderJobCard(job) {
     <div class="job-card-head">
       <div>
         <div class="jc-title">${escHtml(j.title)}</div>
-        ${tags.length ? `<div class="jc-tags">${tags.map(t => `<span class="${t.cls}">${escHtml(t.text)}</span>`).join('')}</div>` : ''}
+        ${tags.length ? `<div class="jc-tags">${tags.map(tag => `<span class="${tag.cls}">${escHtml(tag.text)}</span>`).join('')}</div>` : ''}
       </div>
     </div>
     ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(j.salary)}</div>` : ''}
     ${j.description ? `<div class="jc-desc">${escHtml(j.description.length > 160 ? j.description.slice(0, 160) + '…' : j.description)}</div>` : ''}
-    <button class="jc-btn" type="button">Postuler</button>
+    <button class="jc-btn" type="button">${t('job.apply')}</button>
   `;
   div.addEventListener('click', () => openModal(payload));
   div.querySelector('.jc-btn').addEventListener('click', e => { e.stopPropagation(); openModal(payload); });
@@ -2644,14 +2669,14 @@ async function filterJobs() {
   });
 
   if (perKm !== null && !refCity) {
-    alert('Veuillez sélectionner une ville au Canada pour utiliser le filtre par périmètre.');
+    alert(t('job.selectCityAlert'));
     document.getElementById('search-ville').focus();
     return;
   }
 
   if (refCity) {
     loading.style.display = 'block';
-    loading.textContent = 'Calcul des distances...';
+    loading.textContent = t('job.calculating');
     list.innerHTML = '';
     document.getElementById('jobs-empty').style.display = 'none';
 
@@ -2683,7 +2708,7 @@ async function filterJobs() {
     });
 
     loading.style.display = 'none';
-    loading.textContent = 'Chargement des offres...';
+    loading.textContent = t('job.loading');
     setDisplayedJobs(results);
     return;
   }
@@ -2799,7 +2824,7 @@ function setAppSubmitLoading(loading) {
   const btn = document.getElementById('app-submit-btn');
   if (!btn) return;
   btn.disabled = loading;
-  btn.textContent = loading ? 'Envoi en cours…' : 'Postuler';
+  btn.textContent = loading ? t('ui.sending') : t('ui.apply');
 }
 
 function clearAppMessages() {
@@ -2827,29 +2852,29 @@ function showAppSuccess() {
 
 function formatApplicationError(err) {
   const msg = String(err?.message || err || '').toLowerCase();
-  if (msg.includes('formulaire non configuré') || msg.includes('supabase non configuré')) {
-    return 'Le formulaire n\'est pas encore configuré. Réessayez plus tard.';
+  if (msg.includes('formulaire non configuré') || msg.includes('supabase non configuré') || msg.includes('not configured')) {
+    return t('ui.errorNotConfigured');
   }
   if (msg.includes('bucket not found') || msg.includes('bucket')) {
-    return 'Espace de stockage CV non configuré. Contactez Nobilis RH.';
+    return t('ui.errorStorage');
   }
   if (msg.includes('row-level security') || msg.includes('policy')) {
-    return 'Impossible d\'enregistrer le CV. Vérifiez la configuration Supabase.';
+    return t('ui.errorSupabase');
   }
   if (msg.includes('file uploads not permitted')) {
-    return 'Erreur d\'envoi du formulaire. Réessayez dans quelques instants.';
+    return t('ui.errorFormSend');
   }
   if (msg.includes('failed to fetch') || msg.includes('network')) {
-    return 'Connexion impossible. Vérifiez votre réseau et réessayez.';
+    return t('ui.errorNetwork');
   }
-  return err?.message || 'Erreur lors de l\'envoi. Veuillez réessayer.';
+  return err?.message || t('ui.errorGeneric');
 }
 
 function setCvSubmitLoading(loading) {
   const btn = document.getElementById('cv-submit-btn');
   if (!btn) return;
   btn.disabled = loading;
-  btn.textContent = loading ? 'Envoi en cours…' : 'Envoyer ma candidature';
+  btn.textContent = loading ? t('ui.sending') : t('ui.submitCv');
 }
 
 function clearCvMessages() {
@@ -2879,7 +2904,7 @@ function setConSubmitLoading(loading) {
   const btn = document.getElementById('con-submit-btn');
   if (!btn) return;
   btn.disabled = loading;
-  btn.textContent = loading ? 'Envoi en cours…' : 'Soumettre la demande';
+  btn.textContent = loading ? t('ui.sending') : t('ui.submitContact');
 }
 
 function clearConMessages() {
@@ -2917,27 +2942,27 @@ async function submitCV(event) {
   const message = document.getElementById('cv-message').value.trim();
 
   if (!p || !n || !e) {
-    showCvError('Veuillez remplir les champs obligatoires.');
+    showCvError(t('ui.errorRequired'));
     return;
   }
   if (!document.getElementById('cv-consent').checked) {
-    showCvError('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    showCvError(t('ui.errorConsent'));
     return;
   }
   const shiftEl = document.querySelector('input[name="cv-shift"]:checked');
   if (!shiftEl) {
-    showCvError('Veuillez sélectionner votre disponibilité horaire.');
+    showCvError(t('ui.errorShift'));
     return;
   }
   if (!APP_CONFIG.formspreeCandidatUrl) {
-    showCvError('Formulaire temporairement indisponible. Réessayez plus tard.');
+    showCvError(t('ui.errorFormUnavailable'));
     return;
   }
 
   const file = document.getElementById('cv-file').files[0];
   const maxCvBytes = 5 * 1024 * 1024;
   if (file && file.size > maxCvBytes) {
-    showCvError('Le CV ne doit pas dépasser 5 Mo.');
+    showCvError(t('ui.errorCvSize5'));
     return;
   }
 
@@ -3010,11 +3035,11 @@ async function submitContact(event) {
   const m = document.getElementById('con-message').value.trim();
 
   if (!n || !e || !m) {
-    showConError('Veuillez remplir les champs obligatoires.');
+    showConError(t('ui.errorRequired'));
     return;
   }
   if (!APP_CONFIG.formspreeContactUrl) {
-    showConError('Formulaire temporairement indisponible. Réessayez plus tard.');
+    showConError(t('ui.errorFormUnavailable'));
     return;
   }
 
@@ -3067,27 +3092,27 @@ async function submitApplication(event) {
   const jobEmail = currentJob?.email || '';
 
   if (!p || !n || !e) {
-    showAppError('Veuillez remplir les champs obligatoires.');
+    showAppError(t('ui.errorRequired'));
     return;
   }
   if (!document.getElementById('app-consent').checked) {
-    showAppError('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    showAppError(t('ui.errorConsent'));
     return;
   }
 
   const file = document.getElementById('app-cv').files[0];
   if (!file) {
-    showAppError('Veuillez joindre votre CV.');
+    showAppError(t('ui.errorCvRequired'));
     return;
   }
 
   const maxCvBytes = 10 * 1024 * 1024;
   if (file.size > maxCvBytes) {
-    showAppError('Le CV ne doit pas dépasser 10 Mo.');
+    showAppError(t('ui.errorCvSize10'));
     return;
   }
   if (!isSupabaseConfigured()) {
-    showAppError('Téléversement de CV temporairement indisponible. Réessayez plus tard.');
+    showAppError(t('ui.errorUploadUnavailable'));
     return;
   }
 
