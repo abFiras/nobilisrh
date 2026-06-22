@@ -1554,11 +1554,11 @@ img,video{max-width:100%;}
           <p>Confidentialité absolue · Réponse sous 48h · Accompagnement personnalisé</p>
         </div>
       </div>
-      <div class="cand-cv-form form-light">
+      <form class="cand-cv-form form-light" id="cv-form" onsubmit="submitCV(event)" novalidate>
         <h3 class="cand-cv-form-title">Déposer votre candidature</h3>
         <div class="form-row2">
-          <div class="form-group"><label>Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean"/></div>
-          <div class="form-group"><label>Nom *</label><input type="text" id="cv-nom" placeholder="Dupont"/></div>
+          <div class="form-group"><label for="cv-prenom">Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean" required/></div>
+          <div class="form-group"><label for="cv-nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required/></div>
         </div>
         <div class="form-row2">
           <div class="form-group"><label>Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com"/></div>
@@ -1596,9 +1596,10 @@ img,video{max-width:100%;}
             </span>
           </label>
         </div>
-        <button class="btn btn-dark" style="width:100%;padding:1rem;font-size:.9rem;" onclick="submitCV()">Envoyer ma candidature</button>
+        <button type="submit" class="btn btn-dark" id="cv-submit-btn" style="width:100%;padding:1rem;font-size:.9rem;">Envoyer ma candidature</button>
+        <div class="form-error" id="cv-error" role="alert"></div>
         <div class="form-success" id="cv-success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
-      </div>
+      </form>
     </div>
   </section>
 
@@ -1906,6 +1907,7 @@ img,video{max-width:100%;}
 // ══════════════════════════════
 let APP_CONFIG = {
   formspreeApplicationUrl: '',
+  formspreeCandidatUrl: '',
   supabaseUrl: '',
   supabaseAnonKey: '',
   emailjsPublicKey: '',
@@ -2769,10 +2771,10 @@ function sanitizeFileName(name) {
   return String(name || 'cv').replace(/[^\w.\-]/g, '_');
 }
 
-async function uploadCvToSupabase(file) {
+async function uploadCvToSupabase(file, folder = 'candidatures') {
   const sb = getSupabase();
   if (!sb) throw new Error('Supabase non configuré.');
-  const path = `candidatures/${Date.now()}_${sanitizeFileName(file.name)}`;
+  const path = `${folder}/${Date.now()}_${sanitizeFileName(file.name)}`;
   const { error } = await sb.storage.from(SUPABASE_CV_BUCKET).upload(path, file, {
     contentType: file.type || 'application/octet-stream',
     upsert: false
@@ -2789,11 +2791,9 @@ async function saveApplicationToSupabase(record) {
   if (error) throw error;
 }
 
-async function submitToFormspree(formData) {
-  if (!APP_CONFIG.formspreeApplicationUrl) {
-    throw new Error('Formulaire de candidature non configuré.');
-  }
-  const response = await fetch(APP_CONFIG.formspreeApplicationUrl, {
+async function postToFormspree(url, formData) {
+  if (!url) throw new Error('Formulaire non configuré.');
+  const response = await fetch(url, {
     method: 'POST',
     body: formData,
     headers: { Accept: 'application/json' }
@@ -2806,6 +2806,14 @@ async function submitToFormspree(formData) {
     throw new Error(msg);
   }
   return data;
+}
+
+async function submitToFormspree(formData) {
+  return postToFormspree(APP_CONFIG.formspreeApplicationUrl, formData);
+}
+
+async function submitToFormspreeCandidat(formData) {
+  return postToFormspree(APP_CONFIG.formspreeCandidatUrl, formData);
 }
 
 function setAppSubmitLoading(loading) {
@@ -2840,7 +2848,7 @@ function showAppSuccess() {
 
 function formatApplicationError(err) {
   const msg = String(err?.message || err || '').toLowerCase();
-  if (msg.includes('formulaire de candidature non configuré') || msg.includes('supabase non configuré')) {
+  if (msg.includes('formulaire non configuré') || msg.includes('supabase non configuré')) {
     return 'Le formulaire n\'est pas encore configuré. Réessayez plus tard.';
   }
   if (msg.includes('bucket not found') || msg.includes('bucket')) {
@@ -2858,8 +2866,38 @@ function formatApplicationError(err) {
   return err?.message || 'Erreur lors de l\'envoi. Veuillez réessayer.';
 }
 
+function setCvSubmitLoading(loading) {
+  const btn = document.getElementById('cv-submit-btn');
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.textContent = loading ? 'Envoi en cours…' : 'Envoyer ma candidature';
+}
+
+function clearCvMessages() {
+  document.getElementById('cv-success')?.classList.remove('show');
+  const err = document.getElementById('cv-error');
+  if (err) {
+    err.textContent = '';
+    err.classList.remove('show');
+  }
+}
+
+function showCvError(message) {
+  const err = document.getElementById('cv-error');
+  document.getElementById('cv-success')?.classList.remove('show');
+  if (!err) return;
+  err.textContent = message;
+  err.classList.add('show');
+  err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showCvSuccess() {
+  clearCvMessages();
+  document.getElementById('cv-success')?.classList.add('show');
+}
+
 // ══════════════════════════════
-// EMAILJS (contact & candidature spontanée)
+// EMAILJS (contact)
 // ══════════════════════════════
 function sendEmail(params, successId) {
   if (!isEmailJsConfigured()) {
@@ -2874,31 +2912,99 @@ function sendEmail(params, successId) {
     });
 }
 
-function submitCV() {
-  const p = document.getElementById('cv-prenom').value;
-  const n = document.getElementById('cv-nom').value;
-  const e = document.getElementById('cv-email').value;
-  if (!p||!n||!e) { alert('Veuillez remplir les champs obligatoires.'); return; }
+async function submitCV(event) {
+  event.preventDefault();
+
+  const p = document.getElementById('cv-prenom').value.trim();
+  const n = document.getElementById('cv-nom').value.trim();
+  const e = document.getElementById('cv-email').value.trim();
+  const tel = document.getElementById('cv-tel').value.trim();
+  const secteur = document.getElementById('cv-secteur').value.trim();
+  const message = document.getElementById('cv-message').value.trim();
+
+  if (!p || !n || !e) {
+    showCvError('Veuillez remplir les champs obligatoires.');
+    return;
+  }
   if (!document.getElementById('cv-consent').checked) {
-    alert('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
+    showCvError('Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.');
     return;
   }
   const shiftEl = document.querySelector('input[name="cv-shift"]:checked');
   if (!shiftEl) {
-    alert('Veuillez sélectionner votre disponibilité horaire.');
+    showCvError('Veuillez sélectionner votre disponibilité horaire.');
     return;
   }
+  if (!APP_CONFIG.formspreeCandidatUrl) {
+    showCvError('Formulaire temporairement indisponible. Réessayez plus tard.');
+    return;
+  }
+
   const file = document.getElementById('cv-file').files[0];
-  sendEmail({
-    from_name: p+' '+n, from_email: e,
-    phone: document.getElementById('cv-tel').value,
-    secteur: document.getElementById('cv-secteur').value,
-    disponibilite: shiftEl.value,
-    message: document.getElementById('cv-message').value||'—',
-    cv_file: file ? file.name : 'Non joint',
-    consent: 'Oui — J\'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels conformément à la Politique de confidentialité.',
-    subject: 'Candidature spontanée — '+p+' '+n,
-  }, 'cv-success');
+  const maxCvBytes = 5 * 1024 * 1024;
+  if (file && file.size > maxCvBytes) {
+    showCvError('Le CV ne doit pas dépasser 5 Mo.');
+    return;
+  }
+
+  setCvSubmitLoading(true);
+  clearCvMessages();
+
+  try {
+    let cvStorage = null;
+    if (file && isSupabaseConfigured()) {
+      cvStorage = await uploadCvToSupabase(file, 'candidatures-spontanees');
+    }
+
+    const formData = new FormData();
+    formData.append('email', e);
+    formData.append('_replyto', e);
+    formData.append('_subject', `Candidature spontanée — ${p} ${n}`);
+    formData.append('prenom', p);
+    formData.append('nom', n);
+    formData.append('nom_complet', `${p} ${n}`);
+    formData.append('telephone', tel || '—');
+    formData.append('secteur', secteur || '—');
+    formData.append('disponibilite', shiftEl.value);
+    formData.append('message', message || '—');
+    formData.append('type', 'Candidature spontanée');
+    formData.append('poste', 'Candidature spontanée');
+    formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
+    formData.append('cv_fichier', file ? file.name : 'Non joint');
+    if (cvStorage) {
+      formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
+      formData.append('cv_storage_path', cvStorage.path);
+    }
+
+    await submitToFormspreeCandidat(formData);
+
+    if (isSupabaseConfigured()) {
+      await saveApplicationToSupabase({
+        prenom: p,
+        nom: n,
+        email: e,
+        telephone: tel || null,
+        lettre_motivation: message || null,
+        poste: 'Candidature spontanée',
+        localisation: secteur || null,
+        type_contrat: shiftEl.value,
+        email_offre: null,
+        cv_filename: file ? file.name : 'Non joint',
+        cv_storage_path: cvStorage?.path || null,
+        cv_url: cvStorage?.publicUrl || null,
+        consentement: true
+      });
+    }
+
+    showCvSuccess();
+    document.getElementById('cv-form').reset();
+    document.getElementById('cv-consent').checked = false;
+  } catch (err) {
+    console.error(err);
+    showCvError(formatApplicationError(err));
+  } finally {
+    setCvSubmitLoading(false);
+  }
 }
 
 function submitContact() {
