@@ -19,7 +19,7 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Nobilis RH"/>
-<meta property="og:locale" content="fr_CA"/>
+<meta property="og:locale" content="fr_CA" id="og-locale"/>
 <meta property="og:url" content="https://nobilisrh.ca/" id="og-url"/>
 <meta property="og:title" content="Nobilis RH — Recrutement et chasse de têtes au Québec, Canada" id="og-title"/>
 <meta property="og:description" content="Cabinet de recrutement de précision à Québec. Chasse de têtes, placement de talents et accompagnement carrière au Canada." id="og-description"/>
@@ -115,6 +115,8 @@
 </script>
 <link rel="icon" href="resources/logo/kk.ico" type="image/x-icon"/>
 <link rel="apple-touch-icon" href="resources/logo/01.png" sizes="180x180"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="media.js"></script>
@@ -148,7 +150,21 @@ body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#fff;overflow-x:hid
 /* ── PAGE SYSTEM ── */
 .page{display:none;}
 .page.active{display:block;animation:pageIn .4s var(--ease);}
+.page[aria-hidden="true"]{display:none;}
 @keyframes pageIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .page.active{animation:none;}
+  .modal{animation:none;}
+}
+.skip-link{
+  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+.skip-link:focus{
+  position:fixed;left:1rem;top:1rem;width:auto;height:auto;overflow:visible;
+  z-index:10000;padding:.75rem 1rem;background:var(--gold);color:var(--navy);
+  font-size:.85rem;font-weight:600;text-decoration:none;border-radius:4px;
+}
 
 /* ══════════════════════════════════
    NAVIGATION
@@ -233,7 +249,7 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gold);}
 .nav-links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
 .nav-right{display:flex;align-items:center;gap:1rem;}
-.nav-socials{display:flex;gap:.75rem;}
+.nav-socials{display:none;}
 .nav-socials a{color:rgba(255,255,255,.5);display:flex;transition:color var(--ease),transform var(--ease);}
 .nav-socials a:hover{color:var(--gold);transform:translateY(-1px);}
 .nav-socials svg{width:16px;height:16px;}
@@ -364,7 +380,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 }
 .acc-hero-left .tag-label{color:#888;font-size:.75rem;}
 .acc-hero-left .tag-label::before{display:none;}
-.acc-hero-left .tag-label::after{content:' Cabinet de recrutement';}
 .acc-hero-right{position:relative;overflow:hidden;background:#0d1b2e;}
 .acc-hero-right img{width:100%;height:100%;object-fit:cover;}
 .acc-hero-right .img-rounded{
@@ -901,6 +916,12 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   color:#065f46;padding:.8rem 1rem;margin-top:1rem;font-size:.82rem;text-align:center;
 }
 .form-success.show{display:block;}
+.jobs-filter-error{
+  display:none;background:#fee2e2;border:1px solid #f87171;
+  color:#991b1b;padding:.75rem 1rem;margin-top:.75rem;font-size:.82rem;text-align:center;
+  border-radius:4px;
+}
+.jobs-filter-error.show{display:block;}
 .form-error{
   display:none;background:#fee2e2;border:1px solid #f87171;
   color:#991b1b;padding:.8rem 1rem;margin-top:1rem;font-size:.82rem;text-align:center;line-height:1.5;
@@ -1090,43 +1111,44 @@ img,video{max-width:100%;}
 </head>
 <body>
 
+<a class="skip-link" href="#main-content" data-i18n="nav.skipToContent">Aller au contenu principal</a>
+
 <!-- ══════════════════════════════════
      NAVIGATION
 ══════════════════════════════════ -->
-<nav id="main-nav">
-  <a class="nav-logo" onclick="showPage('accueil')">
+<nav id="main-nav" role="navigation" aria-label="Navigation principale">
+  <a href="#accueil" class="nav-logo" onclick="event.preventDefault();showPage('accueil')">
     <img class="nav-logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
   </a>
   <ul class="nav-links" id="nav-links">
-    <li><a onclick="showPage('accueil')" id="nav-accueil" class="active" data-i18n="nav.accueil">Accueil</a></li>
-    <li><a onclick="showPage('services')" id="nav-services" data-i18n="nav.services">Services</a></li>
-    <li><a onclick="showPage('entreprises')" id="nav-entreprises" data-i18n="nav.entreprises">Entreprises</a></li>
-    <li><a onclick="showPage('candidats')" id="nav-candidats" data-i18n="nav.candidats">Candidats</a></li>
-    <li><a onclick="showPage('job')" id="nav-job" data-i18n="nav.job">Recherche d'emploi</a></li>
-    <li><a onclick="showPage('contact')" id="nav-contact" data-i18n="nav.contact">Contact</a></li>
+    <li><a href="#accueil" onclick="event.preventDefault();showPage('accueil')" id="nav-accueil" class="active" aria-current="page" data-i18n="nav.accueil">Accueil</a></li>
+    <li><a href="#services" onclick="event.preventDefault();showPage('services')" id="nav-services" data-i18n="nav.services">Services</a></li>
+    <li><a href="#entreprises" onclick="event.preventDefault();showPage('entreprises')" id="nav-entreprises" data-i18n="nav.entreprises">Entreprises</a></li>
+    <li><a href="#candidats" onclick="event.preventDefault();showPage('candidats')" id="nav-candidats" data-i18n="nav.candidats">Candidats</a></li>
+    <li><a href="#job" onclick="event.preventDefault();showPage('job')" id="nav-job" data-i18n="nav.job">Recherche d'emploi</a></li>
+    <li><a href="#contact" onclick="event.preventDefault();showPage('contact')" id="nav-contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
   <div class="nav-right">
     <div class="lang-switch" role="group" aria-label="Language">
       <button type="button" class="lang-btn active" data-lang="fr" onclick="setSiteLanguage('fr')">FR</button>
       <button type="button" class="lang-btn" data-lang="en" onclick="setSiteLanguage('en')">EN</button>
     </div>
-    <div class="nav-socials">
-      <a href="#" aria-label="Facebook"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-      <a href="#" aria-label="Instagram"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
-      <a href="#" aria-label="LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+    <div class="nav-socials" aria-hidden="true">
+      <a href="#" aria-label="Facebook" tabindex="-1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram" tabindex="-1"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn" tabindex="-1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
     </div>
   </div>
-  <button class="nav-toggle" id="nav-toggle" data-i18n-aria="nav.openMenu" aria-label="Ouvrir le menu" onclick="toggleNav()">
+  <button class="nav-toggle" id="nav-toggle" data-i18n-aria="nav.openMenu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-
+<main id="main-content">
 <!-- ══════════════════════════════════
      PAGE: ACCUEIL
 ══════════════════════════════════ -->
-<div id="page-accueil" class="page active">
-
+<div id="page-accueil" class="page active" aria-hidden="false">
   <!-- Hero split -->
   <section class="acc-hero">
     <div class="acc-hero-left">
@@ -1140,7 +1162,7 @@ img,video{max-width:100%;}
     </div>
     <div class="acc-hero-right">
       <div class="img-rounded">
-        <img src="resources/photo d'accueil 1.png" alt="Connecter les talents"/>
+        <img src="resources/photo d'accueil 1.png" alt="Connecter les talents" fetchpriority="high" decoding="async"/>
       </div>
     </div>
   </section>
@@ -1177,7 +1199,7 @@ img,video{max-width:100%;}
   <!-- Un engagement de performance -->
   <section class="acc-performance" data-i18n-section="accueil-performance">
     <div class="acc-perf-left">
-      <img src="resources/photo d'acceuil.png" alt="Engagement de performance" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>
+      <img src="resources/photo d'acceuil.png" alt="Engagement de performance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>
     </div>
     <div class="acc-perf-right">
       <div class="acc-perf-right tag-label-sm" style="font-size:.7rem;color:#9ca3af;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Garantie de réussite</div>
@@ -1214,7 +1236,7 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: SERVICES
 ══════════════════════════════════ -->
-<div id="page-services" class="page">
+<div id="page-services" class="page" aria-hidden="true">
 
   <!-- Hero with video bg -->
   <section class="vid-hero svc-hero" data-i18n-section="services-hero">
@@ -1224,7 +1246,7 @@ img,video{max-width:100%;}
     <div class="overlay" style="background:rgba(8,16,26,.55);"></div>
     <div class="hero-content" style="padding:0 4rem;">
       <div class="tag-label" style="color:var(--gold);">CABINET DE SÉLECTION</div>
-      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:700;color:#fff;line-height:1.05;">L'art de la précision..</h1>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:700;color:#fff;line-height:1.05;">L'art de la précision.</h1>
       <p style="font-size:.9rem;color:rgba(255,255,255,.7);max-width:620px;margin-top:1rem;line-height:1.75;">Pour les organisations de Québec qui ne peuvent se permettre aucune erreur de recrutement, nous concevons des recherches sur mesure alliant rigueur scientifique et discrétion absolue.</p>
     </div>
   </section>
@@ -1233,12 +1255,12 @@ img,video{max-width:100%;}
   <section class="svc-talents" data-i18n-section="services-talents">
     <div class="svc-talents-left">
       <div class="tag-label" style="color:#888;font-size:.7rem;">→ Approche directe</div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.1;">Les talents d'exception<br/>ne cherchent pas<br/>toujours un emploi..</h2>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.1;">Les talents d'exception<br/>ne cherchent pas<br/>toujours un emploi.</h2>
       <p style="font-size:.85rem;color:var(--textgrey);line-height:1.75;margin-top:1rem;">Chez Nobilis RH, nous ciblons et approchons de manière confidentielle les professionnels les plus qualifiés de leur secteur. Grâce à notre réseau et à notre méthodologie de recherche proactive, nous identifions les candidats stratégiques capables d'apporter une réelle valeur ajoutée à votre organisation.</p>
       <div style="margin-top:1.5rem;"><button class="btn btn-outline-gold" onclick="showPage('job')">Initier une recherche</button></div>
     </div>
     <div class="svc-talents-right">
-      <img src="resources/formulaire trouver talent/photo 1.jpg" alt="Talent d'exception"/>
+      <img src="resources/formulaire trouver talent/photo 1.jpg" alt="Talent d'exception" loading="lazy" decoding="async"/>
     </div>
   </section>
 
@@ -1339,7 +1361,7 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: ENTREPRISES
 ══════════════════════════════════ -->
-<div id="page-entreprises" class="page">
+<div id="page-entreprises" class="page" aria-hidden="true">
 
   <!-- Hero -->
   <section class="vid-hero ent-hero" data-i18n-section="entreprises-hero">
@@ -1405,7 +1427,7 @@ img,video{max-width:100%;}
 
   <!-- Logo + text -->
   <section class="ent-logo-section" data-i18n-section="entreprises-logo">
-    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
+    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH" loading="lazy" decoding="async"/>
     <p>Chez Nobilis RH, chaque mandat débute par une compréhension approfondie de votre réalité d'affaires. Notre processus de recrutement est conçu pour identifier des candidats qualifiés qui répondent non seulement à vos exigences du poste, mais également à la culture et aux objectifs de votre organisation.</p>
   </section>
 
@@ -1455,7 +1477,7 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: CANDIDATS
 ══════════════════════════════════ -->
-<div id="page-candidats" class="page">
+<div id="page-candidats" class="page" aria-hidden="true">
 
   <!-- Hero -->
   <section class="vid-hero cand-hero" data-i18n-section="candidats-hero">
@@ -1511,7 +1533,7 @@ img,video{max-width:100%;}
 
   <!-- Confiez votre parcours -->
   <section class="cand-confier" data-i18n-section="candidats-confier">
-    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH"/>
+    <img class="logo-img" src="resources/logo/01.png" alt="Nobilis RH" loading="lazy" decoding="async"/>
     <div class="tag-label" style="justify-content:center;color:#9ca3af;font-size:.7rem;">TRANSMISSION SÉCURISÉE</div>
     <h2>Confiez-nous votre parcours professionnel en toute sécurité.</h2>
     <p>Notre équipe de spécialistes en recrutement et en chasse de têtes évalue votre profil avec rigueur, professionnalisme et discrétion. Nous prenons le temps de comprendre votre expérience, vos valeurs et vos forces afin de vous représenter auprès d'employeurs de premier choix et de vous ouvrir les portes d'opportunités stratégiques.</p>
@@ -1583,7 +1605,7 @@ img,video{max-width:100%;}
           <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required/></div>
         </div>
         <div class="form-row2">
-          <div class="form-group"><label data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com"/></div>
+          <div class="form-group"><label for="cv-email" data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com" required/></div>
           <div class="form-group"><label data-i18n="cv.tel">Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000"/></div>
         </div>
         <div class="form-group">
@@ -1611,16 +1633,16 @@ img,video{max-width:100%;}
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
-            <input type="checkbox" id="cv-consent"/>
+            <input type="checkbox" id="cv-consent" required/>
             <span data-i18n-html="cv.consent">
               J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
-              <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
+              <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage('confidentialite')">Politique de confidentialité</a>.
             </span>
           </label>
         </div>
         <button type="submit" class="btn btn-dark" id="cv-submit-btn" style="width:100%;padding:1rem;font-size:.9rem;" data-i18n="cv.submit">Envoyer ma candidature</button>
         <div class="form-error" id="cv-error" role="alert"></div>
-        <div class="form-success" id="cv-success" data-i18n="cv.success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
+        <div class="form-success" id="cv-success" role="status" aria-live="polite" data-i18n="cv.success">✓ Candidature envoyée. Nous vous contacterons sous 48h.</div>
       </form>
     </div>
   </section>
@@ -1631,11 +1653,11 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: CONTACT
 ══════════════════════════════════ -->
-<div id="page-contact" class="page">
+<div id="page-contact" class="page" aria-hidden="true">
 
   <!-- Hero -->
   <section class="vid-hero con-hero" data-i18n-section="contact-hero">
-    <img class="bg-img" src="resources/formulaire de condidat/02.png" alt="Contact Nobilis RH — Cabinet de recrutement à Québec"/>
+    <img class="bg-img" src="resources/formulaire de condidat/02.png" alt="Contact Nobilis RH — Cabinet de recrutement à Québec" loading="lazy" decoding="async"/>
     <div class="overlay" style="background:rgba(8,16,26,.58);"></div>
     <div class="hero-content" style="padding:2rem;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">L'art de la discrétion</h1>
@@ -1661,7 +1683,7 @@ img,video{max-width:100%;}
         </div>
         <button type="submit" class="btn btn-gold" id="con-submit-btn" style="padding:.85rem 2rem;" data-i18n="con.submit">Soumettre la demande</button>
         <div class="form-error" id="con-error" role="alert"></div>
-        <div class="form-success" id="con-success" data-i18n="con.success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
+        <div class="form-success" id="con-success" role="status" aria-live="polite" data-i18n="con.success">✓ Message envoyé. Nous vous répondrons dans les meilleurs délais.</div>
       </form>
     </div>
   </section>
@@ -1682,6 +1704,7 @@ img,video{max-width:100%;}
         </div>
         <div class="bureau-map">
           <iframe
+            title="Carte — Bureau Nobilis RH, Grande Allée Est, Québec"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2727.0!2d-71.2281!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb895e7b0a3a0b3%3A0x7!2sGrande+All%C3%A9e+Est%2C+Qu%C3%A9bec%2C+QC!5e0!3m2!1sfr!2sca!4v1"
             allowfullscreen="" loading="lazy">
           </iframe>
@@ -1696,17 +1719,17 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: JOB
 ══════════════════════════════════ -->
-<div id="page-job" class="page">
+<div id="page-job" class="page" aria-hidden="true">
 
   <!-- Hero -->
   <section class="vid-hero job-hero" style="position:relative;" data-i18n-section="job-hero">
-    <img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Recherche d'emploi au Canada — Nobilis RH"/>
+    <img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Recherche d'emploi au Canada — Nobilis RH" loading="lazy" decoding="async"/>
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Recherche d'emploi</h1>
       <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil, une ville au Canada et le périmètre autour de celle-ci.</p>
     </div>
-    <div class="job-hero-label" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.3);padding:.6rem 2rem;">
+    <div class="job-hero-label" style="display:none;" aria-hidden="true">
       <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Recherche d'emploi</span>
     </div>
   </section>
@@ -1741,6 +1764,7 @@ img,video{max-width:100%;}
       </select>
       <button type="button" onclick="filterJobs()">Rechercher</button>
     </div>
+    <div id="jobs-filter-error" class="jobs-filter-error" role="alert" aria-live="polite"></div>
     <div class="job-content-grid">
       <div class="jobs-wrap">
         <div id="jobs-loading" class="jobs-loading" data-i18n="job.loading">Chargement des offres...</div>
@@ -1762,7 +1786,7 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      PAGE: POLITIQUE DE CONFIDENTIALITÉ
 ══════════════════════════════════ -->
-<div id="page-confidentialite" class="page">
+<div id="page-confidentialite" class="page" aria-hidden="true">
 
   <section class="privacy-hero">
     <h1 data-i18n="privacy.title">Politique de confidentialité</h1>
@@ -1843,6 +1867,7 @@ img,video{max-width:100%;}
 
 </div><!-- /confidentialite -->
 
+</main>
 
 <!-- ══════════════════════════════════
      FOOTER
@@ -1850,7 +1875,7 @@ img,video{max-width:100%;}
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
-      <img class="footer-brand-logo" src="resources/logo/01.png" alt="Nobilis RH"/>
+      <img class="footer-brand-logo" src="resources/logo/01.png" alt="Nobilis RH" loading="lazy" decoding="async"/>
       <div class="footer-gold-line"></div>
       <div class="footer-brand-name">Nobilis RH</div>
       <div class="footer-brand-sub" data-i18n="footer.brandSub">Chasse de têtes de précision et recrutement stratégique à Québec.</div>
@@ -1858,13 +1883,13 @@ img,video{max-width:100%;}
     <div class="footer-col">
       <h4 data-i18n="footer.navigation">Navigation</h4>
       <ul>
-        <li><a onclick="showPage('accueil')" data-i18n="nav.accueil">Accueil</a></li>
-        <li><a onclick="showPage('services')" data-i18n="footer.service">Service</a></li>
-        <li><a onclick="showPage('entreprises')" data-i18n="footer.entreprise">Entreprise</a></li>
-        <li><a onclick="showPage('candidats')" data-i18n="footer.candidat">Candidat</a></li>
-        <li><a onclick="showPage('job')" data-i18n="nav.job">Recherche d'emploi</a></li>
-        <li><a onclick="showPage('contact')" data-i18n="nav.contact">Contact</a></li>
-        <li><a href="#confidentialite" target="_blank" rel="noopener noreferrer" data-i18n="footer.privacy">Politique de confidentialité</a></li>
+        <li><a href="#accueil" onclick="event.preventDefault();showPage('accueil')" data-i18n="nav.accueil">Accueil</a></li>
+        <li><a href="#services" onclick="event.preventDefault();showPage('services')" data-i18n="footer.service">Service</a></li>
+        <li><a href="#entreprises" onclick="event.preventDefault();showPage('entreprises')" data-i18n="footer.entreprise">Entreprise</a></li>
+        <li><a href="#candidats" onclick="event.preventDefault();showPage('candidats')" data-i18n="footer.candidat">Candidat</a></li>
+        <li><a href="#job" onclick="event.preventDefault();showPage('job')" data-i18n="nav.job">Recherche d'emploi</a></li>
+        <li><a href="#contact" onclick="event.preventDefault();showPage('contact')" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="#confidentialite" onclick="event.preventDefault();showPage('confidentialite')" data-i18n="footer.privacy">Politique de confidentialité</a></li>
       </ul>
     </div>
     <div class="footer-col footer-col-right">
@@ -1892,8 +1917,8 @@ img,video{max-width:100%;}
 <!-- ══════════════════════════════════
      APPLY MODAL
 ══════════════════════════════════ -->
-<div class="modal-overlay" id="apply-modal" onclick="closeModal(event)">
-  <div class="modal modal-apply form-light" onclick="event.stopPropagation()">
+<div class="modal-overlay" id="apply-modal" aria-hidden="true" onclick="closeModal(event)">
+  <div class="modal modal-apply form-light" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="event.stopPropagation()">
     <button class="modal-close" type="button" onclick="closeApplyModal()" data-i18n-aria="modal.close" aria-label="Fermer">✕</button>
     <div class="modal-apply-grid">
       <div class="modal-apply-info">
@@ -1921,13 +1946,13 @@ img,video{max-width:100%;}
             <input type="checkbox" id="app-consent" required/>
             <span data-i18n-html="app.consent">
               J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
-              <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Politique de confidentialité</a>.
+              <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage('confidentialite')">Politique de confidentialité</a>.
             </span>
           </label>
         </div>
         <button type="submit" class="btn btn-dark" id="app-submit-btn" style="width:100%;padding:.9rem;" data-i18n="app.submit">Postuler</button>
         <div class="form-error" id="app-error" role="alert"></div>
-        <div class="form-success" id="app-success" data-i18n="app.success">✓ Candidature envoyée avec succès!</div>
+        <div class="form-success" id="app-success" role="status" aria-live="polite" data-i18n="app.success">✓ Candidature envoyée avec succès!</div>
       </form>
     </div>
   </div>
@@ -1949,11 +1974,22 @@ const SUPABASE_CV_BUCKET = 'cvs';
 const SUPABASE_APPLICATIONS_TABLE = 'candidatures';
 const SUPABASE_CONTACTS_TABLE = 'contacts';
 const JOBS_PER_PAGE = 5;
+const JOBS_CACHE_MS = 10 * 60 * 1000;
+let jobsLoadedAt = 0;
+let appConfigReady = false;
 
 async function loadAppConfig() {
   const res = await fetch('/api/config');
   if (!res.ok) throw new Error('config_http_' + res.status);
   APP_CONFIG = await res.json();
+}
+
+function setFormsReady(ready) {
+  appConfigReady = ready;
+  ['cv-submit-btn', 'con-submit-btn', 'app-submit-btn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.disabled = !ready;
+  });
 }
 const SITE_URL = 'https://nobilisrh.ca';
 const PAGE_SEO = {
@@ -1992,44 +2028,88 @@ function updatePageSEO(pageId) {
   const title = siteLang() === 'en' ? t(`seo.${pageId}.title`) : fr.title;
   const description = siteLang() === 'en' ? t(`seo.${pageId}.description`) : fr.description;
   const url = pageId === 'accueil' ? `${SITE_URL}/` : `${SITE_URL}/#${pageId}`;
+  const locale = siteLang() === 'en' ? 'en_CA' : 'fr_CA';
   document.title = title;
+  document.documentElement.lang = siteLang() === 'en' ? 'en-CA' : 'fr-CA';
   document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.getElementById('canonical-link')?.setAttribute('href', url);
   document.getElementById('og-url')?.setAttribute('content', url);
   document.getElementById('og-title')?.setAttribute('content', title);
   document.getElementById('og-description')?.setAttribute('content', description);
+  document.getElementById('og-locale')?.setAttribute('content', locale);
   document.getElementById('twitter-title')?.setAttribute('content', title);
   document.getElementById('twitter-description')?.setAttribute('content', description);
 }
 
+const VALID_PAGES = ['accueil','services','entreprises','candidats','contact','job','confidentialite'];
 
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+function activatePage(id, options = {}) {
+  if (!VALID_PAGES.includes(id)) return;
+  const pageEl = document.getElementById('page-' + id);
+  if (!pageEl) return;
+
+  const { pushState = false, replaceState = false, scroll = true } = options;
+
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.setAttribute('aria-hidden', 'true');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    a.removeAttribute('aria-current');
+  });
+
+  pageEl.classList.add('active');
+  pageEl.setAttribute('aria-hidden', 'false');
+
   const navEl = document.getElementById('nav-' + id);
-  if (navEl) navEl.classList.add('active');
-  history.pushState({page: id}, '', '#' + id);
+  if (navEl) {
+    navEl.classList.add('active');
+    navEl.setAttribute('aria-current', 'page');
+  }
+
+  if (pushState) history.pushState({ page: id }, '', '#' + id);
+  else if (replaceState) {
+    const path = id === 'accueil' ? location.pathname : '#' + id;
+    history.replaceState({ page: id }, '', path);
+  }
+
   updatePageSEO(id);
   closeNav();
-  window.scrollTo({top: 0, behavior: 'smooth'});
-  const activePage = document.getElementById('page-' + id);
-  if (typeof loadVideosForPage === 'function') loadVideosForPage(activePage);
+
+  if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (typeof loadVideosForPage === 'function') loadVideosForPage(pageEl);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('video').forEach(v => {
     const onActivePage = v.closest('.page.active');
-    if (onActivePage) v.play().catch(() => {});
+    if (onActivePage && !reduceMotion) v.play().catch(() => {});
     else v.pause();
   });
+
   if (id === 'job') loadJobs();
 }
 
+function showPage(id) {
+  activatePage(id, { pushState: true, scroll: true });
+}
+
 function toggleNav() {
-  document.getElementById('nav-links').classList.toggle('open');
-  document.getElementById('nav-toggle').classList.toggle('open');
+  const links = document.getElementById('nav-links');
+  const toggle = document.getElementById('nav-toggle');
+  const open = links.classList.toggle('open');
+  toggle.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  toggle.setAttribute('aria-label', open ? t('nav.closeMenu') : t('nav.openMenu'));
 }
 function closeNav() {
-  document.getElementById('nav-links').classList.remove('open');
-  document.getElementById('nav-toggle').classList.remove('open');
+  const links = document.getElementById('nav-links');
+  const toggle = document.getElementById('nav-toggle');
+  links.classList.remove('open');
+  toggle.classList.remove('open');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-label', t('nav.openMenu'));
 }
 
 function goToEntDemarche() {
@@ -2048,6 +2128,11 @@ window.addEventListener('scroll', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
+  document.querySelectorAll('.vid-hero video, .cand-demarche-bg video, .science-right video, .job-side-video video').forEach(v => {
+    v.setAttribute('aria-hidden', 'true');
+    v.setAttribute('preload', 'none');
+  });
+  setFormsReady(false);
   initCanadianCitySelect();
   cacheI18nDefaults();
   if (siteLang() !== 'fr') setSiteLanguage(siteLang());
@@ -2059,29 +2144,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } catch (err) {
     console.error('Impossible de charger la configuration serveur:', err);
+  } finally {
+    setFormsReady(true);
   }
   const hash = location.hash.replace('#', '');
-  const pages = ['accueil','services','entreprises','candidats','contact','job','confidentialite'];
-  if (pages.includes(hash)) showPage(hash);
-  else updatePageSEO('accueil');
+  if (VALID_PAGES.includes(hash)) activatePage(hash, { replaceState: true, scroll: false });
+  else {
+    history.replaceState({ page: 'accueil' }, '', location.pathname);
+    updatePageSEO('accueil');
+  }
   window.addEventListener('popstate', e => {
-    const id = e.state?.page || location.hash.replace('#','') || 'accueil';
-    if (pages.includes(id)) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-      document.getElementById('page-' + id).classList.add('active');
-      const navLink = document.getElementById('nav-' + id);
-      if (navLink) navLink.classList.add('active');
-      updatePageSEO(id);
-      const activePage = document.getElementById('page-' + id);
-      if (typeof loadVideosForPage === 'function') loadVideosForPage(activePage);
-      document.querySelectorAll('video').forEach(v => {
-        const onActivePage = v.closest('.page.active');
-        if (onActivePage) v.play().catch(() => {});
-        else v.pause();
-      });
-      if (id === 'job') loadJobs();
-    }
+    const id = e.state?.page || location.hash.replace('#', '') || 'accueil';
+    if (VALID_PAGES.includes(id)) activatePage(id, { scroll: true });
   });
 });
 
@@ -2367,9 +2441,18 @@ async function geocodeLocation(name, countryCode) {
   return geocodeCache[key];
 }
 
+function normalizeLocationKey(loc) {
+  return String(loc || '').trim().replace(/,\s*(QC|Qu[eé]bec|Quebec|ON|BC|AB|MB|SK|NB|NS|PE|NL|YT|NT|NU)$/i, '').trim();
+}
+
+function getGeocodeCoords(location) {
+  const key = 'ca:' + normalizeLocationKey(location).toLowerCase();
+  return geocodeCache[key];
+}
+
 async function geocodeAllLocations(locations) {
-  const unique = [...new Set(locations.filter(l => !isRemoteLocation(l)))];
-  await Promise.all(unique.map(loc => geocodeLocation(loc)));
+  const unique = [...new Set(locations.filter(l => !isRemoteLocation(l)).map(normalizeLocationKey))];
+  await Promise.all(unique.map(loc => geocodeLocation(loc, 'CA')));
 }
 
 function escHtml(s) {
@@ -2524,7 +2607,12 @@ async function fetchSheetCSV() {
   throw new Error('fetch_failed');
 }
 
-async function loadJobs() {
+async function loadJobs(force = false) {
+  if (!force && allJobs.length && Date.now() - jobsLoadedAt < JOBS_CACHE_MS) {
+    renderJobsPage();
+    return;
+  }
+
   const list = document.getElementById('jobs-list');
   const loading = document.getElementById('jobs-loading');
   const empty = document.getElementById('jobs-empty');
@@ -2541,6 +2629,7 @@ async function loadJobs() {
     if (!allJobs.length) throw new Error('empty_sheet');
     updateJobTitleSuggestions();
     setDisplayedJobs(allJobs);
+    jobsLoadedAt = Date.now();
   } catch(e) {
     console.error('Google Sheet load failed:', e);
     allJobs = [];
@@ -2666,7 +2755,20 @@ function renderJobsPage() {
   renderPagination(totalPages);
 }
 
+function showJobFilterError(message) {
+  const el = document.getElementById('jobs-filter-error');
+  if (!el) return;
+  if (!message) {
+    el.textContent = '';
+    el.classList.remove('show');
+    return;
+  }
+  el.textContent = message;
+  el.classList.add('show');
+}
+
 async function filterJobs() {
+  showJobFilterError('');
   const p = document.getElementById('search-poste').value.toLowerCase().trim();
   const refCoords = getSelectedCityCoords();
   const refCity = refCoords?.name || '';
@@ -2683,7 +2785,7 @@ async function filterJobs() {
   });
 
   if (perKm !== null && !refCity) {
-    alert(t('job.selectCityAlert'));
+    showJobFilterError(t('job.selectCityAlert'));
     document.getElementById('search-ville').focus();
     return;
   }
@@ -2703,7 +2805,7 @@ async function filterJobs() {
         results.push({ ...n, distanceKm: null, isRemote: true });
         continue;
       }
-      const coords = geocodeCache[n.location.trim().toLowerCase()];
+      const coords = getGeocodeCoords(n.location);
       if (!coords) {
         if (perKm === null) results.push({ ...n, distanceKm: null, isRemote: false });
         continue;
@@ -2739,7 +2841,9 @@ function openModal(job) {
   document.getElementById('modal-meta').textContent = metaParts.join(' · ');
   const descEl = document.getElementById('modal-desc');
   descEl.textContent = job.description || '';
-  document.getElementById('apply-modal').classList.add('open');
+  const modal = document.getElementById('apply-modal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
   clearAppMessages();
   const appForm = document.getElementById('app-form');
@@ -2747,10 +2851,13 @@ function openModal(job) {
   setAppSubmitLoading(false);
   requestAnimationFrame(() => {
     document.querySelector('.modal-apply-grid')?.scrollTo(0, 0);
+    document.getElementById('app-prenom')?.focus();
   });
 }
 function closeApplyModal() {
-  document.getElementById('apply-modal').classList.remove('open');
+  const modal = document.getElementById('apply-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
 }
 function closeModal(e) {
@@ -2948,6 +3055,8 @@ function showConSuccess() {
 async function submitCV(event) {
   event.preventDefault();
 
+  if (!appConfigReady) return;
+
   const p = document.getElementById('cv-prenom').value.trim();
   const n = document.getElementById('cv-nom').value.trim();
   const e = document.getElementById('cv-email').value.trim();
@@ -3004,6 +3113,7 @@ async function submitCV(event) {
     formData.append('poste', 'Candidature spontanée');
     formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
     formData.append('cv_fichier', file ? file.name : 'Non joint');
+    if (file) formData.append('cv', file);
     if (cvStorage) {
       formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
       formData.append('cv_storage_path', cvStorage.path);
@@ -3042,6 +3152,8 @@ async function submitCV(event) {
 
 async function submitContact(event) {
   event.preventDefault();
+
+  if (!appConfigReady) return;
 
   const n = document.getElementById('con-nom').value.trim();
   const e = document.getElementById('con-email').value.trim();
@@ -3095,6 +3207,8 @@ async function submitContact(event) {
 async function submitApplication(event) {
   event.preventDefault();
 
+  if (!appConfigReady) return;
+
   const p = document.getElementById('app-prenom').value.trim();
   const n = document.getElementById('app-nom').value.trim();
   const e = document.getElementById('app-email').value.trim();
@@ -3125,8 +3239,8 @@ async function submitApplication(event) {
     showAppError(t('ui.errorCvSize10'));
     return;
   }
-  if (!isSupabaseConfigured()) {
-    showAppError(t('ui.errorUploadUnavailable'));
+  if (!APP_CONFIG.formspreeApplicationUrl) {
+    showAppError(t('ui.errorFormUnavailable'));
     return;
   }
 
@@ -3134,7 +3248,14 @@ async function submitApplication(event) {
   clearAppMessages();
 
   try {
-    const cvStorage = await uploadCvToSupabase(file);
+    let cvStorage = null;
+    if (isSupabaseConfigured()) {
+      try {
+        cvStorage = await uploadCvToSupabase(file);
+      } catch (uploadErr) {
+        console.warn('Supabase CV upload failed, continuing with Formspree:', uploadErr);
+      }
+    }
 
     const formData = new FormData();
     formData.append('email', e);
@@ -3151,26 +3272,31 @@ async function submitApplication(event) {
     formData.append('email_offre', jobEmail || '—');
     formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
     formData.append('cv_fichier', file.name);
-    formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
-    formData.append('cv_storage_path', cvStorage.path);
+    formData.append('cv', file);
+    if (cvStorage) {
+      formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
+      formData.append('cv_storage_path', cvStorage.path);
+    }
 
     await submitToFormspree(formData);
 
-    await saveApplicationToSupabase({
-      prenom: p,
-      nom: n,
-      email: e,
-      telephone: tel || null,
-      lettre_motivation: lettre || null,
-      poste,
-      localisation: jobLocation || null,
-      type_contrat: jobType || null,
-      email_offre: jobEmail || null,
-      cv_filename: file.name,
-      cv_storage_path: cvStorage.path,
-      cv_url: cvStorage.publicUrl,
-      consentement: true
-    });
+    if (isSupabaseConfigured()) {
+      await saveApplicationToSupabase({
+        prenom: p,
+        nom: n,
+        email: e,
+        telephone: tel || null,
+        lettre_motivation: lettre || null,
+        poste,
+        localisation: jobLocation || null,
+        type_contrat: jobType || null,
+        email_offre: jobEmail || null,
+        cv_filename: file.name,
+        cv_storage_path: cvStorage?.path || null,
+        cv_url: cvStorage?.publicUrl || null,
+        consentement: true
+      });
+    }
 
     showAppSuccess();
     document.getElementById('app-form').reset();

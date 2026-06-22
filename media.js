@@ -34,7 +34,10 @@
     if (sourceEl.getAttribute('src') === url) return;
     sourceEl.setAttribute('src', url);
     const video = sourceEl.closest('video');
-    if (video) video.load();
+    if (video) {
+      video.setAttribute('preload', 'none');
+      video.load();
+    }
   }
 
   function loadVideosForPage(pageEl) {

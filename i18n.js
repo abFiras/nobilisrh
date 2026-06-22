@@ -28,6 +28,8 @@ const I18N_EN = {
   'nav.job': 'Job Search',
   'nav.contact': 'Contact',
   'nav.openMenu': 'Open menu',
+  'nav.closeMenu': 'Close menu',
+  'nav.skipToContent': 'Skip to main content',
 
   /* Footer */
   'footer.brandSub': 'Precision executive search and strategic recruitment in Quebec City.',
@@ -76,7 +78,7 @@ const I18N_EN = {
   'cv.messagePlaceholder': 'Briefly describe your profile...',
   'cv.file': 'Your résumé (optional — PDF, DOCX — max 5 MB)',
   'cv.fileHint': 'No résumé yet? You can still submit your application — an advisor will contact you.',
-  'cv.consent': 'I agree that Nobilis RH may collect and use my résumé and personal information to support my career search, in accordance with its <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Privacy Policy</a>.',
+  'cv.consent': 'I agree that Nobilis RH may collect and use my résumé and personal information to support my career search, in accordance with its <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage(\'confidentialite\')">Privacy Policy</a>.',
   'cv.submit': 'Submit my application',
   'cv.sending': 'Sending…',
   'cv.success': '✓ Application submitted. We will contact you within 48 hours.',
@@ -117,7 +119,7 @@ const I18N_EN = {
   'app.lettre': 'Cover letter',
   'app.lettrePlaceholder': 'Why are you the ideal candidate?',
   'app.cv': 'Résumé (PDF, DOC, DOCX) *',
-  'app.consent': 'I agree that Nobilis RH may collect and use my résumé and personal information to support my career search, in accordance with its <a href="#confidentialite" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Privacy Policy</a>.',
+  'app.consent': 'I agree that Nobilis RH may collect and use my résumé and personal information to support my career search, in accordance with its <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage(\'confidentialite\')">Privacy Policy</a>.',
   'app.submit': 'Apply',
   'app.sending': 'Sending…',
   'app.success': '✓ Application submitted successfully!',
@@ -202,6 +204,9 @@ const I18N_EN = {
 };
 
 const I18N_FR_STATIC = {
+  'nav.openMenu': 'Ouvrir le menu',
+  'nav.closeMenu': 'Fermer le menu',
+  'nav.skipToContent': 'Aller au contenu principal',
   'job.prev': 'Précédent',
   'job.next': 'Suivant',
   'job.paginationInfo': 'Affichage {start}–{end} sur {total} offre{plural}',
