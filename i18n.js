@@ -1,5 +1,5 @@
 /* Nobilis RH — Internationalization (FR default / EN) */
-let siteLang = localStorage.getItem('nobilis-lang') || 'fr';
+let currentLang = localStorage.getItem('nobilis-lang') || 'fr';
 const I18N_FR_CACHE = {};
 const I18N_SECTIONS_FR = {};
 
@@ -722,7 +722,7 @@ function cacheI18nDefaults() {
 }
 
 function t(key) {
-  if (siteLang === 'en') return I18N_EN[key] ?? I18N_FR_CACHE[key] ?? key;
+  if (currentLang === 'en') return I18N_EN[key] ?? I18N_FR_CACHE[key] ?? key;
   return I18N_FR_CACHE[key] ?? key;
 }
 
@@ -734,7 +734,7 @@ function applyI18n() {
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const key = el.getAttribute('data-i18n-html');
     if (!key) return;
-    const val = siteLang === 'en' ? (I18N_EN[key] ?? I18N_FR_CACHE[key]) : I18N_FR_CACHE[key];
+    const val = currentLang === 'en' ? (I18N_EN[key] ?? I18N_FR_CACHE[key]) : I18N_FR_CACHE[key];
     if (val != null) el.innerHTML = val;
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -748,7 +748,7 @@ function applyI18n() {
   document.querySelectorAll('[data-i18n-section]').forEach(el => {
     const key = el.getAttribute('data-i18n-section');
     if (!key) return;
-    if (siteLang === 'en' && I18N_SECTIONS_EN[key]) {
+    if (currentLang === 'en' && I18N_SECTIONS_EN[key]) {
       el.innerHTML = I18N_SECTIONS_EN[key];
     } else if (I18N_SECTIONS_FR[key]) {
       el.innerHTML = I18N_SECTIONS_FR[key];
@@ -757,7 +757,7 @@ function applyI18n() {
 }
 
 function getProvinceLabel(frProvince) {
-  if (siteLang === 'en') return PROVINCE_EN[frProvince] || frProvince;
+  if (currentLang === 'en') return PROVINCE_EN[frProvince] || frProvince;
   return frProvince;
 }
 
@@ -819,12 +819,12 @@ function getActivePageId() {
 }
 
 function setSiteLanguage(lang) {
-  siteLang = lang === 'en' ? 'en' : 'fr';
-  localStorage.setItem('nobilis-lang', siteLang);
-  document.documentElement.lang = siteLang === 'en' ? 'en-CA' : 'fr-CA';
+  currentLang = lang === 'en' ? 'en' : 'fr';
+  localStorage.setItem('nobilis-lang', currentLang);
+  document.documentElement.lang = currentLang === 'en' ? 'en-CA' : 'fr-CA';
 
   document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === siteLang);
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
   });
 
   applyI18n();
@@ -843,7 +843,7 @@ function setSiteLanguage(lang) {
 
 window.setSiteLanguage = setSiteLanguage;
 window.t = t;
-window.siteLang = () => siteLang;
+window.siteLang = () => currentLang;
 window.cacheI18nDefaults = cacheI18nDefaults;
 window.getProvinceLabel = getProvinceLabel;
 window.refreshJobFilterLabels = refreshJobFilterLabels;
