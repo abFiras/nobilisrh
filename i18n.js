@@ -36,7 +36,7 @@ const I18N_EN = {
   'footer.privacy': 'Privacy Policy',
   'footer.bureau': 'Quebec City Office',
   'footer.bureauInfo': 'contact@nobilisrh.ca<br/>Quebec City, QC, Canada<br/>Confidential consultations by appointment',
-  'footer.developed': 'Developed by <a href="https://github.com/abFiras" target="_blank" rel="noopener noreferrer">Firas Abdallah</a>',
+  'footer.studio': 'Contact ZGAF — web studio',
   'footer.copyright': '(C) 2026 Nobilis RH — Precision recruitment firm in Quebec City.',
   'footer.excellence': 'EXCELLENCE',
   'footer.integrity': 'INTEGRITY',
@@ -601,15 +601,9 @@ const I18N_SECTIONS_EN = {
       <div class="bureau-grid">
         <div class="bureau-card">
           <h3>Quebec City Office</h3>
-          <p>Grande Allée Est, Quebec City, QC, Canada.<br/>Our premises are designed to ensure complete confidentiality during your visits.</p>
+          <p>Quebec City, QC, Canada.<br/>Our premises are designed to ensure complete confidentiality during your visits.</p>
           <hr/>
-          <p>For urgent or highly strategic requests, our direct line connects you immediately with one of our lead partners.</p>
-        </div>
-        <div class="bureau-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2727.0!2d-71.2281!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb895e7b0a3a0b3%3A0x7!2sGrande+All%C3%A9e+Est%2C+Qu%C3%A9bec%2C+QC!5e0!3m2!1sen!2sca!4v1"
-            allowfullscreen="" loading="lazy">
-          </iframe>
+          <p>For urgent or highly strategic requests, our direct email address <a href="mailto:contact@nobilisrh.ca">contact@nobilisrh.ca</a> connects you immediately with one of our lead partners.</p>
         </div>
       </div>
     </div>`,
