@@ -2324,6 +2324,11 @@ function escHtml(s) {
   return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function isJobVisible(raw) {
+  if (!Object.prototype.hasOwnProperty.call(raw, 'visible')) return true;
+  return String(raw.visible || '').trim().toUpperCase() === 'TRUE';
+}
+
 function normalizeJob(raw) {
   const showSalary = String(
     raw.affichersalaire || raw.showsalary || ''
@@ -2490,7 +2495,7 @@ async function loadJobs(force = false) {
 
   try {
     const csvText = await fetchSheetCSV();
-    allJobs = parseCSV(csvText).map(normalizeJob).filter(j => j.title);
+    allJobs = parseCSV(csvText).filter(isJobVisible).map(normalizeJob).filter(j => j.title);
     if (!allJobs.length) throw new Error('empty_sheet');
     updateJobTitleSuggestions();
     setDisplayedJobs(allJobs);
