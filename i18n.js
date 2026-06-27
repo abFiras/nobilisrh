@@ -138,6 +138,9 @@ const I18N_EN = {
   'job.loading': 'Loading listings...',
   'job.calculating': 'Calculating distances...',
   'job.empty': 'No listings match your search.',
+  'job.emptyNoneTitle': 'We are currently adding new opportunities.',
+  'job.emptyNoneText': 'Check back soon, or submit a spontaneous application so we can contact you when a matching role opens.',
+  'job.emptyNoneBtn': 'Submit a spontaneous application',
   'job.emptyLocal': 'Listings cannot load from a local file. Use npx vercel dev with a .env.local file.',
   'job.emptyConfig': 'Job listings configuration is missing. Add SHEET_CSV_URL to your Vercel environment variables.',
   'job.emptySheet': 'Unable to load listings from Google Sheets. Refresh (Ctrl+F5) or try again in a few moments.',
@@ -203,6 +206,9 @@ const I18N_FR_STATIC = {
   'job.searchBtn': 'Rechercher',
   'job.loading': 'Chargement des offres...',
   'job.empty': 'Aucune offre ne correspond à votre recherche.',
+  'job.emptyNoneTitle': 'Nous ajoutons actuellement de nouvelles offres.',
+  'job.emptyNoneText': 'Revenez bientôt, ou déposez une candidature spontanée pour que nous puissions vous contacter lorsqu\'un poste correspond à votre profil.',
+  'job.emptyNoneBtn': 'Déposer une candidature spontanée',
   'job.prev': 'Précédent',
   'job.next': 'Suivant',
   'job.paginationInfo': 'Affichage {start}–{end} sur {total} offre{plural}',
@@ -595,13 +601,13 @@ const I18N_SECTIONS_EN = {
 
   'contact-presence': `<div class="con-presence-inner">
       <div class="tag-label" style="color:var(--gold);font-size:.7rem;">Our firm</div>
-      <h2>Presence in Quebec City</h2>
-      <p>Located on prestigious Grande Allée, our physical office offers a neutral, discreet, and refined setting for your most sensitive interviews and strategic decisions.</p>
+      <h2>Rooted in Quebec City</h2>
+      <p>Nobilis RH supports employers and candidates from the Quebec City region, across Canada. Meetings take place by appointment in a neutral, confidential setting.</p>
       <hr/>
       <div class="bureau-grid">
         <div class="bureau-card">
-          <h3>Quebec City Office</h3>
-          <p>Quebec City, QC, Canada.<br/>Our premises are designed to ensure complete confidentiality during your visits.</p>
+          <h3>Contact us</h3>
+          <p>Quebec City, QC, Canada.<br/>Confidential consultations by appointment.</p>
           <hr/>
           <p>For urgent or highly strategic requests, our direct email address <a href="mailto:contact@nobilisrh.ca">contact@nobilisrh.ca</a> connects you immediately with one of our lead partners.</p>
         </div>
@@ -805,7 +811,9 @@ function refreshJobFilterLabels() {
   if (loading) loading.textContent = t('job.loading');
 
   const empty = document.getElementById('jobs-empty');
-  if (empty && empty.style.display !== 'none') empty.textContent = t('job.empty');
+  if (empty && empty.style.display !== 'none' && typeof showJobsEmptyState === 'function') {
+    showJobsEmptyState(jobsEmptyKind || 'filter');
+  }
 }
 
 function getActivePageId() {
