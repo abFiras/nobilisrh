@@ -52,6 +52,11 @@
         "Placement de personnel",
         "Recrutement stratégique",
         "Recherche d'emploi"
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61591414084664",
+        "https://www.instagram.com/nobilisrh/",
+        "https://www.linkedin.com/company/nobilis-rh"
       ]
     },
     {
@@ -239,7 +244,7 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.35);}
 .nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gold);}
 .nav-links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
 .nav-right{display:flex;align-items:center;gap:1rem;}
-.nav-socials{display:none;}
+.nav-socials{display:flex;align-items:center;gap:.65rem;}
 .nav-socials a{color:rgba(255,255,255,.5);display:flex;transition:color var(--ease),transform var(--ease);}
 .nav-socials a:hover{color:var(--gold);transform:translateY(-1px);}
 .nav-socials svg{width:16px;height:16px;}
@@ -314,6 +319,10 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   color:#fff;margin-bottom:.3rem;
 }
 .footer-brand-sub{font-size:.8rem;line-height:1.6;margin-top:.4rem;}
+.footer-socials{display:flex;align-items:center;gap:.7rem;margin-top:1.15rem;}
+.footer-socials a{color:rgba(255,255,255,.45);display:flex;transition:color var(--ease),transform var(--ease);}
+.footer-socials a:hover{color:var(--gold);transform:translateY(-1px);}
+.footer-socials svg{width:17px;height:17px;}
 .footer-gold-line{width:28px;height:2px;background:var(--gold);margin-bottom:1rem;}
 .footer-col h4{
   font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
@@ -1030,10 +1039,10 @@ img,video{max-width:100%;}
       <button type="button" class="lang-btn active" data-lang="fr" onclick="setSiteLanguage('fr')">FR</button>
       <button type="button" class="lang-btn" data-lang="en" onclick="setSiteLanguage('en')">EN</button>
     </div>
-    <div class="nav-socials" aria-hidden="true">
-      <a href="#" aria-label="Facebook" tabindex="-1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-      <a href="#" aria-label="Instagram" tabindex="-1"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
-      <a href="#" aria-label="LinkedIn" tabindex="-1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+    <div class="nav-socials">
+      <a href="https://www.facebook.com/profile.php?id=61591414084664&locale=fr_CA" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur Facebook"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/nobilisrh/" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur Instagram"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://www.linkedin.com/company/nobilis-rh" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
     </div>
   </div>
   <button class="nav-toggle" id="nav-toggle" data-i18n-aria="nav.openMenu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links" onclick="toggleNav()">
@@ -1753,6 +1762,11 @@ img,video{max-width:100%;}
       <div class="footer-gold-line"></div>
       <div class="footer-brand-name">Nobilis RH</div>
       <div class="footer-brand-sub" data-i18n="footer.brandSub">Chasse de têtes de précision et recrutement stratégique à Québec.</div>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/profile.php?id=61591414084664&locale=fr_CA" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur Facebook"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/nobilisrh/" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur Instagram"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.linkedin.com/company/nobilis-rh" target="_blank" rel="noopener noreferrer" aria-label="Nobilis RH sur LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
     </div>
     <div class="footer-col">
       <h4 data-i18n="footer.navigation">Navigation</h4>
@@ -2821,7 +2835,7 @@ function sanitizeFileName(name) {
 
 async function uploadCvToSupabase(file, folder = 'candidatures') {
   const sb = getSupabase();
-  if (!sb) throw new Error('Supabase non configuré.');
+  if (!sb) return null;
   const path = `${folder}/${Date.now()}_${sanitizeFileName(file.name)}`;
   const { error } = await sb.storage.from(SUPABASE_CV_BUCKET).upload(path, file, {
     contentType: file.type || 'application/octet-stream',
@@ -2830,6 +2844,44 @@ async function uploadCvToSupabase(file, folder = 'candidatures') {
   if (error) throw error;
   const { data } = sb.storage.from(SUPABASE_CV_BUCKET).getPublicUrl(path);
   return { path, publicUrl: data?.publicUrl || null };
+}
+
+async function tryUploadCvToSupabase(file, folder = 'candidatures') {
+  if (!file || !isSupabaseConfigured()) return null;
+  try {
+    return await uploadCvToSupabase(file, folder);
+  } catch (err) {
+    console.warn('Supabase CV upload failed, continuing with Formspree:', err);
+    return null;
+  }
+}
+
+function appendCvToFormData(formData, file, cvStorage) {
+  formData.append('cv_fichier', file ? file.name : 'Non joint');
+  if (cvStorage) {
+    if (cvStorage.publicUrl) formData.append('cv_lien', cvStorage.publicUrl);
+    if (cvStorage.path) formData.append('cv_storage_path', cvStorage.path);
+    return;
+  }
+  if (file) formData.append('cv', file);
+}
+
+async function saveApplicationToSupabaseSafe(record) {
+  if (!isSupabaseConfigured()) return;
+  try {
+    await saveApplicationToSupabase(record);
+  } catch (err) {
+    console.warn('Supabase application save failed (Formspree submission kept):', err);
+  }
+}
+
+async function saveContactToSupabaseSafe(record) {
+  if (!isSupabaseConfigured()) return;
+  try {
+    await saveContactToSupabase(record);
+  } catch (err) {
+    console.warn('Supabase contact save failed (Formspree submission kept):', err);
+  }
 }
 
 async function saveApplicationToSupabase(record) {
@@ -3027,10 +3079,7 @@ async function submitCV(event) {
   clearCvMessages();
 
   try {
-    let cvStorage = null;
-    if (file && isSupabaseConfigured()) {
-      cvStorage = await uploadCvToSupabase(file, 'candidatures-spontanees');
-    }
+    const cvStorage = await tryUploadCvToSupabase(file, 'candidatures-spontanees');
 
     const formData = new FormData();
     formData.append('email', e);
@@ -3046,32 +3095,25 @@ async function submitCV(event) {
     formData.append('type', 'Candidature spontanée');
     formData.append('poste', 'Candidature spontanée');
     formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
-    formData.append('cv_fichier', file ? file.name : 'Non joint');
-    if (file) formData.append('cv', file);
-    if (cvStorage) {
-      formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
-      formData.append('cv_storage_path', cvStorage.path);
-    }
+    appendCvToFormData(formData, file, cvStorage);
 
     await submitToFormspreeCandidat(formData);
 
-    if (isSupabaseConfigured()) {
-      await saveApplicationToSupabase({
-        prenom: p,
-        nom: n,
-        email: e,
-        telephone: tel || null,
-        lettre_motivation: message || null,
-        poste: 'Candidature spontanée',
-        localisation: secteur || null,
-        type_contrat: shiftEl.value,
-        email_offre: null,
-        cv_filename: file ? file.name : 'Non joint',
-        cv_storage_path: cvStorage?.path || null,
-        cv_url: cvStorage?.publicUrl || null,
-        consentement: true
-      });
-    }
+    await saveApplicationToSupabaseSafe({
+      prenom: p,
+      nom: n,
+      email: e,
+      telephone: tel || null,
+      lettre_motivation: message || null,
+      poste: 'Candidature spontanée',
+      localisation: secteur || null,
+      type_contrat: shiftEl.value,
+      email_offre: null,
+      cv_filename: file ? file.name : 'Non joint',
+      cv_storage_path: cvStorage?.path || null,
+      cv_url: cvStorage?.publicUrl || null,
+      consentement: true
+    });
 
     showCvSuccess();
     document.getElementById('cv-form').reset();
@@ -3119,14 +3161,12 @@ async function submitContact(event) {
 
     await submitToFormspreeContact(formData);
 
-    if (isSupabaseConfigured()) {
-      await saveContactToSupabase({
-        nom: n,
-        email: e,
-        telephone: tel || null,
-        message: m
-      });
-    }
+    await saveContactToSupabaseSafe({
+      nom: n,
+      email: e,
+      telephone: tel || null,
+      message: m
+    });
 
     showConSuccess();
     document.getElementById('con-form').reset();
@@ -3182,14 +3222,7 @@ async function submitApplication(event) {
   clearAppMessages();
 
   try {
-    let cvStorage = null;
-    if (isSupabaseConfigured()) {
-      try {
-        cvStorage = await uploadCvToSupabase(file);
-      } catch (uploadErr) {
-        console.warn('Supabase CV upload failed, continuing with Formspree:', uploadErr);
-      }
-    }
+    const cvStorage = await tryUploadCvToSupabase(file);
 
     const formData = new FormData();
     formData.append('email', e);
@@ -3205,32 +3238,25 @@ async function submitApplication(event) {
     formData.append('type_contrat', jobType || '—');
     formData.append('email_offre', jobEmail || '—');
     formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
-    formData.append('cv_fichier', file.name);
-    formData.append('cv', file);
-    if (cvStorage) {
-      formData.append('cv_lien', cvStorage.publicUrl || cvStorage.path);
-      formData.append('cv_storage_path', cvStorage.path);
-    }
+    appendCvToFormData(formData, file, cvStorage);
 
     await submitToFormspree(formData);
 
-    if (isSupabaseConfigured()) {
-      await saveApplicationToSupabase({
-        prenom: p,
-        nom: n,
-        email: e,
-        telephone: tel || null,
-        lettre_motivation: lettre || null,
-        poste,
-        localisation: jobLocation || null,
-        type_contrat: jobType || null,
-        email_offre: jobEmail || null,
-        cv_filename: file.name,
-        cv_storage_path: cvStorage?.path || null,
-        cv_url: cvStorage?.publicUrl || null,
-        consentement: true
-      });
-    }
+    await saveApplicationToSupabaseSafe({
+      prenom: p,
+      nom: n,
+      email: e,
+      telephone: tel || null,
+      lettre_motivation: lettre || null,
+      poste,
+      localisation: jobLocation || null,
+      type_contrat: jobType || null,
+      email_offre: jobEmail || null,
+      cv_filename: file.name,
+      cv_storage_path: cvStorage?.path || null,
+      cv_url: cvStorage?.publicUrl || null,
+      consentement: true
+    });
 
     showAppSuccess();
     document.getElementById('app-form').reset();
