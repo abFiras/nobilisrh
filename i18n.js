@@ -53,13 +53,13 @@ const I18N_EN = {
   'cv.commitLabel': 'Our commitment',
   'cv.commitText': 'Absolute confidentiality · Response within 48 hours · Personalized support',
   'cv.formTitle': 'Submit your application',
-  'cv.prenom': 'First name *',
-  'cv.nom': 'Last name *',
+  'cv.prenom': 'First name',
+  'cv.nom': 'Last name',
   'cv.email': 'Email *',
   'cv.tel': 'Phone',
   'cv.secteur': 'Industry',
   'cv.secteurPlaceholder': 'e.g. Engineering, IT, Finance...',
-  'cv.availability': 'Shift availability *',
+  'cv.availability': 'Shift availability',
   'cv.shiftDay': 'Day',
   'cv.shiftEvening': 'Evening',
   'cv.shiftNight': 'Night',
@@ -68,8 +68,8 @@ const I18N_EN = {
   'cv.shiftHint': 'Select the work shift that best suits you.',
   'cv.message': 'Message (optional)',
   'cv.messagePlaceholder': 'Briefly describe your profile...',
-  'cv.file': 'Your résumé (optional — PDF, DOCX — max 5 MB)',
-  'cv.fileHint': 'No résumé yet? You can still submit your application — an advisor will contact you.',
+  'cv.file': 'Your résumé (optional — PDF, DOC, DOCX — max 5 MB)',
+  'cv.fileHint': 'On mobile, choose Files / Documents (not the photo gallery). No résumé yet? You can still submit — an advisor will contact you.',
   'cv.consent': 'I agree that Nobilis RH may collect and use my résumé and personal information to support my career search, in accordance with its <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage(\'confidentialite\')">Privacy Policy</a>.',
   'cv.submit': 'Submit my application',
   'cv.sending': 'Sending…',
@@ -117,13 +117,13 @@ const I18N_EN = {
   'app.errorCvSize': 'The résumé must not exceed 10 MB.',
   'app.errorUploadUnavailable': 'Résumé upload is temporarily unavailable. Please try again later.',
   'job.heroTitle': 'Job Search',
-  'job.heroText': 'Find opportunities based on your profile, a Canadian city, and the surrounding area.',
+  'job.heroText': 'Find opportunities based on your profile and a city in Quebec.',
   'job.heroLabel': 'Job Search',
   'job.searchTitle': 'Job Search',
   'job.searchIntro': 'Enter a job title, select a Canadian city and a search radius to view nearby listings.',
   'job.poste': 'Job title',
   'job.postePlaceholder': 'Job title',
-  'job.city': 'Canadian city',
+  'job.city': 'City in Quebec',
   'job.allTypes': 'All types',
   'job.fullTime': 'Full-time',
   'job.partTime': 'Part-time',
@@ -154,6 +154,7 @@ const I18N_EN = {
   'ui.submitCv': 'Submit my application',
   'ui.submitContact': 'Submit request',
   'ui.errorRequired': 'Please complete all required fields.',
+  'ui.errorEmailRequired': 'Please enter your email address.',
   'ui.errorConsent': 'Please accept the Privacy Policy before submitting your application.',
   'ui.errorShift': 'Please select your shift availability.',
   'ui.errorFormUnavailable': 'The form is temporarily unavailable. Please try again later.',
@@ -176,8 +177,8 @@ const I18N_EN = {
   'seo.entreprises.description': 'Exclusive recruitment and executive search mandates for Quebec and Canadian organizations. Nobilis RH identifies top talent to support your growth.',
   'seo.candidats.title': 'Candidates and careers | Nobilis RH — Recruitment Quebec',
   'seo.candidats.description': 'Submit your résumé and access confidential opportunities in Quebec. Nobilis RH supports professionals in their job search across Canada.',
-  'seo.job.title': 'Job search in Canada | Listings — Nobilis RH',
-  'seo.job.description': 'Find job listings across Canada by city and radius. Nobilis RH — recruitment and staffing in Quebec and throughout Canada.',
+  'seo.job.title': 'Job search in Quebec | Listings — Nobilis RH',
+  'seo.job.description': 'Find job listings in Quebec by city. Nobilis RH — recruitment and staffing in Quebec.',
   'seo.contact.title': 'Contact | Nobilis RH — Recruitment firm Quebec',
   'seo.contact.description': 'Contact Nobilis RH for a recruitment mandate or application. Quebec City office, confidential consultations across Canada.',
   'seo.confidentialite.title': 'Privacy Policy | Nobilis RH',
@@ -192,7 +193,7 @@ const I18N_FR_STATIC = {
   'nav.skipToContent': 'Aller au contenu principal',
   'job.poste': 'Nom du poste',
   'job.postePlaceholder': 'Nom du poste',
-  'job.city': 'Ville au Canada',
+  'job.city': 'Ville au Québec',
   'job.allTypes': 'Tous les types',
   'job.fullTime': 'Temps plein',
   'job.partTime': 'Temps partiel',
@@ -223,6 +224,7 @@ const I18N_FR_STATIC = {
   'ui.submitCv': 'Envoyer ma candidature',
   'ui.submitContact': 'Soumettre la demande',
   'ui.errorRequired': 'Veuillez remplir les champs obligatoires.',
+  'ui.errorEmailRequired': 'Veuillez indiquer votre adresse courriel.',
   'ui.errorConsent': 'Veuillez accepter la Politique de confidentialité avant de déposer votre candidature.',
   'ui.errorShift': 'Veuillez sélectionner votre disponibilité horaire.',
   'ui.errorFormUnavailable': 'Formulaire temporairement indisponible. Réessayez plus tard.',
@@ -614,18 +616,18 @@ const I18N_SECTIONS_EN = {
       </div>
     </div>`,
 
-  'job-hero': `<img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Job search in Canada — Nobilis RH"/>
+  'job-hero': `<img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Job search in Quebec — Nobilis RH"/>
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Job Search</h1>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Find opportunities based on your profile, a Canadian city, and the surrounding area.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Find opportunities based on your profile and a city in Quebec.</p>
     </div>
     <div class="job-hero-label" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.3);padding:.6rem 2rem;">
       <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Job Search</span>
     </div>`,
 
   'job-search-intro': `<h2>Refine your search</h2>
-    <p>Enter a job title, select a Canadian city and a search radius to view nearby listings.</p>`,
+    <p>Enter a job title and select a city in Quebec to view matching listings.</p>`,
 
   'privacy-body': `<p class="privacy-intro">At Nobilis RH, protecting your personal information is central to our values and professional obligations. In the course of our recruitment, talent search, and staffing activities in Quebec, we collect and process highly confidential data.</p>
     <p class="privacy-intro">This Privacy Policy is intended to transparently inform you about how we collect, use, disclose, retain, and protect your personal information, in accordance with Quebec's Act respecting the protection of personal information in the private sector (Bill 25).</p>
@@ -776,33 +778,13 @@ function refreshJobFilterLabels() {
     ville.value = saved;
   }
 
-  const type = document.getElementById('search-type');
-  if (type && type.options.length >= 4) {
-    const saved = type.value;
-    type.options[0].textContent = t('job.allTypes');
-    type.options[1].textContent = t('job.fullTime');
-    type.options[2].textContent = t('job.partTime');
-    type.options[3].textContent = t('job.permanent');
-    type.value = saved;
-  }
-
-  const per = document.getElementById('search-perimetre');
-  if (per && per.options.length >= 6) {
-    const saved = per.value;
-    per.options[0].textContent = t('job.perimeter');
-    per.options[1].textContent = t('job.perimeter10');
-    per.options[2].textContent = t('job.perimeter25');
-    per.options[3].textContent = t('job.perimeter50');
-    per.options[4].textContent = t('job.perimeter75');
-    per.options[5].textContent = t('job.anywhere');
-    per.value = saved;
-  }
-
   const poste = document.getElementById('search-poste');
   if (poste) {
     poste.placeholder = t('job.postePlaceholder');
     poste.setAttribute('aria-label', t('job.poste'));
   }
+
+  if (ville) ville.setAttribute('aria-label', t('job.city'));
 
   const searchBtn = document.querySelector('.search-bar button');
   if (searchBtn) searchBtn.textContent = t('job.searchBtn');

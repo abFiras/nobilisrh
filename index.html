@@ -1499,19 +1499,19 @@ img,video{max-width:100%;}
       <form class="cand-cv-form form-light" id="cv-form" onsubmit="submitCV(event)" novalidate>
         <h3 class="cand-cv-form-title" data-i18n="cv.formTitle">Déposer votre candidature</h3>
         <div class="form-row2">
-          <div class="form-group"><label for="cv-prenom" data-i18n="cv.prenom">Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean" required/></div>
-          <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required/></div>
+          <div class="form-group"><label for="cv-prenom" data-i18n="cv.prenom">Prénom</label><input type="text" id="cv-prenom" placeholder="Jean" autocomplete="given-name"/></div>
+          <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom</label><input type="text" id="cv-nom" placeholder="Dupont" autocomplete="family-name"/></div>
         </div>
         <div class="form-row2">
-          <div class="form-group"><label for="cv-email" data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com" required/></div>
-          <div class="form-group"><label data-i18n="cv.tel">Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000"/></div>
+          <div class="form-group"><label for="cv-email" data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com" required autocomplete="email"/></div>
+          <div class="form-group"><label data-i18n="cv.tel">Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000" autocomplete="tel"/></div>
         </div>
         <div class="form-group">
           <label data-i18n="cv.secteur">Secteur d'activité</label>
           <input type="text" id="cv-secteur" data-i18n-placeholder="cv.secteurPlaceholder" placeholder="Ex. Ingénierie, TI, Finance..."/>
         </div>
         <div class="form-group">
-          <label data-i18n="cv.availability">Disponibilité horaire *</label>
+          <label data-i18n="cv.availability">Disponibilité horaire</label>
           <div class="shift-choices" role="radiogroup" data-i18n-aria="cv.availability" aria-label="Disponibilité horaire">
             <label class="shift-chip"><input type="radio" name="cv-shift" value="Jour"/><span data-i18n="cv.shiftDay">Jour</span></label>
             <label class="shift-chip"><input type="radio" name="cv-shift" value="Soir"/><span data-i18n="cv.shiftEvening">Soir</span></label>
@@ -1523,15 +1523,15 @@ img,video{max-width:100%;}
         </div>
         <div class="form-group"><label data-i18n="cv.message">Message (optionnel)</label><textarea id="cv-message" data-i18n-placeholder="cv.messagePlaceholder" placeholder="Décrivez brièvement votre profil..."></textarea></div>
         <div class="form-group">
-          <label data-i18n="cv.file">Votre CV (optionnel — PDF, DOCX — max 5 Mo)</label>
+          <label data-i18n="cv.file">Votre CV (optionnel — PDF, DOC, DOCX — max 5 Mo)</label>
           <div class="cv-file-wrap">
-            <input type="file" id="cv-file" accept=".pdf,.doc,.docx"/>
+            <input type="file" id="cv-file" class="cv-doc-input" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.doc,.docx" />
           </div>
-          <p class="form-hint" data-i18n="cv.fileHint">Pas de CV pour l'instant? Vous pouvez quand même envoyer votre candidature — un conseiller vous contactera.</p>
+          <p class="form-hint" data-i18n="cv.fileHint">Sur mobile, choisissez Fichiers / Documents (pas la galerie photo). Pas de CV? Vous pouvez quand même envoyer votre candidature.</p>
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
-            <input type="checkbox" id="cv-consent" required/>
+            <input type="checkbox" id="cv-consent"/>
             <span data-i18n-html="cv.consent">
               J'accepte que Nobilis RH collecte et utilise mon CV et mes renseignements personnels afin de m'accompagner dans mes démarches de carrière, le tout conformément à sa
               <a href="#confidentialite" onclick="event.preventDefault();event.stopPropagation();showPage('confidentialite')">Politique de confidentialité</a>.
@@ -1610,11 +1610,11 @@ img,video{max-width:100%;}
 
   
   <section class="vid-hero job-hero" style="position:relative;" data-i18n-section="job-hero">
-    <img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Recherche d'emploi au Canada — Nobilis RH" loading="lazy" decoding="async"/>
+    <img class="bg-img" src="resources/parler à un conseiller/01.png" alt="Recherche d'emploi au Québec — Nobilis RH" loading="lazy" decoding="async"/>
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Recherche d'emploi</h1>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil, une ville au Canada et le périmètre autour de celle-ci.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil et une ville du Québec.</p>
     </div>
     <div class="job-hero-label" style="display:none;" aria-hidden="true">
       <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Recherche d'emploi</span>
@@ -1625,29 +1625,15 @@ img,video{max-width:100%;}
   <section class="job-search">
     <div data-i18n-section="job-search-intro">
     <h2>Affinez votre recherche</h2>
-    <p>Indiquez un nom de poste, sélectionnez une ville au Canada et un périmètre pour afficher les offres à proximité.</p>
+    <p>Indiquez un nom de poste et sélectionnez une ville du Québec pour afficher les offres correspondantes.</p>
     </div>
     <div class="search-bar">
       <div class="search-poste-wrap">
         <input type="text" id="search-poste" list="job-title-suggestions" placeholder="Nom du poste" autocomplete="off" aria-label="Nom du poste"/>
         <datalist id="job-title-suggestions"></datalist>
       </div>
-      <select id="search-ville" aria-label="Ville au Canada">
-        <option value="">Ville au Canada</option>
-      </select>
-      <select id="search-type" aria-label="Type de contrat">
-        <option value="">Tous les types</option>
-        <option value="Temps plein">Temps plein</option>
-        <option value="Temps partiel">Temps partiel</option>
-        <option value="Permanent">Permanent</option>
-      </select>
-      <select id="search-perimetre" aria-label="Périmètre de recherche">
-        <option value="">Périmètre de recherche</option>
-        <option value="10 km">10 km</option>
-        <option value="25 km">25 km</option>
-        <option value="50 km">50 km</option>
-        <option value="75 km">75 km</option>
-        <option value="N'importe où">N'importe où</option>
+      <select id="search-ville" aria-label="Ville au Québec">
+        <option value="">Ville au Québec</option>
       </select>
       <button type="button" onclick="filterJobs()">Rechercher</button>
     </div>
@@ -1821,7 +1807,7 @@ img,video{max-width:100%;}
         <div class="form-group"><label for="app-lettre" data-i18n="app.lettre">Lettre de motivation</label><textarea id="app-lettre" name="lettre_motivation" data-i18n-placeholder="app.lettrePlaceholder" placeholder="Pourquoi êtes-vous le candidat idéal ?"></textarea></div>
         <div class="form-group">
           <label for="app-cv" data-i18n="app.cv">CV (PDF, DOC, DOCX) *</label>
-          <input type="file" id="app-cv" name="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
+          <input type="file" id="app-cv" name="cv" class="cv-doc-input" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.doc,.docx" required style="border:1px dashed #e5e7eb;padding:.5rem;cursor:pointer;"/>
         </div>
         <div class="form-group form-consent">
           <label class="consent-label">
@@ -1892,8 +1878,8 @@ const PAGE_SEO = {
     description: 'Déposez votre CV et accédez à des opportunités confidentielles au Québec. Nobilis RH accompagne les professionnels dans leur recherche d\'emploi au Canada.'
   },
   job: {
-    title: 'Recherche d\'emploi au Canada | Offres — Nobilis RH',
-    description: 'Trouvez des offres d\'emploi au Canada par ville et périmètre. Nobilis RH — recrutement et placement de personnel au Québec et partout au Canada.'
+    title: 'Recherche d\'emploi au Québec | Offres — Nobilis RH',
+    description: 'Trouvez des offres d\'emploi au Québec par ville. Nobilis RH — recrutement et placement de personnel au Québec.'
   },
   contact: {
     title: 'Contact | Nobilis RH — Cabinet de recrutement Québec',
@@ -2016,6 +2002,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   setFormsReady(false);
   initCanadianCitySelect();
+  setupMobileCvInputs();
   cacheI18nDefaults();
   if (siteLang() !== 'fr') setSiteLanguage(siteLang());
   else refreshJobFilterLabels();
@@ -2049,128 +2036,6 @@ let jobsEmptyKind = null;
 const geocodeCache = {};
 
 const CANADIAN_CITIES = [
-  { province: 'Alberta', cities: [
-    { name: 'Calgary', lat: 51.0447, lon: -114.0719 },
-    { name: 'Edmonton', lat: 53.5461, lon: -113.4938 },
-    { name: 'Red Deer', lat: 52.2681, lon: -113.8112 },
-    { name: 'Lethbridge', lat: 49.6956, lon: -112.8451 },
-    { name: 'St. Albert', lat: 53.6303, lon: -113.6258 },
-    { name: 'Medicine Hat', lat: 50.0405, lon: -110.6764 },
-    { name: 'Grande Prairie', lat: 55.1707, lon: -118.7947 },
-    { name: 'Airdrie', lat: 51.2917, lon: -114.0147 },
-    { name: 'Spruce Grove', lat: 53.5450, lon: -113.9008 },
-    { name: 'Fort McMurray', lat: 56.7267, lon: -111.3790 },
-    { name: 'Leduc', lat: 53.2594, lon: -113.5492 },
-    { name: 'Lloydminster', lat: 53.2842, lon: -110.0059 },
-    { name: 'Camrose', lat: 53.0168, lon: -112.8353 },
-    { name: 'Brooks', lat: 50.5642, lon: -111.8989 },
-    { name: 'Cold Lake', lat: 54.4642, lon: -110.1825 }
-  ]},
-  { province: 'Colombie-Britannique', cities: [
-    { name: 'Vancouver', lat: 49.2827, lon: -123.1207 },
-    { name: 'Surrey', lat: 49.1913, lon: -122.8490 },
-    { name: 'Burnaby', lat: 49.2488, lon: -122.9805 },
-    { name: 'Richmond', lat: 49.1666, lon: -123.1336 },
-    { name: 'Abbotsford', lat: 49.0504, lon: -122.3045 },
-    { name: 'Coquitlam', lat: 49.2838, lon: -122.7932 },
-    { name: 'Kelowna', lat: 49.8880, lon: -119.4960 },
-    { name: 'Langley', lat: 49.1044, lon: -122.6606 },
-    { name: 'Victoria', lat: 48.4284, lon: -123.3656 },
-    { name: 'Kamloops', lat: 50.6745, lon: -120.3273 },
-    { name: 'Nanaimo', lat: 49.1659, lon: -123.9401 },
-    { name: 'Chilliwack', lat: 49.1579, lon: -121.9514 },
-    { name: 'Prince George', lat: 53.9171, lon: -122.7497 },
-    { name: 'Vernon', lat: 50.2670, lon: -119.2720 },
-    { name: 'Courtenay', lat: 49.6878, lon: -124.9945 },
-    { name: 'Penticton', lat: 49.4991, lon: -119.5937 },
-    { name: 'Campbell River', lat: 50.0248, lon: -125.2475 },
-    { name: 'Cranbrook', lat: 49.5128, lon: -115.7693 },
-    { name: 'Fort St. John', lat: 56.2465, lon: -120.8476 },
-    { name: 'Nelson', lat: 49.4928, lon: -117.2948 }
-  ]},
-  { province: 'Île-du-Prince-Édouard', cities: [
-    { name: 'Charlottetown', lat: 46.2382, lon: -63.1311 },
-    { name: 'Summerside', lat: 46.3959, lon: -63.7892 },
-    { name: 'Stratford', lat: 46.2200, lon: -63.0880 },
-    { name: 'Cornwall', lat: 46.2260, lon: -63.2180 }
-  ]},
-  { province: 'Manitoba', cities: [
-    { name: 'Winnipeg', lat: 49.8954, lon: -97.1385 },
-    { name: 'Brandon', lat: 49.8480, lon: -99.9500 },
-    { name: 'Steinbach', lat: 49.5258, lon: -96.6845 },
-    { name: 'Thompson', lat: 55.7435, lon: -97.8551 },
-    { name: 'Portage la Prairie', lat: 49.9728, lon: -98.2919 },
-    { name: 'Winkler', lat: 49.1817, lon: -97.9400 },
-    { name: 'Selkirk', lat: 50.1436, lon: -96.8845 },
-    { name: 'Morden', lat: 49.1919, lon: -98.1014 }
-  ]},
-  { province: 'Nouveau-Brunswick', cities: [
-    { name: 'Moncton', lat: 46.0878, lon: -64.7782 },
-    { name: 'Saint John', lat: 45.2733, lon: -66.0633 },
-    { name: 'Fredericton', lat: 45.9636, lon: -66.6431 },
-    { name: 'Dieppe', lat: 46.0989, lon: -64.7242 },
-    { name: 'Miramichi', lat: 47.0000, lon: -65.4667 },
-    { name: 'Edmundston', lat: 47.3737, lon: -68.3251 },
-    { name: 'Bathurst', lat: 47.6186, lon: -65.6513 },
-    { name: 'Campbellton', lat: 48.0075, lon: -66.6728 }
-  ]},
-  { province: 'Nouvelle-Écosse', cities: [
-    { name: 'Halifax', lat: 44.6488, lon: -63.5752 },
-    { name: 'Dartmouth', lat: 44.6713, lon: -63.5772 },
-    { name: 'Sydney', lat: 46.1368, lon: -60.1942 },
-    { name: 'Truro', lat: 45.3667, lon: -63.2833 },
-    { name: 'New Glasgow', lat: 45.5834, lon: -62.6486 },
-    { name: 'Glace Bay', lat: 46.1969, lon: -59.9570 },
-    { name: 'Kentville', lat: 45.0776, lon: -64.4960 },
-    { name: 'Amherst', lat: 45.8167, lon: -64.2000 }
-  ]},
-  { province: 'Nunavut', cities: [
-    { name: 'Iqaluit', lat: 63.7467, lon: -68.5170 },
-    { name: 'Rankin Inlet', lat: 62.8094, lon: -92.0852 },
-    { name: 'Arviat', lat: 61.1086, lon: -94.0586 },
-    { name: 'Baker Lake', lat: 64.3189, lon: -96.0167 }
-  ]},
-  { province: 'Ontario', cities: [
-    { name: 'Toronto', lat: 43.6532, lon: -79.3832 },
-    { name: 'Ottawa', lat: 45.4215, lon: -75.6972 },
-    { name: 'Mississauga', lat: 43.5890, lon: -79.6441 },
-    { name: 'Brampton', lat: 43.7315, lon: -79.7624 },
-    { name: 'Hamilton', lat: 43.2557, lon: -79.8711 },
-    { name: 'London', lat: 42.9849, lon: -81.2453 },
-    { name: 'Markham', lat: 43.8561, lon: -79.3370 },
-    { name: 'Vaughan', lat: 43.8361, lon: -79.4983 },
-    { name: 'Kitchener', lat: 43.4516, lon: -80.4925 },
-    { name: 'Windsor', lat: 42.3149, lon: -83.0364 },
-    { name: 'Richmond Hill', lat: 43.8828, lon: -79.4403 },
-    { name: 'Oakville', lat: 43.4675, lon: -79.6877 },
-    { name: 'Burlington', lat: 43.3255, lon: -79.7990 },
-    { name: 'Greater Sudbury', lat: 46.4917, lon: -80.9930 },
-    { name: 'Oshawa', lat: 43.8971, lon: -78.8658 },
-    { name: 'Barrie', lat: 44.3894, lon: -79.6903 },
-    { name: 'St. Catharines', lat: 43.1594, lon: -79.2469 },
-    { name: 'Cambridge', lat: 43.3616, lon: -80.3144 },
-    { name: 'Kingston', lat: 44.2312, lon: -76.4860 },
-    { name: 'Guelph', lat: 43.5448, lon: -80.2482 },
-    { name: 'Thunder Bay', lat: 48.3809, lon: -89.2477 },
-    { name: 'Waterloo', lat: 43.4643, lon: -80.5204 },
-    { name: 'Brantford', lat: 43.1394, lon: -80.2644 },
-    { name: 'Pickering', lat: 43.8384, lon: -79.0868 },
-    { name: 'Niagara Falls', lat: 43.0896, lon: -79.0849 },
-    { name: 'Peterborough', lat: 44.3091, lon: -78.3197 },
-    { name: 'Sarnia', lat: 42.9745, lon: -82.4066 },
-    { name: 'Newmarket', lat: 44.0592, lon: -79.4613 },
-    { name: 'Sault Ste. Marie', lat: 46.5219, lon: -84.3195 },
-    { name: 'North Bay', lat: 46.3091, lon: -79.4608 },
-    { name: 'Cornwall', lat: 45.0181, lon: -74.7282 },
-    { name: 'Belleville', lat: 44.1628, lon: -77.3832 },
-    { name: 'Chatham-Kent', lat: 42.4048, lon: -82.1910 },
-    { name: 'Whitby', lat: 43.8975, lon: -78.9429 },
-    { name: 'Ajax', lat: 43.8509, lon: -79.0204 },
-    { name: 'Orillia', lat: 44.6082, lon: -79.4207 },
-    { name: 'Stouffville', lat: 43.9701, lon: -79.2503 },
-    { name: 'Timmins', lat: 48.4758, lon: -81.3305 },
-    { name: 'Pembroke', lat: 45.8267, lon: -77.1108 }
-  ]},
   { province: 'Québec', cities: [
     { name: 'Montréal', lat: 45.5017, lon: -73.5673 },
     { name: 'Québec', lat: 46.8139, lon: -71.2080 },
@@ -2217,36 +2082,6 @@ const CANADIAN_CITIES = [
     { name: 'Mont-Tremblant', lat: 46.2120, lon: -74.5844 },
     { name: 'Saint-Georges', lat: 46.1167, lon: -70.6667 },
     { name: 'Cowansville', lat: 45.2000, lon: -72.7500 }
-  ]},
-  { province: 'Saskatchewan', cities: [
-    { name: 'Saskatoon', lat: 52.1332, lon: -106.6700 },
-    { name: 'Regina', lat: 50.4452, lon: -104.6189 },
-    { name: 'Prince Albert', lat: 53.2033, lon: -105.7531 },
-    { name: 'Moose Jaw', lat: 50.3934, lon: -105.5519 },
-    { name: 'Swift Current', lat: 50.2881, lon: -107.7939 },
-    { name: 'Yorkton', lat: 51.2139, lon: -102.4628 },
-    { name: 'North Battleford', lat: 52.7575, lon: -108.2861 },
-    { name: 'Estevan', lat: 49.1392, lon: -102.9861 },
-    { name: 'Weyburn', lat: 49.6611, lon: -103.8525 }
-  ]},
-  { province: 'Terre-Neuve-et-Labrador', cities: [
-    { name: 'St. John\'s', lat: 47.5615, lon: -52.7126 },
-    { name: 'Mount Pearl', lat: 47.5189, lon: -52.8058 },
-    { name: 'Corner Brook', lat: 48.9500, lon: -57.9500 },
-    { name: 'Gander', lat: 48.9569, lon: -54.6089 },
-    { name: 'Grand Falls-Windsor', lat: 48.9333, lon: -55.6500 },
-    { name: 'Labrador City', lat: 52.9463, lon: -66.9114 }
-  ]},
-  { province: 'Territoires du Nord-Ouest', cities: [
-    { name: 'Yellowknife', lat: 62.4540, lon: -114.3718 },
-    { name: 'Hay River', lat: 60.8156, lon: -115.7999 },
-    { name: 'Inuvik', lat: 68.3607, lon: -133.7230 },
-    { name: 'Fort Smith', lat: 60.0042, lon: -111.8936 }
-  ]},
-  { province: 'Yukon', cities: [
-    { name: 'Whitehorse', lat: 60.7212, lon: -135.0568 },
-    { name: 'Dawson City', lat: 64.0601, lon: -139.4336 },
-    { name: 'Watson Lake', lat: 60.0631, lon: -128.7089 }
   ]}
 ];
 
@@ -2717,66 +2552,23 @@ function showJobFilterError(message) {
 async function filterJobs() {
   showJobFilterError('');
   const p = document.getElementById('search-poste').value.toLowerCase().trim();
-  const refCoords = getSelectedCityCoords();
-  const refCity = refCoords?.name || '';
-  const typeFilter = document.getElementById('search-type').value;
-  const perKm = parsePerimetreKm(document.getElementById('search-perimetre').value);
-  const loading = document.getElementById('jobs-loading');
-  const list = document.getElementById('jobs-list');
+  const refCity = document.getElementById('search-ville').value.trim();
 
-  let filtered = allJobs.filter(j => {
+  const filtered = allJobs.filter(j => {
     const n = normalizeJob(j);
     const matchTitle = !p || fuzzyMatchTitle(n.title, p);
-    const matchType = matchJobType(n.type, typeFilter);
-    return matchTitle && matchType;
+    if (!matchTitle) return false;
+    if (!refCity) return true;
+    if (isRemoteLocation(n.location)) return true;
+    const loc = normalizeSearchText(n.location);
+    const city = normalizeSearchText(refCity);
+    return loc.includes(city) || city.includes(loc);
   });
 
-  if (perKm !== null && !refCity) {
-    showJobFilterError(t('job.selectCityAlert'));
-    document.getElementById('search-ville').focus();
-    return;
-  }
-
-  if (refCity) {
-    loading.style.display = 'block';
-    loading.textContent = t('job.calculating');
-    list.innerHTML = '';
-    document.getElementById('jobs-empty').style.display = 'none';
-
-    await geocodeAllLocations(filtered.map(j => normalizeJob(j).location));
-
-    const results = [];
-    for (const job of filtered) {
-      const n = normalizeJob(job);
-      if (isRemoteLocation(n.location)) {
-        results.push({ ...n, distanceKm: null, isRemote: true });
-        continue;
-      }
-      const coords = getGeocodeCoords(n.location);
-      if (!coords) {
-        if (perKm === null) results.push({ ...n, distanceKm: null, isRemote: false });
-        continue;
-      }
-      const dist = haversineKm(refCoords.lat, refCoords.lon, coords.lat, coords.lon);
-      if (perKm === null || dist <= perKm) {
-        results.push({ ...n, distanceKm: Math.round(dist), isRemote: false });
-      }
-    }
-    results.sort((a, b) => {
-      if (a.isRemote && !b.isRemote) return 1;
-      if (!a.isRemote && b.isRemote) return -1;
-      if (a.distanceKm == null) return 1;
-      if (b.distanceKm == null) return -1;
-      return a.distanceKm - b.distanceKm;
-    });
-
-    loading.style.display = 'none';
-    loading.textContent = t('job.loading');
-    setDisplayedJobs(results);
-    return;
-  }
-
-  setDisplayedJobs(filtered.map(j => normalizeJob(j)));
+  setDisplayedJobs(filtered.map(j => {
+    const n = normalizeJob(j);
+    return { ...n, distanceKm: null, isRemote: isRemoteLocation(n.location) };
+  }));
 }
 
 function openModal(job) {
@@ -2857,13 +2649,25 @@ async function tryUploadCvToSupabase(file, folder = 'candidatures') {
 }
 
 function appendCvToFormData(formData, file, cvStorage) {
+  // Formspree free plans reject binary file uploads ("File Uploads Not Permitted").
+  // Always send text metadata + Supabase link when available — never attach the file.
   formData.append('cv_fichier', file ? file.name : 'Non joint');
-  if (cvStorage) {
-    if (cvStorage.publicUrl) formData.append('cv_lien', cvStorage.publicUrl);
-    if (cvStorage.path) formData.append('cv_storage_path', cvStorage.path);
-    return;
+  if (cvStorage?.publicUrl) {
+    formData.append('cv_lien', cvStorage.publicUrl);
+  } else if (file) {
+    formData.append('cv_note', 'CV sélectionné mais non téléversé (stockage indisponible). Contacter le candidat pour obtenir le fichier.');
   }
-  if (file) formData.append('cv', file);
+  if (cvStorage?.path) formData.append('cv_storage_path', cvStorage.path);
+}
+
+const CV_ACCEPT_DOCS = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.doc,.docx';
+
+function setupMobileCvInputs() {
+  document.querySelectorAll('.cv-doc-input').forEach(input => {
+    input.setAttribute('accept', CV_ACCEPT_DOCS);
+    // Avoid capture=camera which forces gallery/camera on phones
+    input.removeAttribute('capture');
+  });
 }
 
 async function saveApplicationToSupabaseSafe(record) {
@@ -3049,18 +2853,11 @@ async function submitCV(event) {
   const tel = document.getElementById('cv-tel').value.trim();
   const secteur = document.getElementById('cv-secteur').value.trim();
   const message = document.getElementById('cv-message').value.trim();
-
-  if (!p || !n || !e) {
-    showCvError(t('ui.errorRequired'));
-    return;
-  }
-  if (!document.getElementById('cv-consent').checked) {
-    showCvError(t('ui.errorConsent'));
-    return;
-  }
   const shiftEl = document.querySelector('input[name="cv-shift"]:checked');
-  if (!shiftEl) {
-    showCvError(t('ui.errorShift'));
+  const consent = document.getElementById('cv-consent').checked;
+
+  if (!e) {
+    showCvError(t('ui.errorEmailRequired'));
     return;
   }
   if (!APP_CONFIG.formspreeCandidatUrl) {
@@ -3080,39 +2877,40 @@ async function submitCV(event) {
 
   try {
     const cvStorage = await tryUploadCvToSupabase(file, 'candidatures-spontanees');
+    const displayName = [p, n].filter(Boolean).join(' ') || e;
 
     const formData = new FormData();
     formData.append('email', e);
     formData.append('_replyto', e);
-    formData.append('_subject', `Candidature spontanée — ${p} ${n}`);
-    formData.append('prenom', p);
-    formData.append('nom', n);
-    formData.append('nom_complet', `${p} ${n}`);
+    formData.append('_subject', `Candidature spontanée — ${displayName}`);
+    formData.append('prenom', p || '—');
+    formData.append('nom', n || '—');
+    formData.append('nom_complet', displayName);
     formData.append('telephone', tel || '—');
     formData.append('secteur', secteur || '—');
-    formData.append('disponibilite', shiftEl.value);
+    formData.append('disponibilite', shiftEl ? shiftEl.value : '—');
     formData.append('message', message || '—');
     formData.append('type', 'Candidature spontanée');
     formData.append('poste', 'Candidature spontanée');
-    formData.append('consentement', 'Oui — Politique de confidentialité acceptée');
+    formData.append('consentement', consent ? 'Oui — Politique de confidentialité acceptée' : 'Non renseigné');
     appendCvToFormData(formData, file, cvStorage);
 
     await submitToFormspreeCandidat(formData);
 
     await saveApplicationToSupabaseSafe({
-      prenom: p,
-      nom: n,
+      prenom: p || null,
+      nom: n || null,
       email: e,
       telephone: tel || null,
       lettre_motivation: message || null,
       poste: 'Candidature spontanée',
       localisation: secteur || null,
-      type_contrat: shiftEl.value,
+      type_contrat: shiftEl ? shiftEl.value : null,
       email_offre: null,
       cv_filename: file ? file.name : 'Non joint',
       cv_storage_path: cvStorage?.path || null,
       cv_url: cvStorage?.publicUrl || null,
-      consentement: true
+      consentement: consent
     });
 
     showCvSuccess();
