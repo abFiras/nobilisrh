@@ -136,10 +136,6 @@ const I18N_EN = {
   'job.anywhere': 'Anywhere',
   'job.searchBtn': 'Search',
   'job.clearSearch': 'Clear',
-  'job.copyLink': 'Copy job link',
-  'job.linkCopied': 'Link copied!',
-  'job.resultsAll': '{count} listing(s)',
-  'job.resultsFiltered': '{count} result(s) for “{query}”',
   'job.loading': 'Loading listings...',
   'job.calculating': 'Calculating distances...',
   'job.empty': 'No listings match your search.',
@@ -212,10 +208,6 @@ const I18N_FR_STATIC = {
   'job.anywhere': "N'importe où",
   'job.searchBtn': 'Rechercher',
   'job.clearSearch': 'Effacer',
-  'job.copyLink': "Copier le lien de l'offre",
-  'job.linkCopied': 'Lien copié !',
-  'job.resultsAll': '{count} offre(s)',
-  'job.resultsFiltered': '{count} résultat(s) pour « {query} »',
   'job.loading': 'Chargement des offres...',
   'job.empty': 'Aucune offre ne correspond à votre recherche.',
   'job.linkUnavailable': 'Cette offre d’emploi n’est plus disponible.',
@@ -792,18 +784,8 @@ function refreshJobFilterLabels() {
   const searchBtn = document.getElementById('search-submit-btn') || document.querySelector('.search-bar button:not(.search-clear)');
   if (searchBtn) searchBtn.textContent = t('job.searchBtn');
 
-  const shareBtn = document.getElementById('modal-share-btn');
-  if (shareBtn && !shareBtn.classList.contains('copied')) {
-    shareBtn.textContent = t('job.copyLink');
-  }
-
   const loading = document.getElementById('jobs-loading');
   if (loading) loading.textContent = t('job.loading');
-
-  const query = poste?.value?.trim() || '';
-  if (typeof updateJobsResultsMeta === 'function' && typeof allJobs !== 'undefined') {
-    updateJobsResultsMeta(typeof displayedJobs !== 'undefined' ? displayedJobs.length : allJobs.length, query);
-  }
 
   const empty = document.getElementById('jobs-empty');
   if (empty && empty.style.display !== 'none' && typeof showJobsEmptyState === 'function') {

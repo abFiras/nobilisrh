@@ -350,10 +350,12 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .footer-studio{
   display:inline-flex;align-items:center;gap:.4rem;margin-left:auto;
   font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);text-decoration:none;transition:color var(--ease);
+  color:rgba(255,255,255,.35);
 }
+.footer-studio a{color:inherit;text-decoration:none;transition:color var(--ease);}
+.footer-studio a:hover{color:var(--gold);}
+.footer-studio-mail{display:inline-flex;align-items:center;}
 .footer-studio svg{width:13px;height:13px;flex-shrink:0;}
-.footer-studio:hover{color:var(--gold);}
 .acc-hero{
   display:grid;grid-template-columns:1fr 1fr;
   min-height:calc(100vh - 72px);background:var(--offwhite);
@@ -733,10 +735,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   background:var(--offwhite);border:1px solid #e5e7eb;padding:1rem;
   border-radius:10px;
 }
-.search-results-meta{
-  max-width:1100px;margin:0 auto 1rem;
-  font-size:.82rem;color:#6b7280;min-height:1.2em;
-}
 .job-content-grid{
   display:grid;grid-template-columns:1fr minmax(260px,340px);
   gap:2rem;max-width:1100px;margin:0 auto;align-items:start;
@@ -779,7 +777,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   cursor:pointer;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);background:#fff;
   border-radius:10px;
 }
-.job-card .jc-btn,.job-card .jc-share{cursor:pointer;position:relative;z-index:1;}
+.job-card .jc-btn{cursor:pointer;position:relative;z-index:1;}
 .job-card:hover{border-color:rgba(201,168,76,.5);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .job-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
 .jc-title{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;line-height:1.3;}
@@ -800,14 +798,6 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   transition:background .2s;border-radius:6px;
 }
 .jc-btn:hover{background:#1a3350;}
-.jc-share,.modal-share-btn{
-  background:transparent;color:var(--navy);border:1px solid #d1d5db;
-  padding:.5rem 1rem;font-size:.78rem;font-weight:500;cursor:pointer;
-  border-radius:6px;transition:border-color .2s,background .2s,color .2s;
-}
-.jc-share:hover,.modal-share-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.1);}
-.modal-share-btn{margin-top:.85rem;}
-.modal-share-btn.copied{border-color:#059669;color:#059669;background:#ecfdf5;}
 .jobs-loading,.jobs-empty{text-align:center;padding:3rem;color:#9ca3af;font-size:.9rem;}
 .jobs-empty-sub{font-size:.85rem;color:#b0b8c4;line-height:1.7;margin:.75rem auto 1.35rem;max-width:420px;}
 .jobs-empty .btn{margin-top:.25rem;}
@@ -1034,7 +1024,7 @@ img,video{max-width:100%;}
   .steps-row,.cand-steps{grid-template-columns:1fr;}
   .jc-title{font-size:1rem;}
   .jc-actions{flex-direction:column;align-items:stretch;}
-  .jc-btn,.jc-share{width:100%;text-align:center;}
+  .jc-btn{width:100%;text-align:center;}
   footer{padding:2.5rem 1rem 1.25rem;}
 }
 </style>
@@ -1657,7 +1647,6 @@ img,video{max-width:100%;}
       </div>
       <button type="button" id="search-submit-btn" onclick="filterJobs()">Rechercher</button>
     </div>
-    <div id="jobs-results-meta" class="search-results-meta" aria-live="polite"></div>
     <div id="jobs-filter-error" class="jobs-filter-error" role="alert" aria-live="polite"></div>
     <div class="job-content-grid">
       <div class="jobs-wrap">
@@ -1797,10 +1786,12 @@ img,video{max-width:100%;}
     <div class="footer-bottom-right">
       <span data-i18n="footer.excellence">EXCELLENCE</span> · <span data-i18n="footer.integrity">INTÉGRITÉ</span> · <span data-i18n="footer.commitment">ENGAGEMENT</span>
     </div>
-    <a href="mailto:abdallah.firas@outlook.fr" class="footer-studio" data-i18n-aria="footer.studio" aria-label="Contacter ZGAF — réalisation web">
-      <span>ZGAF</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-    </a>
+    <div class="footer-studio">
+      <a href="https://abfiras.github.io/portfolio/" target="_blank" rel="noopener noreferrer" aria-label="Voir le portfolio de ZGAF">ZGAF</a>
+      <a href="mailto:abdallah.firas@outlook.fr" class="footer-studio-mail" data-i18n-aria="footer.studio" aria-label="Contacter ZGAF par courriel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -1815,7 +1806,6 @@ img,video{max-width:100%;}
         <div class="modal-meta" id="modal-meta"></div>
         <div class="modal-desc-label" data-i18n="modal.jobDesc">Description du poste</div>
         <div class="modal-desc" id="modal-desc"></div>
-        <button type="button" class="modal-share-btn" id="modal-share-btn" onclick="copyCurrentJobLink()">Copier le lien de l'offre</button>
       </div>
       <form class="modal-apply-form" id="app-form" onsubmit="submitApplication(event)" novalidate>
         <div class="form-row2">
@@ -2230,56 +2220,6 @@ function setupJobSearchUI() {
   syncClear();
 }
 
-function jobShareUrl(jobId) {
-  if (!jobId) return `${SITE_URL}/#job`;
-  return `${SITE_URL}/#job/${encodeURIComponent(jobId)}`;
-}
-
-async function copyJobLink(jobId, btn) {
-  const url = jobShareUrl(jobId);
-  try {
-    await navigator.clipboard.writeText(url);
-  } catch {
-    const ta = document.createElement('textarea');
-    ta.value = url;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    ta.remove();
-  }
-  if (btn) {
-    const prev = btn.textContent;
-    btn.textContent = t('job.linkCopied');
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = prev;
-      btn.classList.remove('copied');
-    }, 1600);
-  }
-}
-
-function copyCurrentJobLink() {
-  const btn = document.getElementById('modal-share-btn');
-  if (!currentJob?.id) return;
-  copyJobLink(currentJob.id, btn);
-}
-
-function updateJobsResultsMeta(count, query) {
-  const el = document.getElementById('jobs-results-meta');
-  if (!el) return;
-  if (!allJobs.length) {
-    el.textContent = '';
-    return;
-  }
-  if (!query) {
-    el.textContent = t('job.resultsAll').replace('{count}', String(count));
-    return;
-  }
-  el.textContent = t('job.resultsFiltered')
-    .replace('{count}', String(count))
-    .replace('{query}', query);
-}
-
 function isValidSheetCsv(text) {
   if (!text || text.includes('<!DOCTYPE') || text.includes('<html')) return false;
   const firstLine = text.split(/\r?\n/)[0] || '';
@@ -2324,10 +2264,7 @@ async function loadJobs(force = false) {
   if (!force && allJobs.length && Date.now() - jobsLoadedAt < JOBS_CACHE_MS) {
     const query = document.getElementById('search-poste')?.value?.trim();
     if (query) filterJobs();
-    else {
-      renderJobsPage();
-      updateJobsResultsMeta(displayedJobs.length || allJobs.length, '');
-    }
+    else renderJobsPage();
     openPendingJobDeepLink();
     return;
   }
@@ -2351,10 +2288,7 @@ async function loadJobs(force = false) {
     jobsLoadedAt = Date.now();
     const query = document.getElementById('search-poste')?.value?.trim();
     if (query) filterJobs();
-    else {
-      setDisplayedJobs(allJobs);
-      updateJobsResultsMeta(allJobs.length, '');
-    }
+    else setDisplayedJobs(allJobs);
     openPendingJobDeepLink();
   } catch(e) {
     console.error('Google Sheet load failed:', e);
@@ -2523,18 +2457,10 @@ function renderJobCard(job) {
     ${j.description ? `<div class="jc-desc">${escHtml(j.description.length > 160 ? j.description.slice(0, 160) + '…' : j.description)}</div>` : ''}
     <div class="jc-actions">
       <button class="jc-btn" type="button">${t('job.apply')}</button>
-      ${j.id ? `<button class="jc-share" type="button">${t('job.copyLink')}</button>` : ''}
     </div>
   `;
   div.addEventListener('click', () => openModal(payload));
   div.querySelector('.jc-btn').addEventListener('click', e => { e.stopPropagation(); openModal(payload); });
-  const shareBtn = div.querySelector('.jc-share');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      copyJobLink(j.id, shareBtn);
-    });
-  }
   return div;
 }
 
@@ -2601,7 +2527,6 @@ async function filterJobs() {
   }).filter(Boolean);
 
   scored.sort((a, b) => b._score - a._score || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
-  updateJobsResultsMeta(scored.length, query);
   setDisplayedJobs(scored);
 }
 
@@ -2614,12 +2539,6 @@ function openModal(job, options = {}) {
   document.getElementById('modal-meta').textContent = metaParts.join(' · ');
   const descEl = document.getElementById('modal-desc');
   descEl.textContent = job.description || '';
-  const shareBtn = document.getElementById('modal-share-btn');
-  if (shareBtn) {
-    shareBtn.style.display = job.id ? '' : 'none';
-    shareBtn.textContent = t('job.copyLink');
-    shareBtn.classList.remove('copied');
-  }
   const modal = document.getElementById('apply-modal');
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
