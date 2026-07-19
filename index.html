@@ -728,9 +728,14 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .job-search h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);text-align:center;}
 .job-search>p{font-size:.85rem;color:var(--textgrey);text-align:center;margin:.4rem 0 2rem;}
 .search-bar{
-  display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:.65rem;
-  max-width:1100px;margin:0 auto 1.25rem;
+  display:grid;grid-template-columns:1fr auto;gap:.65rem;
+  max-width:720px;margin:0 auto 1.25rem;
   background:var(--offwhite);border:1px solid #e5e7eb;padding:1rem;
+  border-radius:10px;
+}
+.search-results-meta{
+  max-width:1100px;margin:0 auto 1rem;
+  font-size:.82rem;color:#6b7280;min-height:1.2em;
 }
 .job-content-grid{
   display:grid;grid-template-columns:1fr minmax(260px,340px);
@@ -744,49 +749,65 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .job-side-video video{
   width:100%;height:100%;min-height:520px;object-fit:cover;display:block;
 }
-.search-bar input,.search-bar select{
+.search-bar input[type="search"],.search-bar input[type="text"]{
   flex:1;border:1px solid #e5e7eb;padding:.7rem 1rem;
   font-family:'Inter',sans-serif;font-size:.85rem;outline:none;
-  background:#fff;color:var(--navy);
+  background:#fff;color:var(--navy);border-radius:6px;
 }
 .search-poste-wrap{position:relative;min-width:0;}
-.search-poste-wrap input{width:100%;}
-.search-bar input:focus,.search-bar select:focus{border-color:var(--navy);}
-.search-bar select{cursor:pointer;min-width:160px;}
-.search-bar button{
+.search-poste-wrap input{width:100%;padding-right:2.5rem;}
+.search-clear{
+  position:absolute;right:.55rem;top:50%;transform:translateY(-50%);
+  border:none!important;background:transparent!important;color:#9ca3af!important;cursor:pointer;
+  width:28px;height:28px;padding:0!important;border-radius:50%;font-size:1.1rem;line-height:1;
+  display:none;align-items:center;justify-content:center;letter-spacing:0!important;
+  box-shadow:none!important;transform:translateY(-50%)!important;
+}
+.search-clear:hover{background:#e5e7eb!important;color:var(--navy)!important;}
+.search-clear.show{display:inline-flex;}
+.search-bar input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,51,80,.08);}
+.search-bar > button{
   background:var(--navy);color:#fff;border:none;
   padding:.7rem 1.6rem;font-size:.85rem;font-weight:500;cursor:pointer;
   transition:background var(--ease),transform .15s ease;
-  letter-spacing:.03em;
+  letter-spacing:.03em;border-radius:6px;white-space:nowrap;
 }
-.search-bar button:hover{background:#1a3350;transform:translateY(-1px);}
+.search-bar > button:hover{background:#1a3350;transform:translateY(-1px);}
 .jobs-wrap{max-width:none;margin:0;}
 .job-card{
-  border:1px solid #e5e7eb;padding:1.8rem 2rem;margin-bottom:1rem;
+  border:1px solid #e5e7eb;padding:1.5rem 1.65rem;margin-bottom:1rem;
   cursor:pointer;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);background:#fff;
-  border-radius:6px;
+  border-radius:10px;
 }
-.job-card .jc-btn{cursor:pointer;position:relative;z-index:1;}
+.job-card .jc-btn,.job-card .jc-share{cursor:pointer;position:relative;z-index:1;}
 .job-card:hover{border-color:rgba(201,168,76,.5);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .job-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
-.jc-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.jc-title{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;line-height:1.3;}
 .jc-meta{font-size:.8rem;color:#9ca3af;}
 .jc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45rem;}
 .jc-tag{font-size:.72rem;color:#4b5563;background:#f3f4f6;padding:.22rem .65rem;border-radius:999px;font-weight:500;}
-.jc-tag.jc-dist{color:var(--navy);background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.35);}
 .jc-tag.jc-remote{color:#065f46;background:#d1fae5;}
 .jc-salary{
   margin-top:.65rem;font-size:.8rem;font-weight:600;color:var(--navy);
   display:inline-block;background:rgba(201,168,76,.14);padding:.35rem .85rem;border-radius:999px;
   border:1px solid rgba(201,168,76,.35);
 }
-.jc-desc{margin-top:.75rem;font-size:.84rem;color:var(--textgrey);line-height:1.6;white-space:pre-line;}
+.jc-desc{margin-top:.75rem;font-size:.84rem;color:var(--textgrey);line-height:1.65;white-space:pre-line;}
+.jc-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.05rem;align-items:center;}
 .jc-btn{
-  margin-top:1rem;background:var(--navy);color:#fff;border:none;
+  background:var(--navy);color:#fff;border:none;
   padding:.55rem 1.2rem;font-size:.8rem;font-weight:500;cursor:pointer;
-  transition:background .2s;border-radius:2px;
+  transition:background .2s;border-radius:6px;
 }
 .jc-btn:hover{background:#1a3350;}
+.jc-share,.modal-share-btn{
+  background:transparent;color:var(--navy);border:1px solid #d1d5db;
+  padding:.5rem 1rem;font-size:.78rem;font-weight:500;cursor:pointer;
+  border-radius:6px;transition:border-color .2s,background .2s,color .2s;
+}
+.jc-share:hover,.modal-share-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.1);}
+.modal-share-btn{margin-top:.85rem;}
+.modal-share-btn.copied{border-color:#059669;color:#059669;background:#ecfdf5;}
 .jobs-loading,.jobs-empty{text-align:center;padding:3rem;color:#9ca3af;font-size:.9rem;}
 .jobs-empty-sub{font-size:.85rem;color:#b0b8c4;line-height:1.7;margin:.75rem auto 1.35rem;max-width:420px;}
 .jobs-empty .btn{margin-top:.25rem;}
@@ -948,7 +969,8 @@ img,video{max-width:100%;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .footer-col-right{grid-column:auto!important;text-align:left;}
   .svc-hero .hero-content,.ent-hero .hero-content{padding:0 1.5rem;}
-  .search-bar{grid-template-columns:1fr;}
+  .search-bar{grid-template-columns:1fr;max-width:100%;}
+  .search-bar > button{width:100%;}
   .jobs-pagination{flex-direction:column;align-items:stretch;text-align:center;}
   .jobs-pagination-nav{justify-content:center;}
   .science-grid{grid-template-columns:1fr;}
@@ -1010,9 +1032,9 @@ img,video{max-width:100%;}
   .modal-apply-info,.modal-apply-form{padding:1.35rem 1rem;}
   .modal-apply-info{padding-top:2.5rem;}
   .steps-row,.cand-steps{grid-template-columns:1fr;}
-  .search-bar select{min-width:0;width:100%;}
-  .search-bar button{width:100%;}
   .jc-title{font-size:1rem;}
+  .jc-actions{flex-direction:column;align-items:stretch;}
+  .jc-btn,.jc-share{width:100%;text-align:center;}
   footer{padding:2.5rem 1rem 1.25rem;}
 }
 </style>
@@ -1614,7 +1636,7 @@ img,video{max-width:100%;}
     <div class="overlay" style="background:rgba(8,16,26,.6);"></div>
     <div class="hero-content" style="padding:2rem;z-index:2;">
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:#fff;">Recherche d'emploi</h1>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon votre profil et une ville du Québec.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);max-width:520px;margin:.6rem auto 0;">Trouvez des opportunités selon le titre du poste recherché.</p>
     </div>
     <div class="job-hero-label" style="display:none;" aria-hidden="true">
       <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;">Recherche d'emploi</span>
@@ -1625,18 +1647,17 @@ img,video{max-width:100%;}
   <section class="job-search">
     <div data-i18n-section="job-search-intro">
     <h2>Affinez votre recherche</h2>
-    <p>Indiquez un nom de poste et sélectionnez une ville du Québec pour afficher les offres correspondantes.</p>
+    <p>Tapez un titre de poste — la recherche tolère les fautes d’orthographe et trouve les offres correspondantes.</p>
     </div>
     <div class="search-bar">
       <div class="search-poste-wrap">
-        <input type="text" id="search-poste" list="job-title-suggestions" placeholder="Nom du poste" autocomplete="off" aria-label="Nom du poste"/>
+        <input type="search" id="search-poste" list="job-title-suggestions" placeholder="Ex. soudeur, chargé de projet…" autocomplete="off" aria-label="Nom du poste" enterkeyhint="search"/>
         <datalist id="job-title-suggestions"></datalist>
+        <button type="button" class="search-clear" id="search-clear" aria-label="Effacer" title="Effacer">×</button>
       </div>
-      <select id="search-ville" aria-label="Ville au Québec">
-        <option value="">Ville au Québec</option>
-      </select>
-      <button type="button" onclick="filterJobs()">Rechercher</button>
+      <button type="button" id="search-submit-btn" onclick="filterJobs()">Rechercher</button>
     </div>
+    <div id="jobs-results-meta" class="search-results-meta" aria-live="polite"></div>
     <div id="jobs-filter-error" class="jobs-filter-error" role="alert" aria-live="polite"></div>
     <div class="job-content-grid">
       <div class="jobs-wrap">
@@ -1794,6 +1815,7 @@ img,video{max-width:100%;}
         <div class="modal-meta" id="modal-meta"></div>
         <div class="modal-desc-label" data-i18n="modal.jobDesc">Description du poste</div>
         <div class="modal-desc" id="modal-desc"></div>
+        <button type="button" class="modal-share-btn" id="modal-share-btn" onclick="copyCurrentJobLink()">Copier le lien de l'offre</button>
       </div>
       <form class="modal-apply-form" id="app-form" onsubmit="submitApplication(event)" novalidate>
         <div class="form-row2">
@@ -1911,6 +1933,19 @@ function updatePageSEO(pageId) {
 
 const VALID_PAGES = ['accueil','services','entreprises','candidats','contact','job','confidentialite'];
 
+function parseSiteRoute() {
+  let hash = location.hash.replace(/^#/, '');
+  try {
+    hash = decodeURIComponent(hash);
+  } catch {
+    return { page: 'accueil', jobId: null, valid: false };
+  }
+  const jobMatch = hash.match(/^job\/([^/]+)$/);
+  if (jobMatch) return { page: 'job', jobId: jobMatch[1].trim(), valid: true };
+  if (!hash) return { page: 'accueil', jobId: null, valid: true };
+  return { page: VALID_PAGES.includes(hash) ? hash : 'accueil', jobId: null, valid: VALID_PAGES.includes(hash) };
+}
+
 function activatePage(id, options = {}) {
   if (!VALID_PAGES.includes(id)) return;
   const pageEl = document.getElementById('page-' + id);
@@ -1956,6 +1991,9 @@ function activatePage(id, options = {}) {
     else v.pause();
   });
 
+  if (id !== 'job' && document.getElementById('apply-modal')?.classList.contains('open')) {
+    closeApplyModal({ updateUrl: false });
+  }
   if (id === 'job') loadJobs();
 }
 
@@ -2001,8 +2039,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     v.setAttribute('preload', 'none');
   });
   setFormsReady(false);
-  initCanadianCitySelect();
   setupMobileCvInputs();
+  setupJobSearchUI();
   cacheI18nDefaults();
   if (siteLang() !== 'fr') setSiteLanguage(siteLang());
   else refreshJobFilterLabels();
@@ -2016,15 +2054,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   } finally {
     setFormsReady(true);
   }
-  const hash = location.hash.replace('#', '');
-  if (VALID_PAGES.includes(hash)) activatePage(hash, { replaceState: true, scroll: false });
-  else {
+  const initialRoute = parseSiteRoute();
+  pendingJobId = initialRoute.jobId;
+  if (initialRoute.valid && (initialRoute.page !== 'accueil' || location.hash)) {
+    activatePage(initialRoute.page, { scroll: false });
+  } else {
     history.replaceState({ page: 'accueil' }, '', location.pathname);
     updatePageSEO('accueil');
   }
-  window.addEventListener('popstate', e => {
-    const id = e.state?.page || location.hash.replace('#', '') || 'accueil';
-    if (VALID_PAGES.includes(id)) activatePage(id, { scroll: true });
+  window.addEventListener('popstate', () => {
+    const route = parseSiteRoute();
+    pendingJobId = route.jobId;
+    if (!route.jobId) closeApplyModal({ updateUrl: false });
+    activatePage(route.page, { scroll: true });
   });
 });
 
@@ -2032,149 +2074,16 @@ let allJobs = [];
 let displayedJobs = [];
 let currentJobPage = 1;
 let currentJob = null;
+let pendingJobId = null;
 let jobsEmptyKind = null;
-const geocodeCache = {};
 
-const CANADIAN_CITIES = [
-  { province: 'Québec', cities: [
-    { name: 'Montréal', lat: 45.5017, lon: -73.5673 },
-    { name: 'Québec', lat: 46.8139, lon: -71.2080 },
-    { name: 'Laval', lat: 45.6066, lon: -73.7124 },
-    { name: 'Gatineau', lat: 45.4765, lon: -75.7013 },
-    { name: 'Longueuil', lat: 45.5312, lon: -73.5186 },
-    { name: 'Sherbrooke', lat: 45.4042, lon: -71.8929 },
-    { name: 'Saguenay', lat: 48.4167, lon: -71.0667 },
-    { name: 'Lévis', lat: 46.8033, lon: -71.1779 },
-    { name: 'Trois-Rivières', lat: 46.3432, lon: -72.5432 },
-    { name: 'Terrebonne', lat: 45.7000, lon: -73.6333 },
-    { name: 'Saint-Jean-sur-Richelieu', lat: 45.3073, lon: -73.2626 },
-    { name: 'Repentigny', lat: 45.7420, lon: -73.4501 },
-    { name: 'Brossard', lat: 45.4584, lon: -73.4551 },
-    { name: 'Drummondville', lat: 45.8833, lon: -72.4833 },
-    { name: 'Granby', lat: 45.4000, lon: -72.7333 },
-    { name: 'Saint-Jérôme', lat: 45.7800, lon: -74.0000 },
-    { name: 'Blainville', lat: 45.6700, lon: -73.8833 },
-    { name: 'Shawinigan', lat: 46.5667, lon: -72.7500 },
-    { name: 'Dollard-des-Ormeaux', lat: 45.4942, lon: -73.8242 },
-    { name: 'Rimouski', lat: 48.4488, lon: -68.5240 },
-    { name: 'Victoriaville', lat: 46.0667, lon: -71.9667 },
-    { name: 'Saint-Hyacinthe', lat: 45.6306, lon: -72.9569 },
-    { name: 'Mirabel', lat: 45.6500, lon: -74.0833 },
-    { name: 'Joliette', lat: 46.0167, lon: -73.4500 },
-    { name: 'Mascouche', lat: 45.7497, lon: -73.5997 },
-    { name: 'Rouyn-Noranda', lat: 48.2333, lon: -79.0167 },
-    { name: 'Salaberry-de-Valleyfield', lat: 45.2500, lon: -74.1333 },
-    { name: 'Sorel-Tracy', lat: 46.0333, lon: -73.1167 },
-    { name: 'Val-d\'Or', lat: 48.1000, lon: -77.7833 },
-    { name: 'Alma', lat: 48.5500, lon: -71.6500 },
-    { name: 'Baie-Comeau', lat: 49.2167, lon: -68.1500 },
-    { name: 'Sept-Îles', lat: 50.2000, lon: -66.3833 },
-    { name: 'Thetford Mines', lat: 46.1000, lon: -71.3000 },
-    { name: 'Magog', lat: 45.2667, lon: -72.1500 },
-    { name: 'Saint-Eustache', lat: 45.5650, lon: -73.9050 },
-    { name: 'Vaudreuil-Dorion', lat: 45.4000, lon: -74.0333 },
-    { name: 'Saint-Bruno-de-Montarville', lat: 45.5333, lon: -73.3500 },
-    { name: 'Châteauguay', lat: 45.3667, lon: -73.7500 },
-    { name: 'Chicoutimi', lat: 48.4297, lon: -71.0577 },
-    { name: 'Gaspé', lat: 48.8333, lon: -64.4833 },
-    { name: 'Matane', lat: 48.8500, lon: -67.5333 },
-    { name: 'Rivière-du-Loup', lat: 47.8333, lon: -69.5333 },
-    { name: 'Mont-Tremblant', lat: 46.2120, lon: -74.5844 },
-    { name: 'Saint-Georges', lat: 46.1167, lon: -70.6667 },
-    { name: 'Cowansville', lat: 45.2000, lon: -72.7500 }
-  ]}
-];
-
-function initCanadianCitySelect() {
-  const sel = document.getElementById('search-ville');
-  if (!sel || sel.options.length > 1) return;
-  CANADIAN_CITIES.forEach(group => {
-    const og = document.createElement('optgroup');
-    og.label = typeof getProvinceLabel === 'function' ? getProvinceLabel(group.province) : group.province;
-    group.cities.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.name;
-      opt.textContent = c.name;
-      opt.dataset.lat = c.lat;
-      opt.dataset.lon = c.lon;
-      og.appendChild(opt);
-      const key = c.name.trim().toLowerCase();
-      geocodeCache[key] = { lat: c.lat, lon: c.lon, name: c.name };
-      geocodeCache['ca:' + key] = geocodeCache[key];
-    });
-    sel.appendChild(og);
-  });
-}
-
-function getSelectedCityCoords() {
-  const sel = document.getElementById('search-ville');
-  const opt = sel?.options[sel.selectedIndex];
-  if (!opt?.value) return null;
-  const lat = parseFloat(opt.dataset.lat);
-  const lon = parseFloat(opt.dataset.lon);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  return { lat, lon, name: opt.value };
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function isRemoteLocation(loc) {
   const l = String(loc || '').toLowerCase().trim();
   return !l || l === 'remote' || l === 'télétravail' || l === 'teletravail' || l.includes('remote');
-}
-
-function parsePerimetreKm(val) {
-  if (!val || val === "N'importe où" || val === 'Anywhere') return null;
-  const m = String(val).match(/(\d+)/);
-  return m ? parseInt(m[1], 10) : null;
-}
-
-function haversineKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) ** 2
-    + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-async function geocodeLocation(name, countryCode) {
-  const key = (countryCode ? countryCode + ':' : '') + String(name || '').trim().toLowerCase();
-  if (!name || isRemoteLocation(name)) return null;
-  if (geocodeCache[key] !== undefined) return geocodeCache[key];
-  try {
-    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=5&language=fr&format=json`;
-    if (countryCode) url += `&countryCode=${countryCode}`;
-    const r = await fetch(url);
-    const data = await r.json();
-    if (data.results && data.results.length) {
-      const pick = countryCode
-        ? data.results.find(r => r.country_code === countryCode) || data.results[0]
-        : data.results[0];
-      geocodeCache[key] = { lat: pick.latitude, lon: pick.longitude, name: pick.name };
-    } else {
-      geocodeCache[key] = null;
-    }
-  } catch {
-    geocodeCache[key] = null;
-  }
-  return geocodeCache[key];
-}
-
-function normalizeLocationKey(loc) {
-  return String(loc || '').trim().replace(/,\s*(QC|Qu[eé]bec|Quebec|ON|BC|AB|MB|SK|NB|NS|PE|NL|YT|NT|NU)$/i, '').trim();
-}
-
-function getGeocodeCoords(location) {
-  const key = 'ca:' + normalizeLocationKey(location).toLowerCase();
-  return geocodeCache[key];
-}
-
-async function geocodeAllLocations(locations) {
-  const unique = [...new Set(locations.filter(l => !isRemoteLocation(l)).map(normalizeLocationKey))];
-  await Promise.all(unique.map(loc => geocodeLocation(loc, 'CA')));
-}
-
-function escHtml(s) {
-  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function isJobVisible(raw) {
@@ -2187,6 +2096,7 @@ function normalizeJob(raw) {
     raw.affichersalaire || raw.showsalary || ''
   ).trim().toUpperCase() === 'TRUE';
   return {
+    id: String(raw.id || raw.jobid || '').trim(),
     title: raw.titre || raw.title || raw['nomduposte'] || '',
     location: raw.localisation || raw.location || raw.ville || raw.lieu || '',
     type: raw.type || '',
@@ -2195,23 +2105,6 @@ function normalizeJob(raw) {
     salary: raw.salaire || raw.salary || '',
     showSalary
   };
-}
-
-function normalizeType(s) {
-  return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-}
-
-function matchJobType(jobType, filter) {
-  if (!filter) return true;
-  const j = normalizeType(jobType);
-  const f = normalizeType(filter);
-  const aliases = {
-    'temps plein': ['temps plein', 'full-time', 'full time'],
-    'temps partiel': ['temps partiel', 'part-time', 'part time'],
-    'permanent': ['permanent', 'contrat', 'contract'],
-  };
-  const list = aliases[f] || [f];
-  return list.some(a => j === a || j.includes(a));
 }
 
 function normalizeSearchText(s) {
@@ -2241,26 +2134,55 @@ function levenshtein(a, b) {
   return row[b.length];
 }
 
-function fuzzyMatchTitle(title, query) {
+function fuzzyTokenMatch(queryToken, titleToken) {
+  const qw = queryToken;
+  const tw = titleToken;
+  if (!qw || !tw) return false;
+  if (tw === qw || tw.includes(qw) || qw.includes(tw)) return true;
+  if (tw.startsWith(qw) || qw.startsWith(tw)) return true;
+  const minLen = Math.min(qw.length, tw.length);
+  if (minLen >= 3) {
+    const maxDist = minLen <= 4 ? 1 : minLen <= 7 ? 2 : 3;
+    if (levenshtein(qw, tw) <= maxDist) return true;
+  }
+  return false;
+}
+
+/** Returns a score >= 1 when title matches query, else 0. Higher = better. */
+function scoreJobTitleMatch(title, query) {
   const t = normalizeSearchText(title);
   const q = normalizeSearchText(query);
-  if (!q) return true;
-  if (t.includes(q)) return true;
+  if (!q) return 1;
+  if (!t) return 0;
+  if (t === q) return 100;
+  if (t.includes(q)) return 90 - Math.min(20, t.length - q.length);
 
-  const qTokens = q.split(' ').filter(w => w.length > 0);
-  const tTokens = t.split(' ').filter(w => w.length > 0);
+  const qTokens = q.split(' ').filter(Boolean);
+  const tTokens = t.split(' ').filter(Boolean);
+  if (!qTokens.length) return 1;
 
-  return qTokens.every(qw => {
-    if (t.includes(qw)) return true;
-    return tTokens.some(tw => {
-      if (tw.includes(qw) || qw.includes(tw)) return true;
-      if (qw.length >= 3 && tw.length >= 3) {
-        const maxDist = qw.length <= 5 ? 1 : qw.length <= 9 ? 2 : 3;
-        return levenshtein(qw, tw) <= maxDist;
-      }
-      return tw.startsWith(qw) || qw.startsWith(tw);
-    });
-  });
+  let matched = 0;
+  let fuzzyHits = 0;
+  for (const qw of qTokens) {
+    const hit = tTokens.some(tw => fuzzyTokenMatch(qw, tw));
+    if (!hit && !t.includes(qw)) return 0;
+    matched += 1;
+    if (!t.includes(qw) && !tTokens.some(tw => tw === qw || tw.includes(qw))) fuzzyHits += 1;
+  }
+
+  // Whole-query fuzzy for short misspellings (e.g. "soudeur" vs "soudure")
+  const compactT = t.replace(/\s+/g, '');
+  const compactQ = q.replace(/\s+/g, '');
+  if (compactQ.length >= 4 && compactT.length >= 4) {
+    const maxDist = compactQ.length <= 6 ? 1 : compactQ.length <= 10 ? 2 : 3;
+    if (levenshtein(compactQ, compactT) <= maxDist) return 70;
+  }
+
+  return 40 + matched * 8 - fuzzyHits * 3;
+}
+
+function fuzzyMatchTitle(title, query) {
+  return scoreJobTitleMatch(title, query) > 0;
 }
 
 function updateJobTitleSuggestions() {
@@ -2275,6 +2197,87 @@ function updateJobTitleSuggestions() {
     opt.value = title;
     datalist.appendChild(opt);
   });
+}
+
+function setupJobSearchUI() {
+  const input = document.getElementById('search-poste');
+  const clearBtn = document.getElementById('search-clear');
+  if (!input) return;
+
+  let debounceTimer = null;
+  const syncClear = () => {
+    if (clearBtn) clearBtn.classList.toggle('show', !!input.value.trim());
+  };
+
+  input.addEventListener('input', () => {
+    syncClear();
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => filterJobs(), 220);
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      clearTimeout(debounceTimer);
+      filterJobs();
+    }
+  });
+  clearBtn?.addEventListener('click', () => {
+    input.value = '';
+    syncClear();
+    filterJobs();
+    input.focus();
+  });
+  syncClear();
+}
+
+function jobShareUrl(jobId) {
+  if (!jobId) return `${SITE_URL}/#job`;
+  return `${SITE_URL}/#job/${encodeURIComponent(jobId)}`;
+}
+
+async function copyJobLink(jobId, btn) {
+  const url = jobShareUrl(jobId);
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  if (btn) {
+    const prev = btn.textContent;
+    btn.textContent = t('job.linkCopied');
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = prev;
+      btn.classList.remove('copied');
+    }, 1600);
+  }
+}
+
+function copyCurrentJobLink() {
+  const btn = document.getElementById('modal-share-btn');
+  if (!currentJob?.id) return;
+  copyJobLink(currentJob.id, btn);
+}
+
+function updateJobsResultsMeta(count, query) {
+  const el = document.getElementById('jobs-results-meta');
+  if (!el) return;
+  if (!allJobs.length) {
+    el.textContent = '';
+    return;
+  }
+  if (!query) {
+    el.textContent = t('job.resultsAll').replace('{count}', String(count));
+    return;
+  }
+  el.textContent = t('job.resultsFiltered')
+    .replace('{count}', String(count))
+    .replace('{query}', query);
 }
 
 function isValidSheetCsv(text) {
@@ -2319,7 +2322,13 @@ async function fetchSheetCSV() {
 
 async function loadJobs(force = false) {
   if (!force && allJobs.length && Date.now() - jobsLoadedAt < JOBS_CACHE_MS) {
-    renderJobsPage();
+    const query = document.getElementById('search-poste')?.value?.trim();
+    if (query) filterJobs();
+    else {
+      renderJobsPage();
+      updateJobsResultsMeta(displayedJobs.length || allJobs.length, '');
+    }
+    openPendingJobDeepLink();
     return;
   }
 
@@ -2339,8 +2348,14 @@ async function loadJobs(force = false) {
     if (!rows.length) throw new Error('parse_failed');
     allJobs = rows.filter(isJobVisible).map(normalizeJob).filter(j => j.title);
     updateJobTitleSuggestions();
-    setDisplayedJobs(allJobs);
     jobsLoadedAt = Date.now();
+    const query = document.getElementById('search-poste')?.value?.trim();
+    if (query) filterJobs();
+    else {
+      setDisplayedJobs(allJobs);
+      updateJobsResultsMeta(allJobs.length, '');
+    }
+    openPendingJobDeepLink();
   } catch(e) {
     console.error('Google Sheet load failed:', e);
     allJobs = [];
@@ -2489,15 +2504,14 @@ function renderPagination(totalPages) {
 
 function renderJobCard(job) {
   const j = normalizeJob(job);
-  const dist = job.distanceKm;
   const isRemote = job.isRemote || isRemoteLocation(j.location);
-  const payload = { ...j, distanceKm: dist, isRemote };
+  const payload = { ...j, isRemote };
   const tags = [];
   if (j.location) tags.push({ text: j.location, cls: isRemote ? 'jc-tag jc-remote' : 'jc-tag' });
   if (j.type) tags.push({ text: j.type, cls: 'jc-tag' });
-  if (dist != null) tags.push({ text: '≈ ' + dist + ' km', cls: 'jc-tag jc-dist' });
   const div = document.createElement('div');
   div.className = 'job-card';
+  if (j.id) div.dataset.jobId = j.id;
   div.innerHTML = `
     <div class="job-card-head">
       <div>
@@ -2507,11 +2521,34 @@ function renderJobCard(job) {
     </div>
     ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(j.salary)}</div>` : ''}
     ${j.description ? `<div class="jc-desc">${escHtml(j.description.length > 160 ? j.description.slice(0, 160) + '…' : j.description)}</div>` : ''}
-    <button class="jc-btn" type="button">${t('job.apply')}</button>
+    <div class="jc-actions">
+      <button class="jc-btn" type="button">${t('job.apply')}</button>
+      ${j.id ? `<button class="jc-share" type="button">${t('job.copyLink')}</button>` : ''}
+    </div>
   `;
   div.addEventListener('click', () => openModal(payload));
   div.querySelector('.jc-btn').addEventListener('click', e => { e.stopPropagation(); openModal(payload); });
+  const shareBtn = div.querySelector('.jc-share');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      copyJobLink(j.id, shareBtn);
+    });
+  }
   return div;
+}
+
+function openPendingJobDeepLink() {
+  if (!pendingJobId) return;
+  const requestedId = pendingJobId;
+  pendingJobId = null;
+  const job = allJobs.find(item => String(item.id) === requestedId);
+  if (!job) {
+    showJobFilterError(t('job.linkUnavailable'));
+    return;
+  }
+  showJobFilterError('');
+  openModal(job, { updateUrl: false });
 }
 
 function renderJobsPage() {
@@ -2551,39 +2588,48 @@ function showJobFilterError(message) {
 
 async function filterJobs() {
   showJobFilterError('');
-  const p = document.getElementById('search-poste').value.toLowerCase().trim();
-  const refCity = document.getElementById('search-ville').value.trim();
+  const input = document.getElementById('search-poste');
+  const query = (input?.value || '').trim();
+  document.getElementById('search-clear')?.classList.toggle('show', !!query);
 
-  const filtered = allJobs.filter(j => {
+  const scored = allJobs.map(j => {
     const n = normalizeJob(j);
-    const matchTitle = !p || fuzzyMatchTitle(n.title, p);
-    if (!matchTitle) return false;
-    if (!refCity) return true;
-    if (isRemoteLocation(n.location)) return true;
-    const loc = normalizeSearchText(n.location);
-    const city = normalizeSearchText(refCity);
-    return loc.includes(city) || city.includes(loc);
-  });
+    const score = scoreJobTitleMatch(n.title, query);
+    return score > 0
+      ? { ...n, distanceKm: null, isRemote: isRemoteLocation(n.location), _score: score }
+      : null;
+  }).filter(Boolean);
 
-  setDisplayedJobs(filtered.map(j => {
-    const n = normalizeJob(j);
-    return { ...n, distanceKm: null, isRemote: isRemoteLocation(n.location) };
-  }));
+  scored.sort((a, b) => b._score - a._score || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+  updateJobsResultsMeta(scored.length, query);
+  setDisplayedJobs(scored);
 }
 
-function openModal(job) {
+function openModal(job, options = {}) {
+  const { updateUrl = true } = options;
   currentJob = job;
   document.getElementById('modal-title').textContent = job.title;
   const metaParts = [job.location, job.type].filter(Boolean);
   if (job.showSalary && job.salary) metaParts.push(job.salary);
-  if (job.distanceKm != null) metaParts.push('≈ ' + job.distanceKm + ' km');
   document.getElementById('modal-meta').textContent = metaParts.join(' · ');
   const descEl = document.getElementById('modal-desc');
   descEl.textContent = job.description || '';
+  const shareBtn = document.getElementById('modal-share-btn');
+  if (shareBtn) {
+    shareBtn.style.display = job.id ? '' : 'none';
+    shareBtn.textContent = t('job.copyLink');
+    shareBtn.classList.remove('copied');
+  }
   const modal = document.getElementById('apply-modal');
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
+  if (updateUrl && job.id) {
+    const url = `#job/${encodeURIComponent(job.id)}`;
+    if (location.hash !== url) {
+      history.pushState({ page: 'job', jobId: job.id }, '', url);
+    }
+  }
   clearAppMessages();
   const appForm = document.getElementById('app-form');
   if (appForm) appForm.reset();
@@ -2594,11 +2640,17 @@ function openModal(job) {
     document.querySelector('.modal-apply-form')?.scrollTo(0, 0);
   });
 }
-function closeApplyModal() {
+function closeApplyModal(options = {}) {
+  const { updateUrl = true } = options;
   const modal = document.getElementById('apply-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
+  currentJob = null;
+  if (updateUrl && parseSiteRoute().jobId) {
+    history.replaceState({ page: 'job' }, '', '#job');
+    updatePageSEO('job');
+  }
 }
 function closeModal(e) {
   if (e.target === document.getElementById('apply-modal'))
