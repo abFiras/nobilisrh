@@ -11,5 +11,6 @@ module.exports = (req, res) => {
     supabaseAnonKey: process.env.SUPABASE_ANON_KEY || '',
     sheetCsvUrl: process.env.SHEET_CSV_URL || '',
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+    cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || '',
   });
 };

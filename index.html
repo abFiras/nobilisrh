@@ -727,8 +727,12 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   text-align:left;
 }
 .job-search{background:#fff;padding:3.5rem 3rem;}
-.job-search h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);text-align:center;}
-.job-search>p{font-size:.85rem;color:var(--textgrey);text-align:center;margin:.4rem 0 2rem;}
+.job-search h2,.job-search [data-i18n-section="job-search-intro"] h2{
+  font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;color:var(--navy);text-align:center;
+}
+.job-search>p,.job-search [data-i18n-section="job-search-intro"] p{
+  font-size:.85rem;color:var(--textgrey);text-align:center;margin:.4rem auto 2rem;max-width:560px;line-height:1.65;
+}
 .search-bar{
   display:grid;grid-template-columns:1fr auto;gap:.65rem;
   max-width:720px;margin:0 auto 1.25rem;
@@ -747,7 +751,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
 .job-side-video video{
   width:100%;height:100%;min-height:520px;object-fit:cover;display:block;
 }
-.search-bar input[type="search"],.search-bar input[type="text"]{
+.search-bar input[type="text"]{
   flex:1;border:1px solid #e5e7eb;padding:.7rem 1rem;
   font-family:'Inter',sans-serif;font-size:.85rem;outline:none;
   background:#fff;color:var(--navy);border-radius:6px;
@@ -759,7 +763,7 @@ footer{background:var(--navy2);color:rgba(255,255,255,.55);padding:3.5rem 3rem 1
   border:none!important;background:transparent!important;color:#9ca3af!important;cursor:pointer;
   width:28px;height:28px;padding:0!important;border-radius:50%;font-size:1.1rem;line-height:1;
   display:none;align-items:center;justify-content:center;letter-spacing:0!important;
-  box-shadow:none!important;transform:translateY(-50%)!important;
+  box-shadow:none!important;
 }
 .search-clear:hover{background:#e5e7eb!important;color:var(--navy)!important;}
 .search-clear.show{display:inline-flex;}
@@ -1511,12 +1515,12 @@ img,video{max-width:100%;}
       <form class="cand-cv-form form-light" id="cv-form" onsubmit="submitCV(event)" novalidate>
         <h3 class="cand-cv-form-title" data-i18n="cv.formTitle">Déposer votre candidature</h3>
         <div class="form-row2">
-          <div class="form-group"><label for="cv-prenom" data-i18n="cv.prenom">Prénom</label><input type="text" id="cv-prenom" placeholder="Jean" autocomplete="given-name"/></div>
-          <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom</label><input type="text" id="cv-nom" placeholder="Dupont" autocomplete="family-name"/></div>
+          <div class="form-group"><label for="cv-prenom" data-i18n="cv.prenom">Prénom *</label><input type="text" id="cv-prenom" placeholder="Jean" required autocomplete="given-name"/></div>
+          <div class="form-group"><label for="cv-nom" data-i18n="cv.nom">Nom *</label><input type="text" id="cv-nom" placeholder="Dupont" required autocomplete="family-name"/></div>
         </div>
         <div class="form-row2">
           <div class="form-group"><label for="cv-email" data-i18n="cv.email">Courriel *</label><input type="email" id="cv-email" placeholder="jean@email.com" required autocomplete="email"/></div>
-          <div class="form-group"><label data-i18n="cv.tel">Téléphone</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000" autocomplete="tel"/></div>
+          <div class="form-group"><label for="cv-tel" data-i18n="cv.tel">Téléphone *</label><input type="tel" id="cv-tel" placeholder="+1 418 000 0000" required autocomplete="tel"/></div>
         </div>
         <div class="form-group">
           <label data-i18n="cv.secteur">Secteur d'activité</label>
@@ -1641,7 +1645,7 @@ img,video{max-width:100%;}
     </div>
     <div class="search-bar">
       <div class="search-poste-wrap">
-        <input type="search" id="search-poste" list="job-title-suggestions" placeholder="Ex. soudeur, chargé de projet…" autocomplete="off" aria-label="Nom du poste" enterkeyhint="search"/>
+        <input type="text" id="search-poste" list="job-title-suggestions" placeholder="Ex. soudeur, chargé de projet…" autocomplete="off" aria-label="Nom du poste" enterkeyhint="search"/>
         <datalist id="job-title-suggestions"></datalist>
         <button type="button" class="search-clear" id="search-clear" aria-label="Effacer" title="Effacer">×</button>
       </div>
@@ -1848,6 +1852,7 @@ let APP_CONFIG = {
   supabaseAnonKey: '',
   sheetCsvUrl: '',
   cloudinaryCloudName: '',
+  cloudinaryUploadPreset: '',
 };
 
 const SUPABASE_CV_BUCKET = 'cvs';
@@ -2077,14 +2082,34 @@ function isRemoteLocation(loc) {
 }
 
 function isJobVisible(raw) {
-  if (!Object.prototype.hasOwnProperty.call(raw, 'visible')) return true;
-  return String(raw.visible || '').trim().toUpperCase() === 'TRUE';
+  if (!Object.prototype.hasOwnProperty.call(raw, 'visible') && !Object.prototype.hasOwnProperty.call(raw, 'Visible')) {
+    return true;
+  }
+  return isTruthyFlag(raw.visible ?? raw.Visible);
+}
+
+function isTruthyFlag(value) {
+  if (value === true || value === 1) return true;
+  if (value === false || value === 0 || value == null) return false;
+  const s = String(value).trim().toUpperCase();
+  return s === 'TRUE' || s === '1' || s === 'YES' || s === 'OUI';
+}
+
+function formatSalary(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  const digits = raw.replace(/[^\d.,]/g, '').replace(',', '.');
+  const num = Number(digits);
+  if (!Number.isFinite(num) || num <= 0) return raw;
+  return new Intl.NumberFormat('fr-CA', {
+    style: 'currency',
+    currency: 'CAD',
+    maximumFractionDigits: 0
+  }).format(num);
 }
 
 function normalizeJob(raw) {
-  const showSalary = String(
-    raw.affichersalaire || raw.showsalary || ''
-  ).trim().toUpperCase() === 'TRUE';
+  const salaryRaw = raw.salaire || raw.salary || '';
   return {
     id: String(raw.id || raw.jobid || '').trim(),
     title: raw.titre || raw.title || raw['nomduposte'] || '',
@@ -2092,8 +2117,8 @@ function normalizeJob(raw) {
     type: raw.type || '',
     description: raw.description || '',
     email: raw.email || raw.courriel || '',
-    salary: raw.salaire || raw.salary || '',
-    showSalary
+    salary: String(salaryRaw).trim(),
+    showSalary: isTruthyFlag(raw.affichersalaire ?? raw.showsalary ?? raw.showSalary)
   };
 }
 
@@ -2453,7 +2478,7 @@ function renderJobCard(job) {
         ${tags.length ? `<div class="jc-tags">${tags.map(tag => `<span class="${tag.cls}">${escHtml(tag.text)}</span>`).join('')}</div>` : ''}
       </div>
     </div>
-    ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(j.salary)}</div>` : ''}
+    ${j.showSalary && j.salary ? `<div class="jc-salary">${escHtml(formatSalary(j.salary))}</div>` : ''}
     ${j.description ? `<div class="jc-desc">${escHtml(j.description.length > 160 ? j.description.slice(0, 160) + '…' : j.description)}</div>` : ''}
     <div class="jc-actions">
       <button class="jc-btn" type="button">${t('job.apply')}</button>
@@ -2535,7 +2560,7 @@ function openModal(job, options = {}) {
   currentJob = job;
   document.getElementById('modal-title').textContent = job.title;
   const metaParts = [job.location, job.type].filter(Boolean);
-  if (job.showSalary && job.salary) metaParts.push(job.salary);
+  if (job.showSalary && job.salary) metaParts.push(formatSalary(job.salary));
   document.getElementById('modal-meta').textContent = metaParts.join(' · ');
   const descEl = document.getElementById('modal-desc');
   descEl.textContent = job.description || '';
@@ -2606,25 +2631,69 @@ async function uploadCvToSupabase(file, folder = 'candidatures') {
   });
   if (error) throw error;
   const { data } = sb.storage.from(SUPABASE_CV_BUCKET).getPublicUrl(path);
-  return { path, publicUrl: data?.publicUrl || null };
+  return {
+    path,
+    publicUrl: data?.publicUrl || null,
+    provider: 'supabase'
+  };
 }
 
-async function tryUploadCvToSupabase(file, folder = 'candidatures') {
-  if (!file || !isSupabaseConfigured()) return null;
-  try {
-    return await uploadCvToSupabase(file, folder);
-  } catch (err) {
-    console.warn('Supabase CV upload failed, continuing with Formspree:', err);
-    return null;
+function isCloudinaryConfigured() {
+  return !!(APP_CONFIG.cloudinaryCloudName && APP_CONFIG.cloudinaryUploadPreset);
+}
+
+async function uploadCvToCloudinary(file, folder = 'candidatures') {
+  if (!isCloudinaryConfigured()) return null;
+  const body = new FormData();
+  body.append('file', file);
+  body.append('upload_preset', APP_CONFIG.cloudinaryUploadPreset);
+  body.append('folder', `nobilis-rh/${folder}`);
+  body.append('public_id', `${Date.now()}_${sanitizeFileName(file.name).replace(/\.[^.]+$/, '')}`);
+
+  const endpoint = `https://api.cloudinary.com/v1_1/${encodeURIComponent(APP_CONFIG.cloudinaryCloudName)}/auto/upload`;
+  const response = await fetch(endpoint, { method: 'POST', body });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.error?.message || 'Cloudinary upload failed');
   }
+  return {
+    path: data.public_id || null,
+    publicUrl: data.secure_url || data.url || null,
+    provider: 'cloudinary'
+  };
+}
+
+async function tryUploadCv(file, folder = 'candidatures') {
+  if (!file) return null;
+
+  if (isSupabaseConfigured()) {
+    try {
+      const uploaded = await uploadCvToSupabase(file, folder);
+      if (uploaded?.publicUrl) return uploaded;
+    } catch (err) {
+      console.warn('Supabase CV upload failed, trying Cloudinary:', err);
+    }
+  }
+
+  if (isCloudinaryConfigured()) {
+    try {
+      const uploaded = await uploadCvToCloudinary(file, folder);
+      if (uploaded?.publicUrl) return uploaded;
+    } catch (err) {
+      console.warn('Cloudinary CV upload failed:', err);
+    }
+  }
+
+  return null;
 }
 
 function appendCvToFormData(formData, file, cvStorage) {
   // Formspree free plans reject binary file uploads ("File Uploads Not Permitted").
-  // Always send text metadata + Supabase link when available — never attach the file.
+  // Always send text metadata + storage link when available — never attach the file.
   formData.append('cv_fichier', file ? file.name : 'Non joint');
   if (cvStorage?.publicUrl) {
     formData.append('cv_lien', cvStorage.publicUrl);
+    if (cvStorage.provider) formData.append('cv_stockage', cvStorage.provider);
   } else if (file) {
     formData.append('cv_note', 'CV sélectionné mais non téléversé (stockage indisponible). Contacter le candidat pour obtenir le fichier.');
   }
@@ -2827,8 +2896,8 @@ async function submitCV(event) {
   const shiftEl = document.querySelector('input[name="cv-shift"]:checked');
   const consent = document.getElementById('cv-consent').checked;
 
-  if (!e) {
-    showCvError(t('ui.errorEmailRequired'));
+  if (!p || !n || !e || !tel) {
+    showCvError(t('ui.errorRequired'));
     return;
   }
   if (!APP_CONFIG.formspreeCandidatUrl) {
@@ -2847,17 +2916,17 @@ async function submitCV(event) {
   clearCvMessages();
 
   try {
-    const cvStorage = await tryUploadCvToSupabase(file, 'candidatures-spontanees');
-    const displayName = [p, n].filter(Boolean).join(' ') || e;
+    const cvStorage = await tryUploadCv(file, 'candidatures-spontanees');
+    const displayName = `${p} ${n}`;
 
     const formData = new FormData();
     formData.append('email', e);
     formData.append('_replyto', e);
     formData.append('_subject', `Candidature spontanée — ${displayName}`);
-    formData.append('prenom', p || '—');
-    formData.append('nom', n || '—');
+    formData.append('prenom', p);
+    formData.append('nom', n);
     formData.append('nom_complet', displayName);
-    formData.append('telephone', tel || '—');
+    formData.append('telephone', tel);
     formData.append('secteur', secteur || '—');
     formData.append('disponibilite', shiftEl ? shiftEl.value : '—');
     formData.append('message', message || '—');
@@ -2869,10 +2938,10 @@ async function submitCV(event) {
     await submitToFormspreeCandidat(formData);
 
     await saveApplicationToSupabaseSafe({
-      prenom: p || null,
-      nom: n || null,
+      prenom: p,
+      nom: n,
       email: e,
-      telephone: tel || null,
+      telephone: tel,
       lettre_motivation: message || null,
       poste: 'Candidature spontanée',
       localisation: secteur || null,
@@ -2991,7 +3060,7 @@ async function submitApplication(event) {
   clearAppMessages();
 
   try {
-    const cvStorage = await tryUploadCvToSupabase(file);
+    const cvStorage = await tryUploadCv(file);
 
     const formData = new FormData();
     formData.append('email', e);
