@@ -2098,6 +2098,19 @@ function isTruthyFlag(value) {
 function formatSalary(value) {
   const raw = String(value || '').trim();
   if (!raw) return '';
+
+  // Keep rates/units from the sheet as written (e.g. 35$/h, 25-30 $/h, selon expérience).
+  const hasPeriodOrUnit = /(?:\$?\s*\/\s*h\b|\/\s*heure|\bpar\s*heure\b|\bhourly\b|\/\s*hr\b|\/\s*an\b|\bpar\s*an\b|\/\s*mois\b|\bpar\s*mois\b|\bmonth\b|\byear\b|selon|exp[eé]rience)/i.test(raw)
+    || /\d\s*[-–—]\s*\d/.test(raw);
+  if (hasPeriodOrUnit) {
+    return raw
+      .replace(/(\d)\s*\$\s*\/\s*h\b/gi, '$1 $/h')
+      .replace(/\$\s*\/\s*h\b/gi, '$/h')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // Plain numbers only → format as CAD currency (e.g. 75000 → 75 000 $).
   const digits = raw.replace(/[^\d.,]/g, '').replace(',', '.');
   const num = Number(digits);
   if (!Number.isFinite(num) || num <= 0) return raw;
