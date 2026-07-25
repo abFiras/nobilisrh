@@ -7,7 +7,7 @@
     buildoze: 'buildoze_fjt4ue',
     meeting: 'meeting_sn9hit',
     hand: 'hand_hacewu',
-    vertical: 'vertical_pytuqh',
+    vertical: 'nn_u3pdx4',
   };
 
   function videoUrl(key) {
